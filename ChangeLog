@@ -1,0 +1,110 @@
+2013-12-5 Youyi Fong and Krisz Sebestyen
+    * create package
+
+2014-4-1 Youyi Fong
+    * change .C to .Call
+
+2014-7-1 Krisztian Sebestyen
+    * fixed the weighted hamming and ibs kernel code both in R and C (typo in the paper) 
+    * separate .Call from native C code in kernels.c/h and matrix.c/h so that C code may be included in other packages without having to include
+    Rinternals.h library (i.e. SEXP stuff)
+      - created files Call_kernels.c and Call_matrix.c
+      - renamed all C functions called via .Call to 'Call_funcname'
+    * updated runit.kernel.R since ibs() has changed
+    * added rrbind(),rcbind(),upper.trap(),lower.trap() to matrix2.R
+    * with .Call I can pass a NULL pointer to C hence I can use more natural 'NULL' logic in C in many functions
+
+2018.07.01
+    * Add %.% and deprecate %+% because %+% is also defined in ggplot2 for
+    adding a comment to plot
+    * Replace %+% by %.% throughout 
+
+2018.10.17
+    * Modify get.sim.res to handle the case when the file contains a single
+    value
+    * Fix a bug in mytex that happens when saving to the current directory
+    * Make getFormattedSummary more flexible by allowing different paramemters
+    to be printed with different number of significant digits
+    * Update mypairs to generate a ladder plot
+
+2019.01.18
+    * Fix an error in fixedef.lm
+
+2019.08.02  
+    * Print dir if get.sim.res throws an error due to empty dir
+
+2019.10.14
+    * Fix a bug in mytex that occurs when writing a list of tables and the row names have duplicates
+
+2019.11.13
+    * add paired option to myboxplot.list to allow paired Wilcox test
+
+2020.04.11
+    * Add INT and rank.inv.norm
+    * Enhance cbinduneven so that it works with list of outputs from table() of a single dimension
+
+2020.05.11
+    * return CI in VEplot as suggested by Betz
+
+2020.06.19
+    * implement myprint for matrix
+
+2020.08.22
+    * add marginal.risk
+
+2020.08.26
+    * add marginal.risk.boot
+
+2020.08.26
+    * add p.adj.perm
+
+2020.09.02
+    * add binaryloess
+
+2020.09.16
+    * change rnorm.cor to rnorm.ar, change function interfact too
+    * make exact suggests not import
+    * fix a bug in formatDouble that drops non-trailing 0s
+
+2020.09.25
+    * add iorw
+
+2020.10.3
+    * fix getFixedEf.coxph so that the non-robust p value is correct
+    * add getFixedEf.svycoxph 
+
+2020.10.12
+    * freeze for CoVPN work
+
+2020.11.5
+    * modify getFormattedSummary
+
+2020.11.16
+    * update marginal.risk to work with model fits from both lm and svyglm for the marker model
+
+2020.11.19
+    * add marginal.risk.cat
+
+2020.11.19
+    * add marginal.risk.cont
+
+2020.11.24
+    * fix marginal.risk.boot
+
+2020.12.2
+    * remove marginal.risk functions to a new package
+
+2020.12.24
+    * add get.kfold.splits
+
+2020.12.29
+    * update corplot.formula: change main
+
+2020.1.4
+    * Update getFixedEf
+
+2020.1.11
+    * Update getFormattedSummary
+
+2020.2.2
+    * Update mymatplot

@@ -1,0 +1,130 @@
+useDynLib(kyotil, .registration = TRUE)
+
+export(iorw)
+
+export(as.binary, binom.coef, expit, H, mutual.info, info.cor, l.measure, logDiffExp, logit, logMeanExp, logSumExp, logSumExpFor2, permn, Stirling2, rbilogistic, rbigamma, rdoublexp,ddoublexp,pdoublexp,qdoublexp,rbidoublexp) 
+
+export(concatList, AR1, EXCH, fill.jagged.array, getMidPoints, getUpperRight, last, mix, rep.data.frame, rep.matrix, 
+    rep.matrix.block, shift.left, shift.right, thin.rows, ThinRows, tr, cbinduneven, skew, mysanitize.text, mysanitize.numbers, binaryloess)
+
+export("%.%", concatList, contain, escapeUnderline, fileStem, firstIndex, getExt, getFileStem, getStem, 
+    lastIndex, myprint, myprint.default, myprint.matrix, remove.prefix, VEplot, VEplot.glm, VEplot.cox.zph, myplot.cox.zph, age_calc, print.iorw)
+
+export(binary, binary2, f2c, ftoi, keepWarnings, meanmed, methods4, myaggregate, myreshapelong, myreshapewide, mysapply, myscale, 
+    mysystem, mytapply, read.sv, read.tsv, table.prop, table.cases, table.cases.3, unix, DMHeatMap)
+
+export(abline.shade, abline.shade.2, abline.pt.slope, abline.pts, butterfly.plot, empty.plot, getMfrow, myforestplot, my.interaction.plot, mylines, 
+    myboxplot, myboxplot.formula, myboxplot.list, myboxplot.data.frame, mylegend, mymatplot, mypairs, mypdf, mypng, mytiff, mypostscript, panel.cor, myhist, mydev.off, myfigure, wtd.hist,
+    panel.hist, panel.nothing, corplot, corplot.default, corplot.formula, mycor, myplot, myplot.loess, whiskers)
+
+export(formatInt, formatDouble, make.latex.coef.table, mytex, mytex.begin, mytex.end, mywrite, mywrite.csv, roundup)
+
+export(dbern, dcorbern, dmixnorm, dnorm.norm.gamma, rbern, rejective.sampling, rnorm.ar, rnorm.norm.gamma, rmixnorm)
+
+export(coef.geese, getFixedEf, getFixedEf.glmerMod, getFixedEf.merMod, getFixedEf.mer, getFixedEf.coxph, getFixedEf.svycoxph, getFixedEf.svyglm, getFixedEf.svy_vglm, getFixedEf.gam, getFixedEf.gee, getFixedEf.geese, getFixedEf.glm, getFixedEf.inla, 
+    getFixedEf.lm, getFixedEf.lme, getFixedEf.logistf, getFixedEf.matrix, getFixedEf.MIresult, getFormattedSummary, 
+    
+    getVarComponent, getVarComponent.glmerMod, getVarComponent.merMod, getVarComponent.mer, getVarComponent.hyperpar.inla, getVarComponent.matrix, interaction.table, predict.geese, residuals.geese, vcov.geese, vcov.logistf, 
+    vcov.tps, coef.tps, predict.tps, getFixedEf.tps,
+    risk.cal, sample.for.cv, rank.inv.norm, INT)
+
+export(hosmerlem, quick.t.test, signtest, tukey.mtest, vector.t.test, summ, multi.outer, myfisher.test, mycor.test)
+
+export(getK, trim, predict.pcc, get.kfold.splits)
+
+export(pava, get.sim.res, getFormattedMCSummary, MCsummary, Deming, empty2na)
+
+export(.as.double, DXD, symprod, txSy, tXDX, interpolate)
+
+export(make.timedep.dataset, sim.dat.tvarying.two, sim.dat.tvarying.three)
+
+export(cox.zph.2, p.adj.perm)
+
+export(cor.mixed, cor.mixed.vector, cor.mixed.formula, cor.mixed.default, add.mtext.label)
+
+
+S3method(cor.mixed,vector)
+S3method(cor.mixed,formula)
+S3method(cor.mixed,default)
+
+
+
+S3method(VEplot,cox.zph) 
+S3method(VEplot,glm) 
+S3method(coef,geese )
+S3method(myplot,loess )
+S3method(myplot,cox.zph)
+S3method(corplot,default )
+S3method(corplot,formula)
+S3method(myboxplot,data.frame )
+S3method(myboxplot,formula )
+S3method(myboxplot,list )
+S3method(myprint,default)
+S3method(myprint,matrix)
+S3method(predict,pcc )
+S3method(predict,geese )
+S3method(residuals,geese )
+S3method(vcov,geese )
+S3method(vcov,logistf)
+S3method(rep,matrix)
+S3method(rep,data.frame)
+S3method(rep,matrix.block)
+S3method(print,iorw)
+
+
+S3method(getVarComponent, hyperpar.inla)
+S3method(getVarComponent, matrix)
+S3method(getVarComponent, glmerMod)
+S3method(getVarComponent, lmerMod)
+S3method(getVarComponent, merMod)
+S3method(getVarComponent, mer)
+
+S3method(getFixedEf, MIresult)
+S3method(getFixedEf, coxph)
+S3method(getFixedEf, svycoxph)
+S3method(getFixedEf, svyglm)
+S3method(getFixedEf, svy_vglm)
+S3method(getFixedEf, gam)
+S3method(getFixedEf, gee)
+S3method(getFixedEf, geese)
+S3method(getFixedEf, glm)
+S3method(getFixedEf, inla)
+S3method(getFixedEf, lm)
+S3method(getFixedEf, lme)
+S3method(getFixedEf, merMod)
+S3method(getFixedEf, mer)
+S3method(getFixedEf, lmerMod)
+S3method(getFixedEf, glmerMod)
+S3method(getFixedEf, logistf)
+S3method(getFixedEf, matrix)
+S3method(getFixedEf, matrix)
+
+S3method(coef, tps)
+S3method(vcov, tps)
+S3method(getFixedEf, tps)
+S3method(predict, tps)
+
+S3method(coef, Deming)
+S3method(vcov, Deming)
+S3method(getFixedEf, Deming)
+S3method(predict, Deming)
+S3method(summary, Deming)
+
+
+
+
+import(stats)
+import(graphics)
+
+
+importFrom("grDevices", "dev.new", "xy.coords")
+importFrom("grDevices", "pdf", "postscript","rgb", "png")
+importFrom("methods", "getAllSuperClasses", "getClass", "getGenerics",
+         "getMethods", "is", "linearizeMlist")
+importFrom("utils", "capture.output", "read.csv", "tail", "write.csv", "str")
+importFrom("grDevices", "dev.control", "dev.copy", "dev.off",
+           "nclass.FD", "nclass.Sturges", "nclass.scott", "tiff")
+importFrom("grDevices", "col2rgb", "dev.flush", "dev.hold")
+importFrom("grDevices", "colorRampPalette")
+importFrom("parallel", "mclapply")
+importFrom("utils", "data")
