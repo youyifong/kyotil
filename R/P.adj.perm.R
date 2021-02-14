@@ -57,7 +57,7 @@ p.adj.perm <- function(p.unadj,p.perms,alpha=0.05)
   
   for (j in 1:len)
   {
-      p.FWER[j] = sum((apply(p.perms[,j:m], 1, min, na.rm = T)<=p.unadj[j]))/B
+      p.FWER[j] = sum((apply(p.perms[,j:m,drop=FALSE], 1, min, na.rm = T)<=p.unadj[j]))/B
   }
   ## enforce monotonicity using successive maximization
   p.FWER[1:len] = cummax(p.FWER[1:len])
