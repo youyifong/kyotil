@@ -33,7 +33,6 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             }
         }
         
-        
         # tmp should be: est, se, lb, ub, pvalue 
         tmp[,1]=tmp[,1]*scale.factor        
         if(ncol(tmp)>1) tmp[,2]=tmp[,2]*scale.factor   
