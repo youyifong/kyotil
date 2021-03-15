@@ -689,19 +689,23 @@ abline.pt.slope=function(pt1, slope, x2=NULL, ...){
 # put a shade in a rectangle between a point and one of the four quadrants
 # pt is a vector of two values
 # col is red blue gree
-abline.shade=function(pt, quadrant=c(1,2,3,4), col=c(0,1,0), alpha=0.3){
-    usr <- par('usr')   #this may be useful
+abline.shade=function(pt, type=5, col=c(0,1,0), alpha=0.3){
+    usr <- par('usr')   
     # rec: xleft, ybottom, xright, ytop
     # usr: xleft, xright, ybottom, ytop
-    if (quadrant==1) {
+    # the first four types are quadrant
+    if (type==1) {
         rect(pt[1], pt[2], usr[2], usr[4], col=rgb(red=col[1], blue=col[2], green=col[3], alpha=alpha), border=NA) 
-    } else if (quadrant==2) {
+    } else if (type==2) {
         rect(pt[1], usr[3], usr[2], pt[2], col=rgb(red=col[1], blue=col[2], green=col[3], alpha=alpha), border=NA) 
-    } else if (quadrant==3) {
+    } else if (type==3) {
         rect(usr[1], usr[3], pt[1], pt[2], col=rgb(red=col[1], blue=col[2], green=col[3], alpha=alpha), border=NA) 
-    } else if (quadrant==4) {
+    } else if (type==4) {
         rect(usr[1], pt[2], pt[1], usr[4], col=rgb(red=col[1], blue=col[2], green=col[3], alpha=alpha), border=NA) 
-    } 
+    } else if (type==5) {
+        # between pt[1] and pt[2] horizontally
+        rect(pt[1], usr[3], pt[2], usr[4], col=rgb(red=col[1], blue=col[2], green=col[3], alpha=alpha), border=NA) 
+    } else stop("type not recognized")
     
 }
 
