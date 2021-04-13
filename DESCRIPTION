@@ -1,8 +1,8 @@
 Package: kyotil
 LazyLoad: yes
 LazyData: yes
-Date: 2021.3-15
-Version: 2021.3-15
+Date: 2021.4-13
+Version: 2021.4-13
 Title: Utility Functions for Statistical Analysis Report Generation and Monte Carlo Studies
 Authors@R: c(person("Youyi", "Fong", role = "cre", email = "youyifong@gmail.com"), person("Krisztian", "Sebestyen", role = "aut", email = "ksebestyen@gmail.com"), person("Han", "Sunwoo", role = "aut", email = "sunwooya@gmail.com"), person("Jason", "Becker", role = "ctb"), person("Bendix", "Carstensen", role = "ctb", email="bxc@steno.dk"), person("Daryl", "Morris", role = "ctb", email="demorris@fhcrc.org"), person("Josh", "Pasek", role = "ctb"), person("Dennis", "Chao", email="dennisc@intven.com", role = "ctb"), person("Andri", "Signorell", email="andri@signorell.net", role = "ctb"), person("Sue", "Li", email="sli@fredhutch.org", role = "ctb"), person("Jonathan", "Bartlett", email="J.W.Bartlett@bath.ac.uk", role = "ctb"), person("Christophe", "Dutang", email="dutang@ceremade.dauphine.fr", role = "ctb") )
 Depends: R (>= 3.6)

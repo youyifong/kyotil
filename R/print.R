@@ -54,7 +54,6 @@ mytex=function(dat=NULL, file.name="temp",
     
         include.rownames=include.rownames.0
         align=align.0
-        
         dat1 = dat[[i]]   
         if (is.null(dat1)) warning("some element of dat list is null")   
          

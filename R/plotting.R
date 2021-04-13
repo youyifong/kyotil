@@ -202,17 +202,20 @@ mylegend=function(legend, x, y=NULL, lty=NULL,bty="n", ...) {
 # if cex.cor is negative, the sign is reversed and the font of cor is fixed. otherwise, by default, the font of cor is proportional to cor
 # allow cor to be spearman or pearson
 # will generating lots of warnings, ignore them
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., ...)
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., leading0=FALSE, cex.cor.dep=TRUE, ...)
 {
     usr <- par("usr"); on.exit(par(usr))
     par(usr = c(0, 1, 0, 1))
     r <- cor(x, y, method=ifelse(missing(cor.), "spearman", cor.), use="pairwise.complete.obs")
     txt <- format(c(r, 0.123456789), digits=digits)[1]
     txt <- paste(prefix, txt, sep="")
-    txt = sub("0","",txt)
+    if(!leading0) txt = sub("0","",txt)
     if(missing(cex.cor)) cex.cor <- 2.5
-    #text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
-    text(0.5, 0.5, txt, cex = ifelse(r<0,cex.cor*sqrt(-r), cex.cor * sqrt(r)) )
+    if(cex.cor.dep) {
+        text(0.5, 0.5, txt, cex = ifelse(r<0,cex.cor*sqrt(-r), cex.cor * sqrt(r)) )
+    } else {
+        text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
+    }
 #    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
 #    abline(v=1e3)
 }
@@ -276,7 +279,7 @@ mypairs=function(dat, ladder=FALSE, show.data.cloud=TRUE, ladder.add.line=T, lad
           diag.panel = NULL, text.panel = textPanel,
           label.pos = 0.5 + has.diag/3, line.main = 3,
           cex.labels = NULL, font.labels = 1, 
-          row1attop = TRUE, gap = 1, log = ""){
+          row1attop = TRUE, gap = 1, log = "", show.axis=TRUE){
     if(doText <- missing(text.panel) || is.function(text.panel))
     textPanel <-
         function(x = 0.5, y = 0.5, txt, cex, font)
@@ -357,14 +360,16 @@ mypairs=function(dat, ladder=FALSE, show.data.cloud=TRUE, ladder.add.line=T, lad
                       axes = FALSE, type = "n", ..., log = l)
             if( i==j | (i < j && has.lower) || (i > j && has.upper) ) { 
                 if (i!=j) box()# YF: add i==j 
-                if(i == 1  && (!(j %% 2L) || !has.upper || !has.lower ))
-                    localAxis(1L + 2L*row1attop, x[, j], x[, i], ...)
-                if(i == nc && (  j %% 2L  || !has.upper || !has.lower ))
-                    localAxis(3L - 2L*row1attop, x[, j], x[, i], ...)
-                if(j == 1  && (!(i %% 2L) || !has.upper || !has.lower ))
-                    localAxis(2L, x[, j], x[, i], ...)
-                if(j == nc && (  i %% 2L  || !has.upper || !has.lower ))
-                    localAxis(4L, x[, j], x[, i], ...)
+                if(show.axis){
+                    if(i == 1  && (!(j %% 2L) || !has.upper || !has.lower ))
+                        localAxis(1L + 2L*row1attop, x[, j], x[, i], ...)
+                    if(i == nc && (  j %% 2L  || !has.upper || !has.lower ))
+                        localAxis(3L - 2L*row1attop, x[, j], x[, i], ...)
+                    if(j == 1  && (!(i %% 2L) || !has.upper || !has.lower ))
+                        localAxis(2L, x[, j], x[, i], ...)
+                    if(j == nc && (  i %% 2L  || !has.upper || !has.lower ))
+                        localAxis(4L, x[, j], x[, i], ...)
+                }
                 mfg <- par("mfg")
                 if(i == j) {
                     if (has.diag) localDiagPanel(as.vector(x[, i]), ...)
@@ -619,7 +624,7 @@ corplot.default=function(object,y,...){
 }
 
 # col can be used to highlight some points
-corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col=1,cex=.5,add.diagonal.line=TRUE,add.lm.fit=FALSE,col.lm=2,add.deming.fit=FALSE,col.deming=4,add=FALSE,
+corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col=1,cex=.5,add.diagonal.line=TRUE,add.lm.fit=FALSE,add.loess.fit=FALSE,col.lm=2,add.deming.fit=FALSE,col.deming=4,add=FALSE,
     log="",same.xylim=FALSE,xlim=NULL,ylim=NULL, ...){
     vars=dimnames(attr(terms(formula),"factors"))[[1]]
     cor.=NULL
@@ -647,6 +652,10 @@ corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col
     if(add.lm.fit) {
         fit=lm(formula, data)
         abline(fit,untf=log=="xy", col=col.lm)
+    }
+    if(add.loess.fit) {
+        fit=loess(formula, data)
+        mylines(fit$x,fit$fitted,col=col.lm)
     }
     if(add.deming.fit) {
         # this implementation is faster than the one by Therneau, Terry M.

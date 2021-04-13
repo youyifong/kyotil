@@ -6,10 +6,7 @@
 #    out=paste(a,b,sep="")
 #    out
 #}
-"%.%" <- function (a, b) {
-    out=paste(a,b,sep="")
-    out
-}
+"%.%" <- function (a, b) out=paste(a,b,sep="")
 
 
 
