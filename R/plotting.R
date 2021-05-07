@@ -38,22 +38,22 @@ mydev.off=function(file="temp", ext=c("pdf"), res=200, mydev=NULL) {
             subfolder=concatList(c(tmp[-length(tmp)], "pdf"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(pdf,        file=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, paper="special")
-            cat("Saving figure to "%.%paste(getwd(),"/",filename,sep="")%.%"."%.%ext%.%"\n")        
+            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="eps") {
             subfolder=concatList(c(tmp[-length(tmp)], "eps"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(postscript, file=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, paper="special", horizontal=FALSE)
-            cat("Saving figure to "%.%paste(getwd(),"/",filename,sep="")%.%"."%.%ext%.%"\n")        
+            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="png") {
             subfolder=concatList(c(tmp[-length(tmp)], "png"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(png,    filename=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, units="in", res=res)
-            cat("Saving figure to "%.%paste(getwd(),"/",filename,sep="")%.%"."%.%ext%.%"\n")        
+            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="tiff") {
             subfolder=concatList(c(tmp[-length(tmp)], "tiff"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(tiff,   filename=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, units="in", res=res, compression="jpeg")
-            cat("Saving figure to "%.%paste(getwd(),"/",filename,sep="")%.%"."%.%ext%.%"\n")        
+            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         }
         dev.off()
     }
@@ -170,7 +170,7 @@ mypostscript=function (file="temp", mfrow=c(1,1), mfcol=NULL, width=NULL, height
         } else if (ext=="tiff") {
             tiff (filename=file%.%"."%.%ext, width=width, height=height, units="in", res=res, compression="jpeg", ...)
         }
-        cat("Saving figure to "%.%paste(getwd(),"/",file,sep="")%.%"\n")        
+        cat("Saving figure to "%.%paste(file,sep="")%.%"\n")        
     } else {
         print("not saving to file")
     }
@@ -212,7 +212,7 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., leading0=FALSE, 
     if(!leading0) txt = sub("0","",txt)
     if(missing(cex.cor)) cex.cor <- 2.5
     if(cex.cor.dep) {
-        text(0.5, 0.5, txt, cex = ifelse(r<0,cex.cor*sqrt(-r), cex.cor * sqrt(r)) )
+        text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
     } else {
         text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
     }

@@ -117,3 +117,6 @@
 
 2020.4.13
     * Add add.loess to corplot
+
+2020.5.7
+    * Add support for longtable to mytex

@@ -9,6 +9,7 @@ mytex=function(dat=NULL, file.name="temp",
     append=FALSE, preamble="", input.foldername=NULL, save2input.only=NULL,
     caption=NULL, label=paste("tab",last(strsplit(file.name, "/")[[1]]),sep=" "), table.placement="h!",
     add.clear.page.between.tables=FALSE,
+    longtable=FALSE,
     verbose=FALSE,
 ...) {
         
@@ -160,7 +161,7 @@ mytex=function(dat=NULL, file.name="temp",
                 align=align, caption=caption, label=label, ...), 
             hline.after=hline.after, type = "latex", file = file.name.2%.%".tex", append = TRUE, floating = floating, table.placement=table.placement, 
             include.rownames=include.rownames, include.colnames=include.colnames, comment=comment, 
-            add.to.row=add.to.row, sanitize.text.function =sanitize.text.function )
+            add.to.row=add.to.row, sanitize.text.function =sanitize.text.function, tabular.environment=ifelse(longtable, "longtable","tabular"))
         
         if(!save2input.only) cat ("\n", file=file.name%.%".tex", append=TRUE)
         #cat ("\n", file=file.name.2%.%".tex", append=TRUE) # don't add this line since extra lines at the end will prevent two tabular from being put on the same line
