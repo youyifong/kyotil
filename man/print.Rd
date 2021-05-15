@@ -45,8 +45,8 @@ mytex(dat = NULL, file.name = "temp", digits = NULL, display
  = NULL, save2input.only = NULL, caption = NULL, label
  = paste("tab", last(strsplit(file.name, "/")[[1]]),
  sep = " "), table.placement = "h!",
- add.clear.page.between.tables = FALSE, verbose =
- FALSE, ...)
+ add.clear.page.between.tables = FALSE, longtable =
+ FALSE, verbose = FALSE, ...)
 
 mytex.begin(file.name, preamble = "")
 
@@ -93,6 +93,9 @@ formatDouble(value, digits, na.to.empty=TRUE, remove.leading0=TRUE)
 %%     ~~Describe \code{value} here~~
 }
   \item{caption}{
+%%     ~~Describe \code{value} here~~
+}
+  \item{longtable}{
 %%     ~~Describe \code{value} here~~
 }
   \item{label}{ default to be the same as file.name stem

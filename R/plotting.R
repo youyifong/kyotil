@@ -75,7 +75,7 @@ get.width.height=function(nrow,ncol){
 
     } else if (nrow==2 & ncol==3) {width=9.7; height=6.7
     } else if (nrow==2 & ncol==4) {width=13; height=6.7
-    } else if (nrow==2 & ncol==2) {width=8; height=8.5
+    } else if (nrow==2 & ncol==2) {width=8; height=8
     } else if (nrow==2 & ncol==1) {width=6.7; height=9.7
     
     } else if (nrow==3 & ncol==6) {width=17.5; height=9
@@ -538,7 +538,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab="", main="", box
         }
         if (write.p.at.top) {
             if (pvals[1]<0.05) title(main=sub, line=.5, font.main=3)
-        } else title(sub=sub)
+        } else title(sub=sub, line=2.5)
         res$pvals=pvals
     }
     

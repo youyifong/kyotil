@@ -3,6 +3,7 @@
 \alias{summ}
 \alias{sample.for.cv}
 \alias{empty2na}
+\alias{get.kfold.splits}
 \alias{predict.pcc}
 \alias{rank.inv.norm}
 \alias{INT}
@@ -21,6 +22,7 @@ empty2na(x)
 \method{predict}{pcc}(object, newdat, ...)
 rank.inv.norm(x)
 INT(x)
+get.kfold.splits (dat, k, seed)
 
 }
 \arguments{
@@ -32,6 +34,9 @@ INT(x)
     %%     ~~Describe \code{x} here~~
     }
   \item{wt}{
+    %%     ~~Describe \code{var.equal} here~~
+    }
+  \item{k}{
     %%     ~~Describe \code{var.equal} here~~
     }
   \item{object}{

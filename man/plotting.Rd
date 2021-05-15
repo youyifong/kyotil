@@ -91,7 +91,7 @@ myboxplot(object, ...)
 \method{myboxplot}{list}(object, paired = FALSE, ...)
 
 abline.shade.2(x, col=c(0,1,0))
-abline.shade(pt, quadrant=c(1,2,3,4), col=c(0,1,0), alpha=0.3)
+abline.shade(pt, type = 5, col = c(0, 1, 0), alpha = 0.3)
 
 
 mylegend(legend, x, y=NULL, lty = NULL, bty = "n", ...)
@@ -116,7 +116,7 @@ wtd.hist (x, breaks = "Sturges", freq = NULL, probability = !freq,
     plot = TRUE, labels = FALSE, nclass = NULL, weight = NULL, 
     ...) 
 
-mylines(x, y, ...)
+mylines(x, y, type = "l", ...)
 
 myfigure(mfrow = c(1, 1), mfcol = NULL, width = NULL, 
     height = NULL, oma = NULL, mar = NULL, main.outer = FALSE, bg=NULL) 
@@ -132,7 +132,8 @@ mypostscript(file = "temp", mfrow = c(1, 1), mfcol = NULL, width = NULL,
     mar = NULL, main.outer = FALSE, save2file = TRUE, res = 200, 
     ...)
 
-panel.cor(x, y, digits=2, prefix="", cex.cor, cor., ...)
+panel.cor(x, y, digits = 2, prefix = "", cex.cor, cor., leading0
+ = FALSE, cex.cor.dep = TRUE, ...)
 
 panel.hist(x, ...)
 
@@ -142,9 +143,12 @@ corplot(object, ...)
 
 \method{corplot}{default}(object, y, ...)
 
-\method{corplot}{formula}(formula, data, main = "", method = c("pearson", "spearman"), 
-col=1,cex=.5,add.diagonal.line=TRUE,add.lm.fit=FALSE,col.lm=2,add.deming.fit=FALSE,
-    col.deming=4,add=FALSE,log="",same.xylim=FALSE,xlim=NULL,ylim=NULL, ...)
+\method{corplot}{formula}(formula, data, main = "", method = c("pearson",
+ "spearman"), col = 1, cex = 0.5, add.diagonal.line =
+ TRUE, add.lm.fit = FALSE, add.loess.fit = FALSE,
+ col.lm = 2, add.deming.fit = FALSE, col.deming = 4,
+ add = FALSE, log = "", same.xylim = FALSE, xlim =
+ NULL, ylim = NULL, ...)
 
 
 
@@ -152,6 +156,15 @@ col=1,cex=.5,add.diagonal.line=TRUE,add.lm.fit=FALSE,col.lm=2,add.deming.fit=FAL
 
 \arguments{
 
+  \item{cex.cor.dep}{
+%%     ~~Describe \code{add} here~~
+}
+  \item{add.loess.fit}{
+%%     ~~Describe \code{add} here~~
+}
+  \item{leading0}{
+%%     ~~Describe \code{add} here~~
+}
   \item{null.val}{
 %%     ~~Describe \code{add} here~~
 }
@@ -269,9 +282,6 @@ resolution.
 %%     ~~Describe \code{pt2} here~~
 }
   \item{pt}{
-%%     ~~Describe \code{pt2} here~~
-}
-  \item{quadrant}{
 %%     ~~Describe \code{pt2} here~~
 }
   \item{alpha}{

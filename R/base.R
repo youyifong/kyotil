@@ -203,7 +203,7 @@ myreshapewide=function(formula, dat, idvar, keep.extra.col=FALSE){
     if(keep.extra.col) {
         tmp=apply(aggregate (x=dat[,!names(dat) %in% c(idvar,category.var,outcome.var),drop=FALSE], by=dat[,names(dat) %in% idvar,drop=FALSE], function(y) {
             if(is.factor(y)) y=as.character(y)
-            length(rle(y)$values)==1
+            length(rle(y[!is.na(y)])$values)<2
         })[,-(1:length(idvar)),drop=FALSE], 
             2, all)
         varying.var=names(tmp)[!tmp]

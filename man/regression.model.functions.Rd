@@ -9,6 +9,7 @@
 \alias{getFixedEf.geese}
 \alias{getFixedEf.glm}
 \alias{getFixedEf.svyglm}
+\alias{getFixedEf.svy_vglm}
 \alias{getFixedEf.svycoxph}
 \alias{getFixedEf.inla}
 \alias{getFixedEf.lm}
@@ -49,7 +50,8 @@ getFormattedSummary prints a table of regression coefficient estimates and stand
 getFormattedSummary(fits, type = 12, est.digits = 2, se.digits = 2,
  robust, random = FALSE, VE = FALSE, to.trim = FALSE,
  rows = NULL, coef.direct = FALSE, trunc.large.est =
- TRUE, scale.factor = 1, p.digits = 3, ...)
+ TRUE, scale.factor = 1, p.digits = 3, remove.leading0
+ = FALSE, p.adj.method = "fdr", ...)
 
 getVarComponent(object, ...)
 
@@ -75,6 +77,7 @@ logistic.regression = TRUE)
     ...)  
 
 \method{getFixedEf}{svyglm} (object, exp = FALSE, robust = TRUE, ...)  
+\method{getFixedEf}{svy_vglm} (object, exp = FALSE, robust = TRUE, ...)  
 
 \method{getFixedEf}{svycoxph} (object, exp = FALSE, robust = TRUE, ...)  
 
@@ -131,6 +134,12 @@ logistic.regression = TRUE)
 
 
   \item{exp}{
+%%     ~~Describe \code{exp} here~~
+}
+  \item{remove.leading0}{
+%%     ~~Describe \code{exp} here~~
+}
+  \item{p.adj.method}{
 %%     ~~Describe \code{exp} here~~
 }
 
