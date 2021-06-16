@@ -93,9 +93,11 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         else if (type==9)
             # est (pval)*
             out=est. %.% " (" %.% formatDouble(tmp[,p.val.col,drop=FALSE], p.digits, remove.leading0=remove.leading0) %.% ")" 
-        else if (type==10)
+        else if (type==10) {
             # pval
-            out=format(round(tmp[,p.val.col,drop=TRUE], 3), nsmall=3, scientific=FALSE) 
+            tmp.out=tmp[,p.val.col,drop=TRUE]
+            out = ifelse(tmp.out<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), format(round(tmp.out, p.digits), nsmall=p.digits, scientific=FALSE) )
+        }
         else if (type==11)
             # adj pval
             out=format(round(p.adjust(tmp[,p.val.col,drop=TRUE], method=p.adj.method), p.digits), nsmall=3, scientific=FALSE) 
