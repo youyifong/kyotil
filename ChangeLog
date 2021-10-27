@@ -123,3 +123,6 @@
 
 2020.6.16
     * Update getFormattedSummary on how p values are reported when it is below a threshold
+
+2021.10.27
+    * Add split functions

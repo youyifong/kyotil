@@ -30,7 +30,7 @@ export(coef.geese, getFixedEf, getFixedEf.glmerMod, getFixedEf.merMod, getFixedE
 
 export(hosmerlem, quick.t.test, signtest, tukey.mtest, vector.t.test, summ, multi.outer, myfisher.test, mycor.test)
 
-export(getK, trim, predict.pcc, get.kfold.splits)
+export(getK, trim, predict.pcc, get.kfold.splits, kfold.split, ran.kfold.split, lpo.split, get.splits)
 
 export(pava, get.sim.res, getFormattedMCSummary, MCsummary, Deming, empty2na)
 
