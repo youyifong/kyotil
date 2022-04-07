@@ -2,7 +2,7 @@
 get.kfold.splits=function(dat, k, seed) {
   # save rng state before set.seed in order to restore before exiting this function
   save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
-  if (class(save.seed)=="try-error") {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
+  if (inherits(save.seed,"try-error")) {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
   set.seed(seed)    
   
   n0=nrow(dat$control)
@@ -74,7 +74,7 @@ lpo.split=function(n1, n0){
 get.splits=function(dat, cv.scheme=c("LPO","5fold","50xrandom4:1"), seed) {
   # save rng state before set.seed in order to restore before exiting this function
   save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
-  if (class(save.seed)=="try-error") {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
+  if (inherits(save.seed,"try-error")) {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
   set.seed(seed)    
   
   n0=nrow(dat$control)

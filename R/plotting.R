@@ -464,7 +464,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab="", main="", box
     pch=1, col=1, test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
     
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
-    if (class(save.seed)=="try-error") {        
+    if (inherits(save.seed,"try-error")) {        
         set.seed(1)
         save.seed <- get(".Random.seed", .GlobalEnv)
     }                        

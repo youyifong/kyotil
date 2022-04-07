@@ -170,7 +170,7 @@ last = function (x, n=1, ...) {
 
 sample.for.cv=function(dat, v, seed){
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
-    if (class(save.seed)=="try-error") {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
+    if (inherits(save.seed,"try-error")) {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
     set.seed(seed)
     n1=sum(dat$y==1)
     n2=sum(!dat$y==1)

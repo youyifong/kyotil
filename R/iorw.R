@@ -96,7 +96,7 @@ iorw=function(formula.effect, formula.mediators, data, family=NULL, nboot=10000,
     if (nboot>0) {
         # save rng state before set.seed in order to restore before exiting this function
         save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
-        if (class(save.seed)=="try-error") {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
+        if (inherits(save.seed,"try-error")) {set.seed(1); save.seed <- get(".Random.seed", .GlobalEnv) }      
         boot.out=parallel::mclapply(1:nboot, mc.cores = numCores, FUN=function(seed) {    
             set.seed(seed)
             new.data <- data[sample.int(n, replace=TRUE),] 

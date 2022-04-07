@@ -16,7 +16,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         } else {
             if (random) {
                 tmp = getVarComponent (fit)
-                if (class(fit)=="mer" & type!=1) {
+                if (inherits(fit, "mer") & type!=1) {
                     warning ("only point estimate is available for variance components from lmer fit, forcing type to 1")
                     type=1
                 }

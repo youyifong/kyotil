@@ -185,7 +185,7 @@ function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
       }
       nbr <- length(breaks)
       ncol <- length(breaks) - 1
-      if (class(col) == "function") 
+      if (inherits(col, "function"))
         col <- col(ncol)
       min.breaks <- min(breaks)
       max.breaks <- max(breaks)

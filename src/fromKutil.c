@@ -4,6 +4,9 @@
 #include <R_ext/Lapack.h>
 #include <R.h>
 #include <Rinternals.h>
+#ifndef FCONE
+# define FCONE
+#endif
 //#include <R_ext/Applic.h>
 //#include <R_ext/BLAS.h>
 //#include <R_ext/RS.h> //R definitions for 'extending' R, registering functions,...
@@ -44,7 +47,7 @@ void symprod(int* nrow,int* ncol,double* S,double* X,double* Y)
 		S,nrow,
 		X,nrow,
 		&beta,
-		Y,nrow 
+		Y,nrow FCONE FCONE
 	); 
 	
 }
@@ -68,7 +71,7 @@ SEXP Call_symprod(SEXP _S, SEXP _X){
 		S,&nrow,
 		X,&nrow,
 		&beta,
-		ans,&nrow 
+		ans,&nrow FCONE FCONE
 	); 
 	
 	UNPROTECT(1);
@@ -80,7 +83,7 @@ void txSy(int* n,double* S,double* x,double* y,double* temp,double* out){
 	double alpha = 1.0;
 	double beta = 0.0;
 	int ione = 1;
-	F77_CALL(dsymv)("U",n,&alpha,S,n,y,&ione,&beta,temp,&ione); // temp = S %*% y
+	F77_CALL(dsymv)("U",n,&alpha,S,n,y,&ione,&beta,temp,&ione FCONE); // temp = S %*% y
 	*out = F77_CALL(ddot)(n, x, &ione, temp, &ione); // out = x %*% temp
 }
 
@@ -93,7 +96,7 @@ SEXP Call_txSy(SEXP _x, SEXP _S, SEXP _y){
 	double beta = 0.0;
     double *temp = (double *) R_alloc(n, sizeof(double));
 	int ione = 1;
-	F77_CALL(dsymv)("U",&n,&alpha,S,&n,y,&ione,&beta,temp,&ione); // temp = S %*% y
+	F77_CALL(dsymv)("U",&n,&alpha,S,&n,y,&ione,&beta,temp,&ione FCONE); // temp = S %*% y
 	*ans = F77_CALL(ddot)(&n, x, &ione, temp, &ione); // out = x %*% temp
  
 	UNPROTECT(1);

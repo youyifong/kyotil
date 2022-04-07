@@ -5,6 +5,9 @@
 #include <R_ext/Lapack.h>
 #include <R.h>
 #include <Rinternals.h>
+#ifndef FCONE
+# define FCONE
+#endif
 //#include <R_ext/Applic.h>
 //#include <R_ext/BLAS.h>
 //#include <R_ext/RS.h> //R definitions for 'extending' R, registering functions,...
@@ -308,7 +311,7 @@ void matprod(double *x, int* nrx, int* ncx,
     double one = 1.0, zero = 0.0;
     if (*nrx > 0 && *ncx > 0 && *nry > 0 && *ncy > 0) {
 	F77_CALL(dgemm)(transa, transb, nrx, ncy, ncx, &one,
-			x, nrx, y, nry, &zero, z, nrx);
+			x, nrx, y, nry, &zero, z, nrx FCONE FCONE);
     } else { /* zero-extent operations should return zeroes */
 	int i;
 	for(i = 0; i < (*nrx)*(*ncy); i++) z[i] = 0;
@@ -323,7 +326,7 @@ void crossprod(double *x, int* nrx, int* ncx,
     double one = 1.0, zero = 0.0;
     if (*nrx > 0 && *ncx > 0 && *nry > 0 && *ncy > 0) {
 	F77_CALL(dgemm)(transa, transb, ncx, ncy, nrx, &one,
-			x, nrx, y, nry, &zero, z, ncx);
+			x, nrx, y, nry, &zero, z, ncx FCONE FCONE);
     } else { /* zero-extent operations should return zeroes */
 	int i;
 	for(i = 0; i < (*ncx)*(*ncy); i++) z[i] = 0;
@@ -338,7 +341,7 @@ void tcrossprod(double *x, int* nrx, int* ncx,
     double one = 1.0, zero = 0.0;
     if (*nrx > 0 && *ncx > 0 && *nry > 0 && *ncy > 0) {
 	F77_CALL(dgemm)(transa, transb, nrx, nry, ncx, &one,
-			x, nrx, y, nry, &zero, z, nrx);
+			x, nrx, y, nry, &zero, z, nrx FCONE FCONE);
     } else { /* zero-extent operations should return zeroes */
 	int i;
 	for(i = 0; i < (*nrx)*(*nry); i++) z[i] = 0;
@@ -588,7 +591,7 @@ int ginv(double tol,int M, int N,double* x,double* xinv,double* sval){
     memcpy(xinv,x,M*N*sizeof(double));
         
  // SVD decomposition   
-    F77_CALL(dgesvd)("A","A",&M,&N,xinv,&M,&s[0],&u[0],&M,&vt[0],&N,&work[0],&lwork,&info);               
+    F77_CALL(dgesvd)("A","A",&M,&N,xinv,&M,&s[0],&u[0],&M,&vt[0],&N,&work[0],&lwork,&info FCONE FCONE);               
     if(info){
 		free(_p);
 		return(info);
@@ -622,9 +625,9 @@ int ginv(double tol,int M, int N,double* x,double* xinv,double* sval){
 // then copy xinv -> D so that xinv can be overwitten on 2nd call to dgemm with the final result 
     double ALPHA = 1.0;
     double BETA = 0.0;
-    F77_CALL(dgemm)("n", "t", &N, &M, &M, &ALPHA, &D[0], &N, &u[0],&M, &BETA,xinv,&N);
+    F77_CALL(dgemm)("n", "t", &N, &M, &M, &ALPHA, &D[0], &N, &u[0],&M, &BETA,xinv,&N FCONE FCONE);
     memcpy(&D[0],xinv,N*M*sizeof(double));
-    F77_CALL(dgemm)("t", "n", &N, &M, &N, &ALPHA, &vt[0],&N, &D[0], &N, &BETA,xinv,&N);
+    F77_CALL(dgemm)("t", "n", &N, &M, &N, &ALPHA, &vt[0],&N, &D[0], &N, &BETA,xinv,&N FCONE FCONE);
     
 	free(_p);	
     return 0;
@@ -689,7 +692,7 @@ void R_ginv(double* _tol,int* _M, int* _N, double* _s,double* _u0,double* _u,dou
     PRINTF("M(%i) N(%i) du(%i %i) dv(%i %i) min(M,N)(%i) lda(%i) lwork(%i)\n",M,N,du[0],du[1],dv[0],dv[1],q,lda,lwork);
     F77_CALL(dgesvd)("A","A",(int*)&M,(int*)&N,xinv,(int*)&lda,(double*)&s[0],
     (double*)&u[0],(int*)&ldu,(double*)&vt[0],(int*)&ldvt,(double*)&work[0],
-    (int*)&lwork,(int*)&info);
+    (int*)&lwork,(int*)&info FCONE FCONE);
 
     memcpy(_u0,&u[0],M*M*sizeof(double));
     memcpy(_v,&vt[0],N*N*sizeof(double));
@@ -777,9 +780,9 @@ void R_ginv(double* _tol,int* _M, int* _N, double* _s,double* _u0,double* _u,dou
    double BETA = 0.0;
 
   
-   F77_CALL(dgemm)("t", "t", &N, &M, &q, &ALPHA, &vt[0], &dv[0], &u[0],&du[1] , &BETA,xinv,&lda);
+   F77_CALL(dgemm)("t", "t", &N, &M, &q, &ALPHA, &vt[0], &dv[0], &u[0],&du[1] , &BETA,xinv,&lda FCONE FCONE);
    PRINTF("x contiguous in memory\n");for(i = 0;i < M*N;i++) PRINTF("%f ",xinv[i]);PRINTF("\n\n");
-   F77_CALL(dgemm)("n", "n", &N, &M, &q, &ALPHA, &u[0],&du[1] , &vt[0], &dv[0],&BETA,xinv,&lda);
+   F77_CALL(dgemm)("n", "n", &N, &M, &q, &ALPHA, &u[0],&du[1] , &vt[0], &dv[0],&BETA,xinv,&lda FCONE FCONE);
    PRINTF("x contiguous in memory\n");for(i = 0;i < M*N;i++) PRINTF("%f ",xinv[i]);PRINTF("\n\n");
 
    memcpy(_u,&u[0],M*M*sizeof(double));
@@ -817,14 +820,14 @@ double* x,double* s,double* u,double* vt,int* info)
 	// dgesvd
     int lwork = -1;
 	double _work;
-    F77_CALL(dgesvd)(JOBU, JOBV, nrx,ncx,x,&ldx,s,u,&ldu, vt,&ldvt,&_work,&lwork,info);
+    F77_CALL(dgesvd)(JOBU, JOBV, nrx,ncx,x,&ldx,s,u,&ldu, vt,&ldvt,&_work,&lwork,info FCONE FCONE);
 	if(*info){
 		Rprintf("Illegal arguments to Lapack routine '%s' returning error code %d", "dgesvd" ,*info);
 		return;
 	}
 	lwork = (int)_work;
     double *work = (double *) malloc(lwork * sizeof(double));
-    F77_CALL(dgesvd)(JOBU, JOBV, nrx,ncx,x,&ldx,s,u,&ldu, vt,&ldvt,work,&lwork,info);
+    F77_CALL(dgesvd)(JOBU, JOBV, nrx,ncx,x,&ldx,s,u,&ldu, vt,&ldvt,work,&lwork,info FCONE FCONE);
 	free(work);
 	if(*info){
 		Rprintf("error code %d from Lapack routine '%s'", *info, "dgesvd");
@@ -868,7 +871,7 @@ double* x,double* s,double* u,double* vt,int* info)
     int lwork = -1;
 	double _work;
 	int *iwork = (int*) malloc(8*(size_t)(MIN(*nrx,*ncx) * sizeof(int)));
-    F77_CALL(dgesdd)(JOBU,nrx,ncx,x,&ldx,s,u,&ldu,vt, &ldvt,&_work, &lwork, iwork, info);
+    F77_CALL(dgesdd)(JOBU,nrx,ncx,x,&ldx,s,u,&ldu,vt, &ldvt,&_work, &lwork, iwork, info FCONE);
 	if(*info){
 		Rprintf("Illegal arguments to Lapack routine '%s' returning error code %d", "dgesdd" , *info);
 		free(iwork);
@@ -876,7 +879,7 @@ double* x,double* s,double* u,double* vt,int* info)
 	}
 	lwork = (int)_work;
     double *work = (double *) malloc(lwork * sizeof(double));
-    F77_CALL(dgesdd)(JOBU,nrx, ncx, x, &ldx,s,u, &ldu,vt, &ldvt,work, &lwork, iwork, info);
+    F77_CALL(dgesdd)(JOBU,nrx, ncx, x, &ldx,s,u, &ldu,vt, &ldvt,work, &lwork, iwork, info FCONE);
 	free(work);
 	free(iwork);
 	if(*info){
@@ -907,7 +910,7 @@ void C_singval_dgesvd(int* nrx,int* ncx,double* _x,double* s,int* info)
 	// dgesvd
     int lwork = -1;
 	double _work;
-    F77_CALL(dgesvd)("N", "N", nrx,ncx,NULL,&ldx,s,NULL,&ldu,NULL,&ldvt,&_work,&lwork,info);
+    F77_CALL(dgesvd)("N", "N", nrx,ncx,NULL,&ldx,s,NULL,&ldu,NULL,&ldvt,&_work,&lwork,info FCONE FCONE);
 	if(*info){
 		Rprintf("Illegal arguments to Lapack routine '%s' returning error code %d", "dgesvd" ,*info);
 		return;
@@ -916,7 +919,7 @@ void C_singval_dgesvd(int* nrx,int* ncx,double* _x,double* s,int* info)
     double *work = (double *) malloc(lwork * sizeof(double));
 	double* x = (double *) malloc((size_t)(*nrx * *ncx) * sizeof(double));
 	memcpy(x,_x,(size_t)(*nrx * *ncx) * sizeof(double));
-    F77_CALL(dgesvd)("N", "N", nrx,ncx,x,&ldx,s,u,&ldu, vt,&ldvt,work,&lwork,info);
+    F77_CALL(dgesvd)("N", "N", nrx,ncx,x,&ldx,s,u,&ldu, vt,&ldvt,work,&lwork,info FCONE FCONE);
 	free(work);
 	free(x);
 	if(*info){
@@ -937,7 +940,7 @@ int ldlinv(int n,double* x,double* xinv){
 		int LWORK = -1;
 		double WORK;
 		int info = 0;		
-		F77_CALL(dsytrf)("U",&n,x,&n,ipiv,&WORK,&LWORK,&info); 
+		F77_CALL(dsytrf)("U",&n,x,&n,ipiv,&WORK,&LWORK,&info FCONE); 
 		if(info){
 			free(ipiv);
 			Rprintf("error code %d from Lapack routine '%s'\n", info, "dsytrf");
@@ -951,7 +954,7 @@ int ldlinv(int n,double* x,double* xinv){
 			Rprintf("Unable to allcoate %i bytes in function %s\n",LWORK * sizeof(double),"ldl_inv");
 			return 1;		
 		}
-		F77_CALL(dsytrf)("U",&n,x,&n,ipiv,work,&LWORK,&info); 
+		F77_CALL(dsytrf)("U",&n,x,&n,ipiv,work,&LWORK,&info FCONE); 
 		if(info){
 			free(ipiv);
 			free(work);
@@ -961,7 +964,7 @@ int ldlinv(int n,double* x,double* xinv){
 		// set xinv to identity and solve for it
 		memset(xinv,0,n*n*sizeof(double));
 		for(int i = 0;i < n;i++)xinv[i*n+i] = 1.0;
-		F77_CALL(dsytrs)("U",&n,&n, x, &n, ipiv, xinv,&n,&info);
+		F77_CALL(dsytrs)("U",&n,&n, x, &n, ipiv, xinv,&n,&info FCONE);
 		if(info){
 			Rprintf("error code %d from Lapack routine '%s'\n", info, "dsytrs");	
 			free(ipiv);
