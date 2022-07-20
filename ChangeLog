@@ -129,3 +129,6 @@
 
 2021.04.05
 	* Change F77 call to be more portable
+
+2022.07.17
+	* Add predict.competing.risk
