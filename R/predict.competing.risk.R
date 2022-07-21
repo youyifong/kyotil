@@ -35,7 +35,7 @@ predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, st
     
     # mimic basehaz, this allows more flexibility since stype and ctype can be changed
     # somehow stype also affects cumhaz
-    sfit=survfit(fit.1, se.fit = FALSE, stype=2, ctype=2)
+    sfit=survfit(fit.1, se.fit = FALSE, stype=stype, ctype=ctype)
     # centered=FALSE requires the following
     zcoef <- ifelse(is.na(coef(fit.1)), 0, coef(fit.1))
     offset <- sum(fit.1$means * zcoef)
@@ -76,11 +76,12 @@ predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, st
         # prod limit
         S.1.mat=outer(c(1,bhaz.a$surv[1:(length(tt)-1)])[idx], F.a, "^")# dim: n_times x n_subj
     } else {
-        # exp(cum hazard), identical to the above when stype=2 but not when stype=1
+        # exp(cum hazard)
         S.1.mat=exp(-outer(c(0,bhaz.a$cumhaz[1:(length(tt)-1)])[idx], F.a))# dim: n_times x n_subj
     }
     #print(head(cbind(t(S.1.mat), t(S.1.mat.2))))
     #plot(S.1.mat, S.1.mat.2)
+    print(bhaz.a$cumhaz[1:3]*F.a[1])
     
     
     #### cumulative incidence 

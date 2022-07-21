@@ -2,7 +2,7 @@
 \alias{pcr}
 \alias{predict.competing.risk}
 \title{
-Cumulative Incidence Function Under Competing Risk
+Cumulative Incidence Function (CIF) Under Competing Risk
 }
 \description{
 Computes cumulative incidence function under competing risk.
@@ -37,6 +37,9 @@ optional arguments that are passed to coxph, the most import of which is weights
 }
 }
 \details{
+Fits a cause-specific Cox model and a all-cause Cox model. Weights are allowed in the optional arguments.
+
+When there is only one cause, CIF is conceptually 1 - surival prob.
 
 }
 \value{
@@ -50,57 +53,56 @@ https://www.publichealth.columbia.edu/research/population-health-methods/competi
 
 library(survival) 
 
-# make a second status
-with(lung, table(status))
-
 lung1=lung[order(lung$time),]
-
 lung1$status=lung1$status-1
-lung1$status[1:50]=2
 with(lung1, table(status))
 lung1$status.1=ifelse(lung1$status==1,1,0)
 lung1$status.a=ifelse(lung1$status==0,0,1)
 lung1$wt=rep(1, nrow(lung1))
-#lung1$wt=c(rep(1,100), rep(2,nrow(lung1)-100))
 
 
+# when there is no covariate and one cause, CIF = 1 - KM estimate of survival prob
+# stype=2 is surv=prod limit
+fitKM <- survfit(Surv(time, status.1) ~ 1, data=lung1, stype=1, ctype=2)
+cbind(summary(fitKM)$cumhaz, exp(-summary(fitKM)$cumhaz), summary(fitKM)$surv)[1:2,]
+#[1,] 0.004385965 0.9956236 0.9956140
+#[2,] 0.017660474 0.9824946 0.9824561
+cif=predict.competing.risk(Surv(time, status.1) ~ 1, Surv(time, status.1) ~ 1, lung1, t0=11, newdata=lung1[1,,drop=F], weights=lung1$wt, stype=1, ctype=2)
+cif # 0.01754386
+1-cif # 0.9824561 = summary(fitKM)$surv at t=11
+
+
+# when there are covariates and one cause, CIF and 1-exp(-H) are close to each other when H is small but not close when H is large
 form  =Surv(time, status.1) ~ age
 form.a=Surv(time, status.a) ~ age
-
 par(mfrow=c(1,2))
-fitKM <- survfit(form, data=lung1, stype=1, ctype=1)
-plot(exp(-summary(fitKM)$cumhaz), summary(fitKM)$surv); abline(0,1)
-summary(fitKM)$cumhaz[1:10]
-summary(fitKM)$surv[1:10]
-fitKM <- survfit(form, data=lung1, stype=2, ctype=1)
-plot(exp(-summary(fitKM)$cumhaz), summary(fitKM)$surv); abline(0,1)
+for (t0 in c(12,1000)) {
+    fit=coxph(form, lung1, weights=lung1$wt)
+    lung2=lung1; lung2$time=t0
+    r=predict(fit, type="expected", newdata=lung2)
+    print(head(basehaz(fit, centered=T)))
+    cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
+    plot(cif, 1-exp(-r), xlab="Cumulative incidence function", ylab="Expected number of events from predict.coxph", main="t0: a later time point"); abline(0,1)
+    print(head(cbind(cif, 1-exp(-r))))
+}
 
 
-## results match those from riskRegression_2022.07.13 when there are no weights
-#t0=12
+
+## results match those from riskRegression_2022.07.13 when weights are all 1
+#lung1=lung[order(lung$time),]
+#lung1$status=lung1$status-1
+#lung1$status[1:50]=2
+#with(lung1, table(status))
+#lung1$status.1=ifelse(lung1$status==1,1,0)
+#lung1$status.a=ifelse(lung1$status==0,0,1)
+#lung1$wt=rep(1, nrow(lung1))
+#t0=1000
 #library(riskRegression)
 #fit2 <- CSC(Hist(time,status)~age, data=lung1, surv.type="survival",cause=1)
 #r2=c(predictRisk(fit2,cause=1,product.limit=F,newdata=lung1,times=t0))
 ##r3=c(predictRisk(fit2,cause=1,product.limit=T,newdata=lung1,times=t0))# slightly different from r2
 #cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
-#cbind(cif, r2)
-
-
-t0=12
-
-
-# cif does not match r when there is only 1 cause, there is 1% shift
-fit=coxph(form, lung1, weights=lung1$wt)
-lung2=lung1; lung2$time=t0
-r=predict(fit, type="expected", newdata=lung2, stype=1, ctype=1)
-
-#exp(coef(fit)*lung1[1:2,"age"]) * basehaz(fit)[1,1]
-
-cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)#; 1-cif[1:3]
-head(cbind(cif, 1-exp(-r)))
-plot(cif, 1-exp(-r), xlab="Cumulative incidence function", ylab="1-Survival from predict.coxph"); abline(0,1)
-
-#formula=form; formula.all=form.a; data=lung1; newdata=data[1,,F]
+#head(cbind(cif, r2))
 
 
 }
