@@ -81,7 +81,7 @@ predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, st
     }
     #print(head(cbind(t(S.1.mat), t(S.1.mat.2))))
     #plot(S.1.mat, S.1.mat.2)
-    print(bhaz.a$cumhaz[1:3]*F.a[1])
+    #print(bhaz.a$cumhaz[1:3]*F.a[1])
     
     
     #### cumulative incidence 

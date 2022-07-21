@@ -5,10 +5,12 @@
 Cumulative Incidence Function (CIF) Under Competing Risk
 }
 \description{
-Computes cumulative incidence function under competing risk.
+Fits a cause-specific Cox model and a all-cause Cox model to computes cumulative incidence function under competing risk. Weights are allowed in the optional arguments.
+
 }
 \usage{
-pcr(formula, formula.all, data, t0, newdata, ...)
+predict.competing.risk(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...)
+pcr(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...)
 }
 \arguments{
   \item{formula}{
@@ -37,21 +39,57 @@ optional arguments that are passed to coxph, the most import of which is weights
 }
 }
 \details{
-Fits a cause-specific Cox model and a all-cause Cox model. Weights are allowed in the optional arguments.
+When there is only one cause, CIF is conceptually 1 - surival prob.(https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis)
 
-When there is only one cause, CIF is conceptually 1 - surival prob.
+The function is implemented in R with matrix operation. Because looping through time points and subjects is vectorized, it is quite fast (faster than riskRegression in limited testing, which implements in C, but pcr uses more memory.)
 
 }
 \value{
-A vector of real numbers
+A vector of real numbers as the risk till t0 for each subject in newdata
 }
 \references{
+Competing Risk Analysis
+Columbia Public Health
 https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis
+
+Introduction to the Analysis of Survival Data in the Presence of Competing Risks
+Peter C Austin, Douglas S Lee, Jason P Fine
+https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.115.017719
+
+riskRegression: Predicting the Risk of an Event using Cox Regression Models by Brice Ozenne, Anne Lyngholm Sørensen, Thomas Scheike, Christian Torp-Pedersen, Thomas Alexander Gerds
+https://journal.r-project.org/archive/2017/RJ-2017-062/RJ-2017-062.pdf
+
 }
 \examples{
 
 
 library(survival) 
+
+# prepare a dataset with competing risk
+lung1=lung[order(lung$time),]
+lung1$status=lung1$status-1
+lung1$status[1:50]=2
+with(lung1, table(status))
+lung1$status.1=ifelse(lung1$status==1,1,0)
+lung1$status.a=ifelse(lung1$status==0,0,1)
+lung1$wt=rep(1, nrow(lung1))
+
+t0=1000
+form  =Surv(time, status.1) ~ age
+form.a=Surv(time, status.a) ~ age
+cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
+
+## results match those from riskRegression_2022.07.13 when weights are all 1
+#library(riskRegression)
+#fit2 <- CSC(Hist(time,status)~age, data=lung1, surv.type="survival",cause=1)
+#r2=c(predictRisk(fit2,cause=1,product.limit=F,newdata=lung1,times=t0))
+#head(cbind(cif, r2))
+
+
+###############################################################################
+# more validation code 
+
+# when there is no covariate and one cause, CIF = 1 - KM estimate of survival prob
 
 lung1=lung[order(lung$time),]
 lung1$status=lung1$status-1
@@ -60,8 +98,6 @@ lung1$status.1=ifelse(lung1$status==1,1,0)
 lung1$status.a=ifelse(lung1$status==0,0,1)
 lung1$wt=rep(1, nrow(lung1))
 
-
-# when there is no covariate and one cause, CIF = 1 - KM estimate of survival prob
 # stype=2 is surv=prod limit
 fitKM <- survfit(Surv(time, status.1) ~ 1, data=lung1, stype=1, ctype=2)
 cbind(summary(fitKM)$cumhaz, exp(-summary(fitKM)$cumhaz), summary(fitKM)$surv)[1:2,]
@@ -88,21 +124,6 @@ for (t0 in c(12,1000)) {
 
 
 
-## results match those from riskRegression_2022.07.13 when weights are all 1
-#lung1=lung[order(lung$time),]
-#lung1$status=lung1$status-1
-#lung1$status[1:50]=2
-#with(lung1, table(status))
-#lung1$status.1=ifelse(lung1$status==1,1,0)
-#lung1$status.a=ifelse(lung1$status==0,0,1)
-#lung1$wt=rep(1, nrow(lung1))
-#t0=1000
-#library(riskRegression)
-#fit2 <- CSC(Hist(time,status)~age, data=lung1, surv.type="survival",cause=1)
-#r2=c(predictRisk(fit2,cause=1,product.limit=F,newdata=lung1,times=t0))
-##r3=c(predictRisk(fit2,cause=1,product.limit=T,newdata=lung1,times=t0))# slightly different from r2
-#cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
-#head(cbind(cif, r2))
 
 
 }
