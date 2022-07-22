@@ -5,7 +5,7 @@
 Cumulative Incidence Function (CIF) Under Competing Risk
 }
 \description{
-Fits a cause-specific Cox model and a all-cause Cox model to computes cumulative incidence function under competing risk. Weights are allowed in the optional arguments.
+Fits a cause-specific Cox model and a all-cause Cox model to compute cumulative incidence function for the cause of interest under competing risk. Weights are allowed in the optional arguments.
 
 }
 \usage{
@@ -43,11 +43,28 @@ When there is only one cause, CIF is conceptually 1 - surival prob.(https://www.
 
 The function is implemented in R with matrix operation. Because looping through time points and subjects is vectorized, it is quite fast (faster than riskRegression in limited testing, which implements in C, but pcr uses more memory.)
 
+One way to checke the implementation of this function is to compare its results with the results of predict.coxph when there is only one cause. The tests in the examples code below show
+that when the risk is small (e.g. shorter followup time), the CIF computed by this function and the 1-survival estimated via 1-exp(-H) by predict.coxph, where H is cumulative hazard, are close to each other.
+But when the risk is high, the difference between the two are more noticeable. These results make sense because, e.g., 
+
+If t0 = the first time failure point, CIF = h1 = H1 ~ 1-exp(-H1) 
+If t0 = the second time point, 
+
+CIF = H1 + exp(-H1) * h2               (by def)
+
+~ H1 + exp(-H1)(1 - exp(-h2))
+
+= H1 + exp(-H1) - exp(-H2)
+
+~ 1 - exp(-H2)
+
+
 }
 \value{
 A vector of real numbers as the risk till t0 for each subject in newdata
 }
 \references{
+
 Competing Risk Analysis
 Columbia Public Health
 https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis
@@ -60,8 +77,10 @@ riskRegression: Predicting the Risk of an Event using Cox Regression Models by B
 https://journal.r-project.org/archive/2017/RJ-2017-062/RJ-2017-062.pdf
 
 }
+\seealso{
+  \code{\link{predict.competing.risk}}.
+}
 \examples{
-
 
 library(survival) 
 

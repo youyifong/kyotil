@@ -1,7 +1,3 @@
-# formula: for cause-specific hazard model
-# formula.all: for all-cause hazard model
-# stype: the method to be used estimation of the survival curve: 1 = direct, 2 = exp(cumulative hazard).
-# ctype: the method to be used for estimation of the cumulative hazard: 1 = Nelson-Aalen formula, 2 = Fleming-Harrington correction for tied events.
 predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...){
     
     # weights might be in the optional arguments

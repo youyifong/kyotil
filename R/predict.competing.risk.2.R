@@ -1,0 +1,60 @@
+predict.competing.risk.2=function(formula.list, data, t0, newdata=data, ...){
+    
+    # weights might be in the optional arguments
+    extra.args <- list(...)
+    
+    fits=lapply (formula.list, function(formula) {
+        # fit a cause-specific model to get hazard
+        do.call("coxph",c(list(formula=formula, data=data, model=TRUE),extra.args))
+        #direct calling coxph cannot handle weights
+        #coxph(formula=formula, data=data, model=TRUE)
+    })
+    
+    bhazs=lapply(fits, function(fit) {
+        ret=basehaz(fit, centered=F)
+        names(ret)[1]="cumhaz"
+        ret
+    }) # stype=2 and ctype=2 when calling basehaz
+    
+    Fs=lapply (1:length(formula.list), function(i) {
+        X=model.matrix(formula.list[[i]], newdata)[,-1,drop=FALSE]# -1 in formula does not work
+        if (ncol(X)>0) {
+            F=drop(exp(X %*% coef(fits[[i]])))
+        } else {
+            F=rep(1,nrow(X))
+        }
+        F
+    })
+    
+    
+    #### get hazard from cause-specific model
+
+    # assume the first is the cause of interest
+    bhaz.1=bhazs[[1]]
+
+    # compute hazard from cumhazard
+    bhaz.1=cbind(bhaz.1, hazard=c(bhaz.1$cumhaz[1], diff(bhaz.1$cumhaz)))
+
+    # time points
+    tt=bhaz.1$time[bhaz.1$time<=t0]
+        # idx is used to subset to where hazard is not 0
+        idx=which(bhaz.1$hazard[1:length(tt)]!=0)        
+
+    # hazard from cause-specific model
+    h=outer(bhaz.1$hazard[1:length(tt)][idx], Fs[[1]])# dim: n_times x n_subj
+    #print(h[,1])
+
+    
+    #### get survival prob from all-cauase model
+    
+    mat=lapply (1:length(formula.list), function (i) {    
+        outer(c(0,bhazs[[i]][1:(length(tt)-1),1])[idx], Fs[[i]])
+    })    
+    S.1.mat=exp(-do.call("+", mat))# dim: n_times x n_subj
+    
+    
+    #### cumulative incidence 
+    colSums(S.1.mat * h)# dim: n_subj
+    
+}
+pcr.2=predict.competing.risk.2

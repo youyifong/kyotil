@@ -42,6 +42,8 @@ export(cox.zph.2, p.adj.perm)
 
 export(cor.mixed, cor.mixed.vector, cor.mixed.formula, cor.mixed.default, add.mtext.label)
 
+export(predict.competing.risk, predict.competing.risk.2, pcr, pcr.2)
+
 
 S3method(cor.mixed,vector)
 S3method(cor.mixed,formula)
