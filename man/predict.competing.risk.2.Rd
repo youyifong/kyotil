@@ -70,6 +70,7 @@ lung1$status[1:50]=2
 with(lung1, table(status))
 lung1$status.1=ifelse(lung1$status==1,1,0)
 lung1$status.2=ifelse(lung1$status==2,1,0)
+lung1$status.a=ifelse(lung1$status==0,0,1)
 lung1$wt=rep(1, nrow(lung1))
 
 t0=1000
@@ -78,14 +79,20 @@ formula.list=list(
     Surv(time, status.2) ~ age
 )
 
-cif=predict.competing.risk.2(formula.list, lung1, t0)
-### results match those from riskRegression_2022.07.13 when weights are all 1
+cif.2=pcr.2(formula.list, lung1, t0)
+
+## results match those from riskRegression_2022.07.13 when weights are all 1
 #library(riskRegression)
 #fit2 <- CSC(list(Hist(time,status)~sex, Hist(time,status)~age), data=lung1, surv.type="hazard",cause=1)
 #r2=c(predictRisk(fit2,cause=1,product.limit=F,newdata=lung1,times=t0))
+#head(cbind(cif, r2))
+
+## pcr can produce cif that is greater than 1, especially when the covariates for the overall failure model differs from the covariates for the cause-specific model
+## because the survival prob for the overall failure for a subject can be arbitrarily high
+#cif.1=pcr(Surv(time, status.1) ~ sex, Surv(time, status.a) ~ age, lung1, t0)
+##
 #fit3 <- CSC(list(Hist(time,status)~sex, Hist(time,status)~age), data=lung1, surv.type="surv",cause=1)
 #r3=c(predictRisk(fit3,cause=1,product.limit=F,newdata=lung1,times=t0))
-#head(cbind(cif, r2, r3))
 
 
 # dealing with weights
