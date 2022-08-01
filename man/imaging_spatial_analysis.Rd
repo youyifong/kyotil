@@ -23,35 +23,11 @@ bottomright: bottomright (x,y) coordiate for a rectangular box
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function counts cells inside of rectangular box made by the topleft and bottomright xy-coordinates.
 }
 \value{
 The number of masks inside of the rectangular box 
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-\code{\link{imaging_spatial_analysis}}.
-}
 \examples{
-get_count_from_xy_coor(file='M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(0,0), bottomright=c(1392,600))
+#get_count_from_xy_coor(file='M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(0,0), bottomright=c(1392,600))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
-% \concept{ ~cpt1 }
-% \concept{ ~cpt2 }
-% Use only one concept per line.
