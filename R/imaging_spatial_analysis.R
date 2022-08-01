@@ -35,4 +35,4 @@ get_count_from_xy_coor <- function(file, topleft, bottomright){
   sum(cell_count)
 }
 
-get_count_from_xy_coor(file='/Users/shan/Desktop/M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(0,0), bottomright=c(1392,600))
+#get_count_from_xy_coor(file='/Users/shan/Desktop/M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(0,0), bottomright=c(1392,600))
