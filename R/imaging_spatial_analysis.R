@@ -1,4 +1,3 @@
-# helper functions
 get_coor_from_string <- function(string){
   temp <- gsub('^.|.$', '', string) # remove the first and last string
   temp <- strsplit(temp, split=', ')
@@ -6,11 +5,6 @@ get_coor_from_string <- function(string){
 }
 
 get_count_from_xy_coor <- function(file, topleft, bottomright){
-  # This function counts cells inside of rectangular box made by the topleft and bottomright xy-coordinates #
-  # Input:
-  # 1. file: _sizes_coordinates.txt
-  # 2. topleft: topleft (x,y) coordiate for a rectangular box
-  # 3. bottomright: bottomright (x,y) coordiate for a rectangular box
   
   res <- read.table(file, header=T, sep=',')
   xmin <- topleft[1]; ymin <- topleft[2]
