@@ -44,6 +44,8 @@ export(cor.mixed, cor.mixed.vector, cor.mixed.formula, cor.mixed.default, add.mt
 
 export(predict.competing.risk, predict.competing.risk.2, pcr, pcr.2)
 
+export(get_coor_from_string, get_count_from_xy_coor)
+
 
 S3method(cor.mixed,vector)
 S3method(cor.mixed,formula)
