@@ -57,4 +57,4 @@ predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
     colSums(S.1.mat * h)# dim: n_subj
     
 }
-pcr.2=predictCompetingRisk2
+pcr2=predictCompetingRisk2

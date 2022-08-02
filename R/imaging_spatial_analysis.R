@@ -6,7 +6,7 @@ get_coor_from_string <- function(string){
 
 get_count_from_xy_coor <- function(file, topleft, bottomright, image=NULL, plot=FALSE){
   
-  res <- read.table(file, header=T, sep=',')
+  res <- read.table(file, header=TRUE, sep=',')
   xmin <- topleft[1]; ymin <- topleft[2]
   xmax <- bottomright[1]; ymax <- bottomright[2]
 
