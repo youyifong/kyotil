@@ -1,5 +1,5 @@
-\name{imaging_spatial_analysis}
-\alias{imaging_spatial_analysis}
+\name{get_count_from_xy_coor}
+\alias{get_count_from_xy_coor}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Imaging analysis for spatial region
