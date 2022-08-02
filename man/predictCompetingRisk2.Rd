@@ -1,6 +1,6 @@
-\name{pcr.2}
-\alias{pcr.2}
-\alias{predict.competing.risk.2}
+\name{pcr2}
+\alias{pcr2}
+\alias{predictCompetingRisk2}
 \title{
 Cumulative Incidence Function (CIF) Under Competing Risk - Approach 2
 }
@@ -9,8 +9,9 @@ Fits cause-specific Cox models to each cause to compute cumulative incidence fun
 
 }
 \usage{
-predict.competing.risk.2(formula.list, data, t0, newdata=data, ...)
-pcr(formula.list, data, t0, newdata=data, ...)
+predictCompetingRisk2(formula, formula.all, data, t0, newdata = data, stype
+         = 2, ctype = 2, ...)
+pcr2(formula.list, data, t0, newdata=data, ...)
 }
 \arguments{
   \item{formula.list}{
@@ -79,7 +80,7 @@ formula.list=list(
     Surv(time, status.2) ~ age
 )
 
-cif.2=pcr.2(formula.list, lung1, t0)
+cif.2=pcr2(formula.list, lung1, t0)
 
 ## results match those from riskRegression_2022.07.13 when weights are all 1
 #library(riskRegression)

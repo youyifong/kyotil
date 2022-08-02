@@ -28,8 +28,8 @@ get_count_from_xy_coor <- function(file, topleft, bottomright, image=NULL, plot=
   
   if(plot==TRUE){
     if(is.null(image)) {stop("Image should be input to plotting")}
-    img <- image_read(image)
-    info <- image_info(img)
+    img <- magick::image_read(image)
+    info <- magick::image_info(img)
     plot(img)
     ymin_plot <- info$height-ymin
     ymax_plot <- info$height-ymax

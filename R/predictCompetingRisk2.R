@@ -1,4 +1,4 @@
-predict.competing.risk.2=function(formula.list, data, t0, newdata=data, ...){
+predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
     
     # weights might be in the optional arguments
     extra.args <- list(...)
@@ -11,7 +11,7 @@ predict.competing.risk.2=function(formula.list, data, t0, newdata=data, ...){
     })
     
     bhazs=lapply(fits, function(fit) {
-        ret=basehaz(fit, centered=F)
+        ret=survival::basehaz(fit, centered=F)
         names(ret)[1]="cumhaz"
         ret
     }) # stype=2 and ctype=2 when calling basehaz
@@ -57,4 +57,4 @@ predict.competing.risk.2=function(formula.list, data, t0, newdata=data, ...){
     colSums(S.1.mat * h)# dim: n_subj
     
 }
-pcr.2=predict.competing.risk.2
+pcr.2=predictCompetingRisk2

@@ -1,4 +1,4 @@
-predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...){
+predictCompetingRisk=function(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...){
     
     # weights might be in the optional arguments
     extra.args <- list(...)
@@ -31,7 +31,7 @@ predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, st
     
     # mimic basehaz, this allows more flexibility since stype and ctype can be changed
     # somehow stype also affects cumhaz
-    sfit=survfit(fit.1, se.fit = FALSE, stype=stype, ctype=ctype)
+    sfit=survival::survfit(fit.1, se.fit = FALSE, stype=stype, ctype=ctype)
     # centered=FALSE requires the following
     zcoef <- ifelse(is.na(coef(fit.1)), 0, coef(fit.1))
     offset <- sum(fit.1$means * zcoef)
@@ -59,7 +59,7 @@ predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, st
 #    names(bhaz.a)[1]="cumhaz"
     
     # mimic basehaz, this allows more flexibility since stype and ctype can be changed
-    sfit=survfit(fit.a, se.fit = FALSE, stype=stype, ctype=ctype)
+    sfit=survival::survfit(fit.a, se.fit = FALSE, stype=stype, ctype=ctype)
     zcoef <- ifelse(is.na(coef(fit.a)), 0, coef(fit.a))
     offset <- sum(fit.a$means * zcoef)
     bhaz.a <- data.frame(time = sfit$time, cumhaz = sfit$cumhaz * exp(-offset), surv=sfit$surv ^ exp(-offset))
@@ -84,4 +84,4 @@ predict.competing.risk=function(formula, formula.all, data, t0, newdata=data, st
     colSums(S.1.mat * h)# dim: n_subj
     
 }
-pcr=predict.competing.risk
+pcr=predictCompetingRisk

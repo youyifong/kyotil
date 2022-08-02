@@ -1,6 +1,6 @@
 \name{pcr}
 \alias{pcr}
-\alias{predict.competing.risk}
+\alias{predictCompetingRisk}
 \title{
 Cumulative Incidence Function (CIF) Under Competing Risk
 }
@@ -9,7 +9,7 @@ Fits a cause-specific Cox model and a all-cause Cox model to compute cumulative 
 
 }
 \usage{
-predict.competing.risk(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...)
+predictCompetingRisk(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...)
 pcr(formula, formula.all, data, t0, newdata=data, stype=2, ctype=2, ...)
 }
 \arguments{
@@ -78,7 +78,7 @@ https://journal.r-project.org/archive/2017/RJ-2017-062/RJ-2017-062.pdf
 
 }
 \seealso{
-  \code{\link{predict.competing.risk}}.
+  \code{\link{predictCompetingRisk}}.
 }
 \examples{
 
@@ -96,7 +96,7 @@ lung1$wt=rep(1, nrow(lung1))
 t0=1000
 form  =Surv(time, status.1) ~ age
 form.a=Surv(time, status.a) ~ age
-cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
+cif=predictCompetingRisk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
 
 ## results match those from riskRegression_2022.07.13 when weights are all 1
 #library(riskRegression)
@@ -122,7 +122,7 @@ fitKM <- survfit(Surv(time, status.1) ~ 1, data=lung1, stype=1, ctype=2)
 cbind(summary(fitKM)$cumhaz, exp(-summary(fitKM)$cumhaz), summary(fitKM)$surv)[1:2,]
 #[1,] 0.004385965 0.9956236 0.9956140
 #[2,] 0.017660474 0.9824946 0.9824561
-cif=predict.competing.risk(Surv(time, status.1) ~ 1, Surv(time, status.1) ~ 1, lung1, t0=11, newdata=lung1[1,,drop=F], weights=lung1$wt, stype=1, ctype=2)
+cif=predictCompetingRisk(Surv(time, status.1) ~ 1, Surv(time, status.1) ~ 1, lung1, t0=11, newdata=lung1[1,,drop=F], weights=lung1$wt, stype=1, ctype=2)
 cif # 0.01754386
 1-cif # 0.9824561 = summary(fitKM)$surv at t=11
 
@@ -136,7 +136,7 @@ for (t0 in c(12,1000)) {
     lung2=lung1; lung2$time=t0
     r=predict(fit, type="expected", newdata=lung2)
     print(head(basehaz(fit, centered=T)))
-    cif=predict.competing.risk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
+    cif=predictCompetingRisk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, ctype=2)
     plot(cif, 1-exp(-r), xlab="Cumulative incidence function", ylab="Expected number of events from predict.coxph", main="t0: a later time point"); abline(0,1)
     print(head(cbind(cif, 1-exp(-r))))
 }
