@@ -8,7 +8,7 @@ Imaging analysis for spatial region
 Counting the number of masks in a rectangular region
 }
 \usage{
-get_count_from_xy_coor(file, topleft, bottomright)
+get_count_from_xy_coor(file, topleft, bottomright, image, plot)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,6 +20,12 @@ topleft (x,y) coordiate for a rectangular box
 }
   \item{bottoright}{
 bottomright: bottomright (x,y) coordiate for a rectangular box  
+} 
+  \item{image}{
+image: an image for plotting
+} 
+  \item{plot}{
+plot: plot=TRUE shows image with rectangular box
 }
 }
 \details{
@@ -32,5 +38,5 @@ The number of masks inside of the rectangular box
 Sunwoo Han
 }
 \examples{
-#get_count_from_xy_coor(file='M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(0,0), bottomright=c(1392,600))
+#get_count_from_xy_coor(file='M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(500,0), bottomright=c(1392,500), image='M926910_Position1_CD3-BUV395.tiff', plot=TRUE)
 }
