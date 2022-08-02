@@ -18,7 +18,7 @@ _sizes_coordinates.txt
   \item{topleft}{
 topleft (x,y) coordiate for a rectangular box
 }
-  \item{bottoright}{
+  \item{bottomright}{
 bottomright: bottomright (x,y) coordiate for a rectangular box  
 } 
   \item{image}{
