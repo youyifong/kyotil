@@ -38,5 +38,7 @@ The number of masks inside of the rectangular box
 Sunwoo Han
 }
 \examples{
-#get_count_from_xy_coor(file='M926910_Position1_CD3-BUV395_sizes_coordinates.txt', topleft=c(500,0), bottomright=c(1392,500), image='M926910_Position1_CD3-BUV395.tiff', plot=TRUE)
+#get_count_from_xy_coor(file='M926910_Position1_CD3-BUV395_sizes_coordinates.txt', 
+  #topleft=c(500,0), bottomright=c(1392,500), 
+  #image='M926910_Position1_CD3-BUV395.tiff', plot=TRUE)
 }
