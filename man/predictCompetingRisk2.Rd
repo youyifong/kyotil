@@ -3,8 +3,7 @@
 \alias{predictCompetingRisk2}
 \alias{pcr}
 \alias{predictCompetingRisk}
-\title{
-}
+\title{Cumulative Incidence Function (CIF) Under Competing Risk}
 \description{
 Offers two approaches (Approach 2 is recommended, pcr2 is just an alias for predictCompetingRisk2). Weights are allowed in the optional arguments.
 
