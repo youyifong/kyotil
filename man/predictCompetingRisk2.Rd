@@ -6,7 +6,7 @@
 \title{
 }
 \description{
-Offers two approaches (Approach 2 is recommended). Weights are allowed in the optional arguments.
+Offers two approaches (Approach 2 is recommended, pcr2 is just an alias for predictCompetingRisk2). Weights are allowed in the optional arguments.
 
 }
 \usage{
@@ -74,7 +74,7 @@ Approach 2, predictCompetingRisk2, fits a cause-specific Cox model and a all-cau
 The difference between predictCompetingRisk and predictCompetingRisk2 is that instead of fitting a model to the overall failure, a model is fit for each cause, including the cause of interest. 
 The overall survival is computed by adding together the cumulative hazard from individual causes.
 
-
+The second approach is recommended because 
 
 
 }
@@ -82,6 +82,9 @@ The overall survival is computed by adding together the cumulative hazard from i
 A vector of real numbers as the risk till t0 for each subject in newdata
 }
 \references{
+
+riskRegression: Predicting the Risk of an Event using Cox Regression Models by Brice Ozenne, Anne Lyngholm Sorensen, Thomas Scheike, Christian Torp-Pedersen, Thomas Alexander Gerds
+https://journal.r-project.org/archive/2017/RJ-2017-062/RJ-2017-062.pdf
 
 Competing Risk Analysis
 Columbia Public Health
@@ -91,12 +94,12 @@ Introduction to the Analysis of Survival Data in the Presence of Competing Risks
 Peter C Austin, Douglas S Lee, Jason P Fine
 https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.115.017719
 
-riskRegression: Predicting the Risk of an Event using Cox Regression Models by Brice Ozenne, Anne Lyngholm Sorensen, Thomas Scheike, Christian Torp-Pedersen, Thomas Alexander Gerds
-https://journal.r-project.org/archive/2017/RJ-2017-062/RJ-2017-062.pdf
-
 }
 \seealso{
   \code{\link{predictCompetingRisk}}.
+}
+\acknowledgement{
+Thanks to Professor Gerds for his help with these two functions!
 }
 \examples{
 
