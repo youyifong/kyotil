@@ -84,6 +84,7 @@ A vector of real numbers as the risk till t0 for each subject in newdata
 
 riskRegression: Predicting the Risk of an Event using Cox Regression Models by Brice Ozenne, Anne Lyngholm Sorensen, Thomas Scheike, Christian Torp-Pedersen, Thomas Alexander Gerds
 https://journal.r-project.org/archive/2017/RJ-2017-062/RJ-2017-062.pdf
+Thanks to Professor Gerds for helpful discussion.
 
 Competing Risk Analysis
 Columbia Public Health
@@ -96,9 +97,6 @@ https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.115.017719
 }
 \seealso{
   \code{\link{predictCompetingRisk}}.
-}
-\acknowledgement{
-Thanks to Professor Gerds for his help with these two functions!
 }
 \examples{
 
@@ -121,11 +119,18 @@ lung1$wt=rep(1, nrow(lung1))
 
 t0=1000
 formula.list=list(
-    Surv(time, status.1) ~ sex,
+    Surv(time, status.1) ~ age,
     Surv(time, status.2) ~ age
 )
 
 cif.2=pcr2(formula.list, lung1, t0)
+
+fit=coxph(formula.list[[1]], lung1)
+newdata=lung1
+newdata$time=t0
+coxpred = 1 - exp(-predict(fit, newdata=newdata, type="expected"))
+
+plot(cif.2, coxpred)
 
 ## results match those from riskRegression_2022.07.13 when weights are all 1
 #library(riskRegression)
