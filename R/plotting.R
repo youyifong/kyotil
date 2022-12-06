@@ -731,7 +731,8 @@ abline.shade.2=function(x, col=c(0,1,0)){
 # When impute.missing.for.line is TRUE, lines are drawn even when there are missing values in between two observations
 mymatplot=function(x, y, type="b", lty=c(1,2,1,2,1,2), pch=NULL, col=rep(c("darkgray","black"),each=3), xlab=NULL, ylab="", 
     draw.x.axis=TRUE, bg=NA, lwd=1, at=NULL, make.legend=TRUE, legend=NULL, impute.missing.for.line=TRUE,
-    legend.x=9, legend.title=NULL, legend.cex=1, legend.inset=0, xaxt="s", y.intersp=1.5, x.intersp=0.3, text.width=NULL, add=FALSE, ...) {
+    legend.x=9, legend.title=NULL, legend.cex=1, legend.lty=lty, legend.inset=0, xaxt="s", y.intersp=1.5, x.intersp=0.3, text.width=NULL, 
+    add=FALSE, ...) {
     
     missing.y=FALSE
     if (missing(y)) {
@@ -762,9 +763,9 @@ mymatplot=function(x, y, type="b", lty=c(1,2,1,2,1,2), pch=NULL, col=rep(c("dark
     if (make.legend) {
         if (is.null(legend)) legend=colnames(y)
         if (length(unique(pch))>1) {
-            mylegend(legend, x=legend.x, lty=lty, title=legend.title, col=col, pt.bg=bg, cex=legend.cex, lwd=lwd, inset=legend.inset, y.intersp=y.intersp, x.intersp=x.intersp, text.width=text.width, pch=pch)
+            mylegend(legend, x=legend.x, lty=legend.lty, title=legend.title, col=col, pt.bg=bg, cex=legend.cex, lwd=lwd, inset=legend.inset, y.intersp=y.intersp, x.intersp=x.intersp, text.width=text.width, pch=pch)
         } else {
-            mylegend(legend, x=legend.x, lty=lty, title=legend.title, col=col, pt.bg=bg, cex=legend.cex, lwd=lwd, inset=legend.inset, y.intersp=y.intersp, x.intersp=x.intersp, text.width=text.width)
+            mylegend(legend, x=legend.x, lty=legend.lty, title=legend.title, col=col, pt.bg=bg, cex=legend.cex, lwd=lwd, inset=legend.inset, y.intersp=y.intersp, x.intersp=x.intersp, text.width=text.width)
         }
     }
 }
