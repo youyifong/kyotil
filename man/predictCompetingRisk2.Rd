@@ -46,7 +46,7 @@ optional arguments that are passed to coxph, the most import of which is weights
 }
 }
 \details{
-Approach 1, predictCompetingRisk, fits cause-specific Cox models to each cause to compute cumulative incidence function for the cause of interest under competing risk. 
+Approach 2, predictCompetingRisk2, fits cause-specific Cox models to each cause to compute cumulative incidence function for the cause of interest under competing risk. 
 
 When there is only one cause, CIF is conceptually 1 - surival prob.(https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis)
 
@@ -68,7 +68,7 @@ CIF = H1 + exp(-H1) * h2               (by def)
 ~ 1 - exp(-H2)
 
 
-Approach 2, predictCompetingRisk2, fits a cause-specific Cox model and a all-cause Cox model to compute cumulative incidence function for the cause of interest under competing risk.
+Approach 1, predictCompetingRisk, fits a cause-specific Cox model and a all-cause Cox model to compute cumulative incidence function for the cause of interest under competing risk.
 
 The difference between predictCompetingRisk and predictCompetingRisk2 is that instead of fitting a model to the overall failure, a model is fit for each cause, including the cause of interest. 
 The overall survival is computed by adding together the cumulative hazard from individual causes.

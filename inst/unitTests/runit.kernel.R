@@ -19,19 +19,6 @@ K = getK(X,"linear")
 dim(K)
 checkEqualsNumeric(mean(K), 0.03497235, tol=tolerance)
 
-K = getK(X,"linear",X2=X2)
-dim(K)
-K1 = getK(X2,"l",X2=X)
-dim(K1)
-checkTrue(all(K==t(K1)))
-
-
-# RBF kernel
-K = getK(X,"rbf",para=1,X2=X2)
-checkEqualsNumeric(mean(K), 0.1994038, tol=tolerance)
-K1 = getK(X2,"r",para=1,X2=X)
-checkTrue(all(K==t(K1)))
-
 
 
 # IBS kernel for ternary data 

@@ -128,14 +128,16 @@
     * Add split functions
 
 2021.04.05
-	* Change F77 call to be more portable
+    * Change F77 call to be more portable
 
 2022.07.17
-	* Add predict.competing.risk
+    * Add predict.competing.risk
 
 2022.08.02
-	* Add imaging_spatial_analysis
+    * Add imaging_spatial_analysis
 
 2022.09.17
-	* Update manual for predictCompetingRisk
+    * Update manual for predictCompetingRisk
 
+2023.02.02
+    * Fix typo in ?prc2

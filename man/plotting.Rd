@@ -97,14 +97,14 @@ abline.shade(pt, type = 5, col = c(0, 1, 0), alpha = 0.3)
 mylegend(legend, x, y=NULL, lty = NULL, bty = "n", ...)
 
 mymatplot(x, y, type = "b", lty = c(1, 2, 1, 2, 1, 2), pch =
- NULL, col = rep(c("darkgray", "black"), each = 3),
- xlab = NULL, ylab = "", draw.x.axis = TRUE, bg = NA,
- lwd = 1, at = NULL, make.legend = TRUE, legend = NULL,
- impute.missing.for.line = TRUE, legend.x = 9,
- legend.title = NULL, legend.cex = 1, legend.inset = 0,
- xaxt = "s", y.intersp = 1.5, x.intersp = 0.3,
- text.width = NULL, add = FALSE, ...)
-         
+                 NULL, col = rep(c("darkgray", "black"), each = 3),
+                 xlab = NULL, ylab = "", draw.x.axis = TRUE, bg = NA,
+                 lwd = 1, at = NULL, make.legend = TRUE, legend = NULL,
+                 impute.missing.for.line = TRUE, legend.x = 9,
+                 legend.title = NULL, legend.cex = 1, legend.lty = lty,
+                 legend.inset = 0, xaxt = "s", y.intersp = 1.5,
+                 x.intersp = 0.3, text.width = NULL, add = FALSE, ...
+)
                           
 mypairs(dat, ladder = FALSE, show.data.cloud = TRUE,
  ladder.add.line = T, ladder.add.text = T, ...)
@@ -156,6 +156,9 @@ corplot(object, ...)
 
 \arguments{
 
+  \item{legend.lty}{
+%%     ~~Describe \code{add} here~~
+}
   \item{cex.cor.dep}{
 %%     ~~Describe \code{add} here~~
 }
