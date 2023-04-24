@@ -46,7 +46,7 @@ remove.postfix=function(s,sep="_"){
 #### misc
 
 escapeUnderline=function (name) {
-    gsub("_", "\\_", name)
+    gsub("_", "\\\\_", name)
 }
 
 

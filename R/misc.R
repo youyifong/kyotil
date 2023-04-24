@@ -369,3 +369,7 @@ rank.inv.norm = function(x) {
 
 INT=rank.inv.norm
     
+# covert a decimal number to a binary representation with d digits
+dec_to_binary <- function(x,d) sapply(x, function(xx) ifelse(is.na(xx), NA, paste(rev(as.integer(intToBits(xx))[1:d]), collapse="")))
+
+

@@ -141,3 +141,6 @@
 
 2023.02.02
     * Fix typo in ?prc2
+
+2023.04.24
+    * Add dec_to_binary and cove.boost.collapse.strata
