@@ -12,7 +12,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   # collapsing is 3-step process
   
   # 1. do it across demo strata within each sampling bucket 
-  sampling_buckets = 0:max(dat.b$sampling_bucket, na.rm=T)
+  sampling_buckets = unique(dat.b$sampling_bucket)
   for (i in sampling_buckets) {
     select = dat.b$sampling_bucket==i 
     
@@ -41,7 +41,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   
   # 2. do it across the 4 calendar periods
   # merge a period with the next period if not the last, merge with the last period with the previous if needed
-  sampling_buckets.2 = 0:max(dat.b$sampling_bucket_formergingstrata, na.rm=T)
+  sampling_buckets.2 = unique(dat.b$sampling_bucket_formergingstrata)
   # need this in the merging process as it needs to be updated
   dat.b$tmpCalendarBD1Interval=dat.b$CalendarBD1Interval
   
@@ -93,7 +93,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   # 3. merge across demo strata within each sampling bucket one more time 
   #       because step 2 collapsing time periods may empty demo strata
   
-  sampling_buckets = 0:max(dat.b$sampling_bucket, na.rm=T)
+  sampling_buckets = unique(dat.b$sampling_bucket)
   for (i in sampling_buckets) {
     
     select = dat.b$sampling_bucket==i 
@@ -101,10 +101,9 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     # make sure there are such ph1 samples
     if (sum(select, na.rm=T)>0) {
       
-      # make sure there is at least 1 ph2 sample
-      if (sum(dat.b[select,"ph2"], na.rm=T)>=1) {
-        tab = with(dat.b[select,], table(Wstratum, ph2))
-        (tab)
+      # make sure there is at least 1 ph2 sample and at least 2 Wstratum
+      if (sum(dat.b[select,"ph2"], na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
+        tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
         if (any(tab[,2]==0)) {
           dat.b[select,"Wstratum"] = min(dat.b[select,"Wstratum"], na.rm=T)
