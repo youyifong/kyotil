@@ -8,7 +8,9 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   #   Wstratum
   #   CalendarBD1Interval
   #   sampling_bucket_formergingstrata
-
+  
+  tab=with(dat.b, table(Wstratum, ph2)); tab
+  
   # collapsing is 3-step process
   
   # 1. do it across demo strata within each sampling bucket 
@@ -19,24 +21,22 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     # make sure there are such ph1 samples
     if (sum(select, na.rm=T)>0) {
       
-      # make sure there is at least 1 ph2 sample
-      if (sum(dat.b[select,"ph2"], na.rm=T)>=1) {
-        tab = with(dat.b[select,], table(Wstratum, ph2))
+      # make sure there is at least 1 ph2 sample and at least 2 Wstratum
+      if (sum(dat.b[select,"ph2"], na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
+        tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
-        if (ncol(tab)==2) {
-          # there are both ph2 and nonph2
-          if (any(tab[,2]==0)) dat.b[select,"Wstratum"] = min(dat.b[select,"Wstratum"], na.rm=T)
-          
-        } else {
-          # there are no nonph2
-          if (any(tab[,1]==0)) dat.b[select,"Wstratum"] = min(dat.b[select,"Wstratum"], na.rm=T)
-          
+        if (ncol(tab)>1) { # if all samples are ph2, tab is only 1-column
+          if (any(tab[,2]==0)) {
+            dat.b[select,"Wstratum"] = min(dat.b[select,"Wstratum"], na.rm=T)
+          }
         }
       } else {
         # if there are no ph2 samples, will collapse in the next level
       }
+
     } # okay if there are no samples in the bucket
   }
+  tab=with(dat.b, table(Wstratum, ph2)); tab
   
   
   # 2. do it across the 4 calendar periods
@@ -88,11 +88,11 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     }
     
   }
+  tab=with(dat.b, table(Wstratum, ph2)); tab
   
   
   # 3. merge across demo strata within each sampling bucket one more time 
   #       because step 2 collapsing time periods may empty demo strata
-  
   sampling_buckets = unique(dat.b$sampling_bucket)
   for (i in sampling_buckets) {
     
@@ -105,19 +105,21 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
       if (sum(dat.b[select,"ph2"], na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
         tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
-        if (any(tab[,2]==0)) {
-          dat.b[select,"Wstratum"] = min(dat.b[select,"Wstratum"], na.rm=T)
+        if (ncol(tab)>1) { # if all samples are ph2, tab is only 1-column
+          if (any(tab[,2]==0)) {
+            dat.b[select,"Wstratum"] = min(dat.b[select,"Wstratum"], na.rm=T)
+          }
         }
       } else {
         # if there are no ph2 samples, will collapse in the next level
       }
     } # okay if there are no samples in the bucket
   }
-  
-  
-  # make sure no empty cells after all this
   tab=with(dat.b, table(Wstratum, ph2)); tab
-  stopifnot(all(tab[,2]>0))
+  # make sure no empty cells after all this
+  if(!all(tab[,2]>0)) {
+    stop("error in cove.boost.collapse.strata, not all ph2 cells are positive !!!!!!!!!!!!!!!!!!")
+  }
   
   return (dat.b)
 
