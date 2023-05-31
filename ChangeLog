@@ -148,3 +148,8 @@
 2023.04.26
     * Add marker.name.to.assay and put this function and
 	cove.boost.collapse.strata in for_correlates_repos.R
+
+2023.05.31
+    * Bug fix p.adj.perm from Sue Li
+
+

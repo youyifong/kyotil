@@ -26,6 +26,7 @@
 ###     Storey and Tibshrani "Statistical siggnificance for genomewide studies", PNAS 2003
 ###
 ### Created by Sue Li, 4/2015
+### Modified by Sue Li, 5/31/2023
 ##################################################
 p.adj.perm <- function(p.unadj,p.perms,alpha=0.05)
 {
@@ -71,7 +72,8 @@ p.adj.perm <- function(p.unadj,p.perms,alpha=0.05)
       R0_by_resample = apply(p.perms<=p.unadj[j], 1, sum, na.rm = T )
       ER0 = sum(R0_by_resample)/B
       ## calculate # of rejections observed in the data
-      R.ob = j  #sum(p.unadj<=p.unadj[j])
+      # R.ob = j  #sum(p.unadj<=p.unadj[j])
+      R.ob = sum(p.unadj<=p.unadj[j])
       ## R is max(R0,R)
       R = sum(pmax(R0_by_resample,R.ob))/B
       ## FDR=E(R0/R|R>0) FDR=0 if R=0

@@ -135,8 +135,8 @@ mytex=function(dat=NULL, file.name="temp",
         #print(add.to.row)
  
         if (length(dat)>1) {
-            if(!save2input.only) cat (ifelse(add.clear.page.between.tables, "\\clearpage"%.%names(dat)[i]%.%"\n\n", "\\vspace{20pt}"%.%names(dat)[i]%.%"\n\n"), file=file.name%.%".tex", append=TRUE)
-            cat (ifelse(add.clear.page.between.tables, "\\clearpage"%.%names(dat)[i]%.%"\n\n", "\\vspace{20pt}"%.%names(dat)[i]%.%"\n\n"), file=file.name.2%.%".tex", append=TRUE)
+            if(!save2input.only) cat (ifelse(add.clear.page.between.tables, names(dat)[i]%.%"\n\n", "\\vspace{20pt}"%.%names(dat)[i]%.%"\n\n"), file=file.name%.%".tex", append=TRUE)
+            cat (ifelse(add.clear.page.between.tables, names(dat)[i]%.%"\n\n", "\\vspace{20pt}"%.%names(dat)[i]%.%"\n\n"), file=file.name.2%.%".tex", append=TRUE)
         }
         #if (!is.null(attr(dat1,"caption"))) caption=attr(dat1,"caption") else caption=NULL
         
@@ -162,6 +162,10 @@ mytex=function(dat=NULL, file.name="temp",
             hline.after=hline.after, type = "latex", file = file.name.2%.%".tex", append = TRUE, floating = floating, table.placement=table.placement, 
             include.rownames=include.rownames, include.colnames=include.colnames, comment=comment, 
             add.to.row=add.to.row, sanitize.text.function =sanitize.text.function, tabular.environment=ifelse(longtable, "longtable","tabular"))
+        
+        if(i!=length(dat) & add.clear.page.between.tables) {
+          cat ("\\clearpage\n", file=file.name.2%.%".tex", append=TRUE)
+        }
         
         if(!save2input.only) cat ("\n", file=file.name%.%".tex", append=TRUE)
         #cat ("\n", file=file.name.2%.%".tex", append=TRUE) # don't add this line since extra lines at the end will prevent two tabular from being put on the same line

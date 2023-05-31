@@ -1,4 +1,5 @@
 # collapse Wstratum if there are empty cells
+# n.demo is the number of demographics strata
 cove.boost.collapse.strata = function(dat.b, n.demo) {
   
   # dat.b is expected to contain these columns
