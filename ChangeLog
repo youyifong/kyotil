@@ -158,4 +158,8 @@
 2023.06.10
     * update pcr2 to handle the situation when there are no competing events
 
+2023.06.11
+    * add trim back because glue is not as good as paste0, no better to have
+	trim in kyotil so that there is no need to load glue just for trim
+
 
