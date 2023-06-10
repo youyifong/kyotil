@@ -99,6 +99,3 @@ contain =function (s1, s2) {
 # copied from http://stackoverflow.com/questions/2261079/how-to-trim-leading-and-trailing-whitespace-in-r
 trim.leading <- function (x)  sub("^\\s+", "", x)
 trim.trailing <- function (x) sub("\\s+$", "", x)
-trim <- function (x, trim.trailing=TRUE, trim.leading=TRUE)  {
-    if(trim.trailing & trim.trailing) gsub("^\\s+|\\s+$", "", x) else if (trim.trailing) trim.trailing(x) else if (trim.trailing) trim.leading(x) else x
-}

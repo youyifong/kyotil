@@ -20,6 +20,11 @@ predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
         X=model.matrix(formula.list[[i]], newdata)[,-1,drop=FALSE]# -1 in formula does not work
         if (ncol(X)>0) {
             F=drop(exp(X %*% coef(fits[[i]])))
+            if (all(is.na(F))) {
+              # this could happen if there are no cases of this type
+              # set all values to a value other than NA
+              F=rep(1,nrow(X)) 
+            }
         } else {
             F=rep(1,nrow(X))
         }

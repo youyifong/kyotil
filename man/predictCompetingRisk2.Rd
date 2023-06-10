@@ -52,7 +52,7 @@ When there is only one cause, CIF is conceptually 1 - surival prob.(https://www.
 
 The function is implemented in R with matrix operation. Because looping through time points and subjects is vectorized, it is quite fast (faster than riskRegression in limited testing, which implements in C, but pcr uses more memory.)
 
-One way to checke the implementation of this function is to compare its results with the results of predict.coxph when there is only one cause. The tests in the examples code below show
+One way to check the implementation of this function is to compare its results with the results of predict.coxph when there is only one cause. The tests in the examples code below show
 that when the risk is small (e.g. shorter followup time), the CIF computed by this function and the 1-survival estimated via 1-exp(-H) by predict.coxph, where H is cumulative hazard, are close to each other.
 But when the risk is high, the difference between the two are more noticeable. These results make sense because, e.g., 
 
@@ -73,7 +73,7 @@ Approach 1, predictCompetingRisk, fits a cause-specific Cox model and a all-caus
 The difference between predictCompetingRisk and predictCompetingRisk2 is that instead of fitting a model to the overall failure, a model is fit for each cause, including the cause of interest. 
 The overall survival is computed by adding together the cumulative hazard from individual causes.
 
-The second approach is recommended because 
+The second approach is recommended because it is more stable.
 
 
 }
@@ -204,9 +204,9 @@ for (t0 in c(12,1000)) {
     cif=predictCompetingRisk(form, form.a, lung1, t0, newdata=lung1, weights=lung1$wt, stype=2, 
         ctype=2)
     plot(cif, 1-exp(-r), xlab="Cumulative incidence function", 
-        ylab="Expected number of events from predict.coxph", main="t0: a later time point")
+        ylab="Expected number of events from predict.coxph", main=paste0("t0: ", t0))
     abline(0,1)
-    print(head(cbind(cif, 1-exp(-r))))
+    print(head(cbind(cif, "1-exp(-r)"=1-exp(-r))))
 }
 
 

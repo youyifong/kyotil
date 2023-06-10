@@ -152,4 +152,10 @@
 2023.05.31
     * Bug fix p.adj.perm from Sue Li
 
+2023.06.05
+    * Remove trim function, which is also present in glue package
+
+2023.06.10
+    * update pcr2 to handle the situation when there are no competing events
+
 
