@@ -59,7 +59,11 @@ predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
     
     
     #### cumulative incidence 
-    colSums(S.1.mat * h)# dim: n_subj
-    
+    cum.ind = S.1.mat * h # dim: n_subj
+	out = colSums(cum.ind)
+	attr(out, "cumulative") <- apply(cum.ind, 2, cumsum)
+	attr(out, "time") <- tt[idx]
+
+	out    
 }
 pcr2=predictCompetingRisk2
