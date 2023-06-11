@@ -303,7 +303,7 @@ mywrite=function(x, ...){
 
 # default row.names to FALSE
 # file name needs no file extension
-mywrite.csv = function(x, file="tmp", row.names=FALSE, digits=NULL, ...) {  
+mywrite.csv = function(x, file="tmp", row.names=FALSE, digits=NULL, silent=TRUE, ...) {  
     if (!is.null(digits)) {
         if(length(digits)==1) {
             x=round(x,digits)
@@ -315,7 +315,7 @@ mywrite.csv = function(x, file="tmp", row.names=FALSE, digits=NULL, ...) {
     }
     x[is.na(x)]=""
     write.csv(x, file=file%.%".csv", row.names=row.names, ...)
-    cat("Writing table to "%.%getwd()%.%"/"%.%file%.%".csv\n")
+    if(!silent) cat("Writing table to "%.%getwd()%.%"/"%.%file%.%".csv\n")
 }
 
 
