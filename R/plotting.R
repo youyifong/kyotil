@@ -29,7 +29,7 @@ myfigure=function (mfrow=c(1,1), mfcol=NULL, width=NULL, height=NULL, oma=NULL, 
     }    
     if(!is.null(bg)) par(bg=bg)
 }
-mydev.off=function(file="temp", ext=c("pdf"), res=200, mydev=NULL) {        
+mydev.off=function(file="temp", ext=c("pdf"), res=200, mydev=NULL, silent=TRUE) {        
     if (!is.null(mydev)) .mydev=mydev
     exts=unlist(strsplit(ext, ","))
     tmp=strsplit(file,"/")[[1]]
@@ -38,22 +38,22 @@ mydev.off=function(file="temp", ext=c("pdf"), res=200, mydev=NULL) {
             subfolder=concatList(c(tmp[-length(tmp)], "pdf"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(pdf,        file=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, paper="special")
-            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
+            if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="eps") {
             subfolder=concatList(c(tmp[-length(tmp)], "eps"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(postscript, file=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, paper="special", horizontal=FALSE)
-            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
+            if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="png") {
             subfolder=concatList(c(tmp[-length(tmp)], "png"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(png,    filename=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, units="in", res=res)
-            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
+            if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="tiff") {
             subfolder=concatList(c(tmp[-length(tmp)], "tiff"), sep="/")
             filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
             dev.copy(tiff,   filename=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, units="in", res=res, compression="jpeg")
-            cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
+            if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         }
         dev.off()
     }
@@ -144,7 +144,7 @@ get.width.height=function(nrow,ncol){
 mypdf=function (...) mypostscript(ext="pdf",...)
 mypng=function(...) mypostscript(ext="png",...)
 mytiff=function(...) mypostscript(ext="tiff",...)
-mypostscript=function (file="temp", mfrow=c(1,1), mfcol=NULL, width=NULL, height=NULL, ext=c("eps","pdf","png","tiff"), oma=NULL, mar=NULL,main.outer=FALSE, save2file=TRUE, res=200, ...) {    
+mypostscript=function (file="temp", mfrow=c(1,1), mfcol=NULL, width=NULL, height=NULL, ext=c("eps","pdf","png","tiff"), oma=NULL, mar=NULL,main.outer=FALSE, save2file=TRUE, res=200, silent=TRUE, ...) {    
     
     ext=match.arg(ext)
     
@@ -170,9 +170,9 @@ mypostscript=function (file="temp", mfrow=c(1,1), mfcol=NULL, width=NULL, height
         } else if (ext=="tiff") {
             tiff (filename=file%.%"."%.%ext, width=width, height=height, units="in", res=res, compression="jpeg", ...)
         }
-        cat("Saving figure to "%.%paste(file,sep="")%.%"\n")        
+        if (!silent) cat("Saving figure to "%.%paste(file,sep="")%.%"\n")        
     } else {
-        print("not saving to file")
+        if (!silent) print("not saving to file")
     }
     
     if (!is.null(mfcol)) par(mfcol=mfcol)

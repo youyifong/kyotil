@@ -11,6 +11,7 @@ mytex=function(dat=NULL, file.name="temp",
     add.clear.page.between.tables=FALSE,
     longtable=FALSE,
     verbose=FALSE,
+	silent=TRUE,
 ...) {
         
 #    if(exists("tablePath") && file.exists(tablePath)) {
@@ -177,7 +178,7 @@ mytex=function(dat=NULL, file.name="temp",
     if(!append) {
         if(!save2input.only) mytex.end(file.name%.%".tex")
     }
-    if(!save2input.only) cat ("Writing table to "%.%getwd()%.%"/"%.%file.name%.%"\n")
+    if(!save2input.only & !silent) cat ("Writing table to "%.%getwd()%.%"/"%.%file.name%.%"\n")
 }
 #x=matrix(0,2,2,dimnames=list(a=1:2, b=1:2));  mytex(x)
 #x=matrix(0,2,2,dimnames=list(a=1:2, 1:2));  mytex(x)

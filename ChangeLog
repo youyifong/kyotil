@@ -162,7 +162,9 @@
     * add trim back because glue is not as good as paste0, no better to have
 	trim in kyotil so that there is no need to load glue just for trim
 
-2023.06.10
+2023.06.12
     * update pcr2 
 
+2023.06.13
+    * make myfigure and mytex silent by default
 
