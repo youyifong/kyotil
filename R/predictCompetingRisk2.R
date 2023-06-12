@@ -32,8 +32,7 @@ predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
     })
 		
     if (all(Fs[[1]]==1)) {
-			warning("return because there are no cases of interest")
-			return (NA)
+			stop("return because there are no cases of interest")
 	}
 
     # assume the first is the cause of interest
