@@ -30,9 +30,11 @@ predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
         }
         F
     })
-    
-    
-    #### get hazard from cause-specific model
+		
+    if (all(Fs[[1]]==1)) {
+			warning("return because there are no cases of interest")
+			return (NA)
+	}
 
     # assume the first is the cause of interest
     bhaz.1=bhazs[[1]]
@@ -45,20 +47,18 @@ predictCompetingRisk2=function(formula.list, data, t0, newdata=data, ...){
         # idx is used to subset to where hazard is not 0
         idx=which(bhaz.1$hazard[1:length(tt)]!=0)        
 
-    # hazard from cause-specific model
+    # get hazard from cause-specific model
     h=outer(bhaz.1$hazard[1:length(tt)][idx], Fs[[1]])# dim: n_times x n_subj
     #print(h[,1])
-
     
-    #### get survival prob from all-cauase model
-    
+    # get survival prob from each model    
     mat=lapply (1:length(formula.list), function (i) {    
         outer(c(0,bhazs[[i]][1:(length(tt)-1),1])[idx], Fs[[i]])
     })    
     S.1.mat=exp(-do.call("+", mat))# dim: n_times x n_subj
     
     
-    #### cumulative incidence 
+    # cumulative incidence 
     cum.ind = S.1.mat * h # dim: n_subj
 	out = colSums(cum.ind)
 	attr(out, "cumulative") <- apply(cum.ind, 2, cumsum)
