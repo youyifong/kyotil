@@ -168,3 +168,5 @@
 2023.06.13
     * make myfigure and mytex silent by default
 
+2023.06.15
+	* when there are no cases of interest, return NA
