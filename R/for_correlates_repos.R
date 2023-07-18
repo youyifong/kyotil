@@ -11,6 +11,8 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   #   sampling_bucket_formergingstrata
   
   tab=with(dat.b, table(Wstratum, ph2)); tab
+
+  if (all(tab[,2]!=0)) return (dat.b)
   
   # collapsing is 3-step process
   
@@ -39,7 +41,8 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   }
   tab=with(dat.b, table(Wstratum, ph2)); tab
   
-  
+  if (all(tab[,2]!=0)) return (dat.b)
+
   # 2. do it across the 4 calendar periods
   # merge a period with the next period if not the last, merge with the last period with the previous if needed
   sampling_buckets.2 = unique(dat.b$sampling_bucket_formergingstrata)
@@ -91,6 +94,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   }
   tab=with(dat.b, table(Wstratum, ph2)); tab
   
+  if (all(tab[,2]!=0)) return (dat.b)
   
   # 3. merge across demo strata within each sampling bucket one more time 
   #       because step 2 collapsing time periods may empty demo strata

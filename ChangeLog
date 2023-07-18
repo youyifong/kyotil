@@ -170,3 +170,6 @@
 
 2023.06.15
 	* when there are no cases of interest, return NA
+
+2023.07.19
+	* update cove.boost.collapse.strata
