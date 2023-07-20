@@ -28,7 +28,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     if (sum(select, na.rm=T)>0) {
       
       # make sure there is at least 1 ph2 sample and at least 2 Wstratum
-      if (sum(dat.b$ph2[select]==True, na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
+      if (sum(dat.b$ph2[select]==TRUE, na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
         tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
         if (ncol(tab)>1) { # if all samples are ph2, tab is only 1-column
@@ -59,7 +59,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     if (sum(select, na.rm=T)>0) {
       
       # make sure there is at least 1 ph2 sample
-      if (sum(dat.b$ph2[select]==True, na.rm=T)>=1) {
+      if (sum(dat.b$ph2[select]==TRUE, na.rm=T)>=1) {
         
         tab = with(dat.b[select,], table(tmpCalendarBD1Interval, ph2)); tab
         jj = which(tab[,2]==0)
@@ -110,7 +110,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     if (sum(select, na.rm=T)>0) {
       
       # make sure there is at least 1 ph2 sample and at least 2 Wstratum
-      if (sum(dat.b$ph2[select]==True, na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
+      if (sum(dat.b$ph2[select]==TRUE, na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
         tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
         if (ncol(tab)>1) { # if all samples are ph2, tab is only 1-column
