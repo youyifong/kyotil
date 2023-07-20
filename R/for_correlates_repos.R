@@ -12,9 +12,9 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   
   # this will ensure that there are always two columns even if there are no ph2 samples or there are only ph2 samples
   dat.b$ph2=factor(dat.b$ph2, levels=c(FALSE,TRUE)) 
-
+  
   tab=with(dat.b, table(Wstratum, ph2)); tab
-
+  
   if (all(tab[,2]!=0)) return (dat.b)
   
   # collapsing is 3-step process
@@ -28,7 +28,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     if (sum(select, na.rm=T)>0) {
       
       # make sure there is at least 1 ph2 sample and at least 2 Wstratum
-      if (sum(dat.b[select,"ph2"], na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
+      if (sum(dat.b$ph2[select]==True, na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
         tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
         if (ncol(tab)>1) { # if all samples are ph2, tab is only 1-column
@@ -39,13 +39,13 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
       } else {
         # if there are no ph2 samples, will collapse in the next level
       }
-
+      
     } # okay if there are no samples in the bucket
   }
   tab=with(dat.b, table(Wstratum, ph2)); tab
   
   if (all(tab[,2]!=0)) return (dat.b)
-
+  
   # 2. do it across the 4 calendar periods
   # merge a period with the next period if not the last, merge with the last period with the previous if needed
   sampling_buckets.2 = unique(dat.b$sampling_bucket_formergingstrata)
@@ -59,7 +59,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     if (sum(select, na.rm=T)>0) {
       
       # make sure there is at least 1 ph2 sample
-      if (sum(dat.b[select,"ph2"], na.rm=T)>=1) {
+      if (sum(dat.b$ph2[select]==True, na.rm=T)>=1) {
         
         tab = with(dat.b[select,], table(tmpCalendarBD1Interval, ph2)); tab
         jj = which(tab[,2]==0)
@@ -79,7 +79,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
           dat.b[select2,"Wstratum"] = dat.b[select2,"Wstratum"] + n.demo * chng
           # need to update sampling bucket so that step 3 can work
           dat.b[select2,"sampling_bucket"] = dat.b[select2,"sampling_bucket"] + chng
-
+          
           # re-tabulate after updating tmpCalendarBD1Interval
           dat.b$tmpCalendarBD1Interval[select2] = dat.b$tmpCalendarBD1Interval[select2] + chng
           tab = with(dat.b[select,], table(tmpCalendarBD1Interval, ph2)); tab
@@ -110,7 +110,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     if (sum(select, na.rm=T)>0) {
       
       # make sure there is at least 1 ph2 sample and at least 2 Wstratum
-      if (sum(dat.b[select,"ph2"], na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
+      if (sum(dat.b$ph2[select]==True, na.rm=T)>=1 & length(unique(dat.b[select,"Wstratum"]))>=2) {
         tab = with(dat.b[select,], table(Wstratum, ph2)); tab
         # merging
         if (ncol(tab)>1) { # if all samples are ph2, tab is only 1-column
@@ -130,7 +130,7 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   }
   
   return (dat.b)
-
+  
 }
 
 
