@@ -10,6 +10,9 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
   #   CalendarBD1Interval
   #   sampling_bucket_formergingstrata
   
+  # this will ensure that there are always two columns even if there are no ph2 samples or there are only ph2 samples
+  dat.b$ph2=factor(dat.b$ph2, levels=c(FALSE,TRUE)) 
+
   tab=with(dat.b, table(Wstratum, ph2)); tab
 
   if (all(tab[,2]!=0)) return (dat.b)

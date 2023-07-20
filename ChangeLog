@@ -173,3 +173,6 @@
 
 2023.07.19
 	* update cove.boost.collapse.strata
+
+2023.07.20
+	* make ph2 factor in cove.boost.collapse.strata
