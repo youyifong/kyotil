@@ -129,6 +129,8 @@ cove.boost.collapse.strata = function(dat.b, n.demo) {
     stop("error in cove.boost.collapse.strata, not all ph2 cells are positive !!!!!!!!!!!!!!!!!!")
   }
   
+  dat.b$ph2=as.logical(dat.b$ph2) 
+
   return (dat.b)
   
 }
