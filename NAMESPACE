@@ -44,7 +44,9 @@ export(cor.mixed, cor.mixed.vector, cor.mixed.formula, cor.mixed.default, add.mt
 
 export(predictCompetingRisk, predictCompetingRisk2, pcr, pcr2)
 
-export(get_count_from_xy_coor, dec_to_binary, cove.boost.collapse.strata, marker.name.to.assay)
+export(get_count_from_xy_coor, dec_to_binary)
+
+export(cove.boost.collapse.strata, marker.name.to.assay, draw.x.axis.cor, get.xlim)
 
 
 S3method(cor.mixed,vector)

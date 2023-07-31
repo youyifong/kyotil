@@ -634,7 +634,7 @@ corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col
         })
         tmp=main==""
         main=main%.%ifelse(tmp, "", " (")
-        main=main%.%"cor: "%.%concatList(round(cor.,2),"/")
+        main=main%.%"cor: "%.%concatList(formatDouble(cor.,2),"/")
         main=main%.%ifelse(tmp, "", ")")
     }
 
