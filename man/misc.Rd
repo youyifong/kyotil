@@ -5,6 +5,7 @@
 \alias{predict.pcc}
 \alias{rank.inv.norm}
 \alias{INT}
+\alias{dec_to_binary}
 \title{
 Misc Functions
 }
@@ -20,7 +21,6 @@ empty2na(x)
 rank.inv.norm(x)
 INT(x)
 dec_to_binary (x,d) 
-cove.boost.collapse.strata ()
 
 }
 \arguments{

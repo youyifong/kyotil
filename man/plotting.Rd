@@ -60,8 +60,7 @@ empty.plot()
 
 add.mtext.label (text, cex = 1.4, adj = -0.2) 
 mydev.off(file = "temp", ext = c("pdf"), res = 200, mydev =
- NULL)
-
+                 NULL, silent = TRUE)
 getMfrow(len)
 
 myhist (x, add.norm=TRUE, col.norm="blue", ...)
@@ -127,10 +126,10 @@ mypdf(...)
 mypng(...)
 mytiff(...)
 
-mypostscript(file = "temp", mfrow = c(1, 1), mfcol = NULL, width = NULL, 
-    height = NULL, ext = c("eps", "pdf", "png", "tiff"), oma = NULL, 
-    mar = NULL, main.outer = FALSE, save2file = TRUE, res = 200, 
-    ...)
+mypostscript(file = "temp", mfrow = c(1, 1), mfcol = NULL, width =
+                 NULL, height = NULL, ext = c("eps", "pdf", "png",
+                 "tiff"), oma = NULL, mar = NULL, main.outer = FALSE,
+                 save2file = TRUE, res = 200, silent = TRUE, ...)
 
 panel.cor(x, y, digits = 2, prefix = "", cex.cor, cor., leading0
  = FALSE, cex.cor.dep = TRUE, ...)
@@ -156,6 +155,9 @@ corplot(object, ...)
 
 \arguments{
 
+  \item{silent}{
+%%     ~~Describe \code{add} here~~
+}
   \item{legend.lty}{
 %%     ~~Describe \code{add} here~~
 }

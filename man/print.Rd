@@ -37,16 +37,16 @@ mysanitize.text(str)
 mysanitize.numbers(x) 
 
 mytex(dat = NULL, file.name = "temp", digits = NULL, display
- = NULL, align = "r", include.rownames = TRUE,
- include.colnames = TRUE, col.headers = NULL, comment =
- FALSE, floating = FALSE, lines = TRUE, hline.after =
- NULL, add.to.row = NULL, sanitize.text.function =
- NULL, append = FALSE, preamble = "", input.foldername
- = NULL, save2input.only = NULL, caption = NULL, label
- = paste("tab", last(strsplit(file.name, "/")[[1]]),
- sep = " "), table.placement = "h!",
- add.clear.page.between.tables = FALSE, longtable =
- FALSE, verbose = FALSE, ...)
+                 = NULL, align = "r", include.rownames = TRUE,
+                 include.colnames = TRUE, col.headers = NULL, comment =
+                 FALSE, floating = FALSE, lines = TRUE, hline.after =
+                 NULL, add.to.row = NULL, sanitize.text.function =
+                 NULL, append = FALSE, preamble = "", input.foldername
+                 = NULL, save2input.only = NULL, caption = NULL, label
+                 = paste("tab", last(strsplit(file.name, "/")[[1]]),
+                 sep = " "), table.placement = "h!",
+                 add.clear.page.between.tables = FALSE, longtable =
+                 FALSE, verbose = FALSE, silent = TRUE, ...)
 
 mytex.begin(file.name, preamble = "")
 
@@ -54,7 +54,8 @@ mytex.end(file.name)
 
 mywrite(x, ...)
 
-mywrite.csv(x, file = "tmp", row.names = FALSE, digits = NULL, ...)
+mywrite.csv(x, file = "tmp", row.names = FALSE, digits = NULL,
+                 silent = TRUE, ...)
 
 roundup (value, digits, na.to.empty=TRUE, remove.leading0=TRUE) 
 
@@ -64,6 +65,9 @@ formatDouble(value, digits, na.to.empty=TRUE, remove.leading0=TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 
+  \item{silent}{
+%%     ~~Describe \code{newline} here~~
+}
   \item{input.foldername}{
 %%     ~~Describe \code{newline} here~~
 }
