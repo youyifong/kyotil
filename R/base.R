@@ -6,8 +6,16 @@ cbinduneven=function(li) {
     if (is.data.frame(x)) {
        # do nothing
       x
+      
     } else if (is.vector(x)) {
       if (is.null(names(x))) stop("vectors need to be named") else data.frame(x)
+    
+    } else if (is.table(x)) {
+      tab=x
+      x <- as.integer(tab)
+      names(x) <- names(tab)
+      data.frame(x)
+      
     } else {
       stop ("vectors need to be named vectors or data frames")
     }
