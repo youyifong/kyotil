@@ -1,3 +1,31 @@
+# cbinduneven.old=function(li) {
+#   # bind a list of data frame or named vector that are not of the same length
+#   allnames=lapply(li, rownames)
+#   alllen=lapply(allnames, length)
+#   #nams = allnames[[which.max(alllen)]]
+#   nams = allnames[[1]]# so that the rows are added consecutively
+#   nams= c(nams, setdiff(unique(unlist(allnames)), nams)) # append additional names
+#   if (any(nams=="")) stop("cbinduneven: empty rownames are not allowed:\n"%.%concatList(nams,"|"))
+#   #myprint(nams)
+#   
+#   res=NULL
+#   for (i in 1:length(li)){
+#     a=li[[i]]
+#     if (is.table(a)) a=as.matrix(a,ncol=1)
+#     p=ncol(a)
+#     toadd = matrix(NA, nrow=length(nams), ncol=p, dimnames=list(nams,colnames(a)))
+#     toadd[rownames(a),]=as.matrix(a)
+#     tmp=as.data.frame(toadd, stringsAsFactors=FALSE)
+#     if(ncol(tmp)==1) names(tmp)=names(li)[i] else names(tmp)=names(li)[i]%.%names(tmp) 
+#     if (i==1) {
+#       res=tmp # cbind NULL and tmp doesn't work
+#     } else {
+#       res=cbind(res,tmp)
+#     }
+#   }
+#   res
+# }
+
 # bind a list of data frames or named vector that are not of the same length
 cbinduneven=function(li) {
   
@@ -15,6 +43,10 @@ cbinduneven=function(li) {
       x <- as.integer(tab)
       names(x) <- names(tab)
       data.frame(x)
+      
+    } else if (is.matrix(x)) {
+      x <- unique(x, MARGIN = 1)
+      data.frame(x, row.names = rownames(x))
       
     } else {
       stop ("vectors need to be named vectors or data frames")
