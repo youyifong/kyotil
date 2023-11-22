@@ -82,7 +82,7 @@ predict.auc=function (object, newdata, case.percentage=NULL, ...) {
     
     # compute auc
     if (!is.null(y)) {
-        attr(res, "auc")=fast.auc(res,y)
+        attr(res, "auc")=fastauc(res,y)
     }
         
     # make class prediction
@@ -136,16 +136,16 @@ print.minQuad=function(x, quote=TRUE, ...){
 trainauc.auc=function(fit, training.data=NULL, ...) {
     if (!is.null(training.data)) {
         y=model.frame(fit$formula, training.data)[,1]
-        fast.auc(predict(fit, training.data), y)
+        fastauc(predict(fit, training.data), y)
     } else if (!is.null(fit$train.auc)) {
         fit$train.auc
     } else NA
 } 
 
-trainauc.glm = function (fit, ...) fast.auc(fit$linear.predictors, fit$y, ...)
+trainauc.glm = function (fit, ...) fastauc(fit$linear.predictors, fit$y, ...)
 
 
-fast.auc<-function(score, outcome, t0=0, t1=1, reverse.sign.if.nece=TRUE, quiet=FALSE){
+fastauc<-function(score, outcome, t0=0, t1=1, reverse.sign.if.nece=TRUE, quiet=FALSE){
     
     if (length(score)!=length(outcome)) stop("score and outcome do not have the same length")
     
