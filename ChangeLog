@@ -176,3 +176,6 @@
 
 2023.07.20
 	* make ph2 factor in cove.boost.collapse.strata
+
+2023.11.22
+	* move auc functions from aucm to kyotil
