@@ -63,76 +63,76 @@ tr(m)
 \arguments{
 
   \item{p}{
-%%     ~~Describe \code{p} here~~
+tbdp
 }
   \item{w}{
-%%     ~~Describe \code{w} here~~
+tbdw
 }
 
   \item{lis}{
 list or array
 }
   \item{sep}{
-%%     ~~Describe \code{sep} here~~
+tbdsep
 }
 
   \item{rho}{
-%%     ~~Describe \code{rho} here~~
+tbdrho
 }
 
   \item{a}{
-%%     ~~Describe \code{a} here~~
+tbda
 }
 
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
 
   \item{matri}{
-%%     ~~Describe \code{matri} here~~
+tbdmatri
 }
   \item{func}{
-%%     ~~Describe \code{func} here~~
+tbdfunc
 }
 
   \item{n}{
-%%     ~~Describe \code{n} here~~
+tbdn
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
   \item{b}{
-%%     ~~Describe \code{b} here~~
+tbdb
 }
 
   \item{times}{
-%%     ~~Describe \code{times} here~~
+tbdtimes
 }
 
   \item{each}{
-%%     ~~Describe \code{each} here~~
+tbdeach
 }
   \item{by.row}{
-%%     ~~Describe \code{by.row} here~~
+tbdby.row
 }
 
 
   \item{k}{
-%%     ~~Describe \code{k} here~~
+tbdk
 }
 
 
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+tbddat
 }
   \item{thin.factor}{
-%%     ~~Describe \code{thin.factor} here~~
+tbdthin.factor
 }
 
 
   \item{m}{
-%%     ~~Describe \code{m} here~~
+tbdm
 }
 }
 \examples{

@@ -19,25 +19,25 @@ Deming(x, y, vr = sdr^2, sdr = sqrt(vr), boot = TRUE, keep.boot = FALSE,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{vr}{
-%%     ~~Describe \code{vr} here~~
+tbdvr
 }
   \item{sdr}{
-%%     ~~Describe \code{sdr} here~~
+tbdsdr
 }
   \item{boot}{
-%%     ~~Describe \code{boot} here~~
+tbdboot
 }
   \item{keep.boot}{
-%%     ~~Describe \code{keep.boot} here~~
+tbdkeep.boot
 }
   \item{alpha}{
-%%     ~~Describe \code{alpha} here~~
+tbdalpha
 }
 }
 

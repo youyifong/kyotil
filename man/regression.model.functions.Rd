@@ -114,18 +114,18 @@ logistic.regression = TRUE)
 \arguments{
 
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
   \item{object}{
-%%     ~~Describe \code{object} here~~
+tbdobject
 }
 
   \item{fit}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{coef.direct}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{robust}{Boolean, whether to return robust variance estimate
 }
@@ -134,121 +134,121 @@ logistic.regression = TRUE)
 
 
   \item{exp}{
-%%     ~~Describe \code{exp} here~~
+tbdexp
 }
   \item{remove.leading0}{
-%%     ~~Describe \code{exp} here~~
+tbdexp
 }
   \item{p.adj.method}{
-%%     ~~Describe \code{exp} here~~
+tbdexp
 }
 
 
 
 
   \item{cuts}{
-%%     ~~Describe \code{fits} here~~
+tbdfits
 }
   \item{ret.robcov}{
-%%     ~~Describe \code{fits} here~~
+tbdfits
 }
 
   \item{fits}{
-%%     ~~Describe \code{fits} here~~
+tbdfits
 }
   \item{type}{
-%%     ~~Describe \code{type} here~~
+tbdtype
 }
   \item{est.digits}{
-%%     ~~Describe \code{est.digits} here~~
+tbdest.digits
 }
   \item{se.digits}{
-%%     ~~Describe \code{se.digits} here~~
+tbdse.digits
 }
   \item{p.digits}{
-%%     ~~Describe \code{se.digits} here~~
+tbdse.digits
 }
   \item{random}{
-%%     ~~Describe \code{random} here~~
+tbdrandom
 }
   \item{VE}{
-%%     ~~Describe \code{random} here~~
+tbdrandom
 }
 
 
   \item{transformation}{
-%%     ~~Describe \code{transformation} here~~
+tbdtransformation
 }
 
 
   \item{weights}{
-%%     ~~Describe \code{v1} here~~
+tbdv1
 }
   \item{v1}{
-%%     ~~Describe \code{v1} here~~
+tbdv1
 }
   \item{v2}{
-%%     ~~Describe \code{v2} here~~
+tbdv2
 }
   \item{v1.type}{
-%%     ~~Describe \code{v1.type} here~~
+tbdv1.type
 }
   \item{v2.type}{
-%%     ~~Describe \code{v2.type} here~~
+tbdv2.type
 }
   \item{logistic.regression}{
-%%     ~~Describe \code{logistic.regression} here~~
+tbdlogistic.regression
 }
 
   \item{newdata}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
 
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{to.trim}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{rows}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{risk}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{binary.outcome}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{ngroups}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{main}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{add}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{show.emp.risk}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{lcol}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{ylim}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{scale}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
 
   \item{trunc.large.est}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
   \item{scale.factor}{
-%%     ~~Describe \code{fit} here~~
+tbdfit
 }
 
 

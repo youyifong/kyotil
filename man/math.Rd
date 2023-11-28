@@ -45,51 +45,51 @@ interpolate(pt1, pt2, x)
 \arguments{
 
   \item{n}{
-%%     ~~Describe \code{n} here~~
+tbdn
 }
   \item{base}{
-%%     ~~Describe \code{base} here~~
+tbdbase
 }
   \item{r}{
-%%     ~~Describe \code{r} here~~
+tbdr
 }
 
   \item{m}{
-%%     ~~Describe \code{m} here~~
+tbdm
 }
 
   \item{pt1}{a vector of length 2}
   \item{pt2}{a vector of length 2}
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
 
 
   \item{logx1}{
-%%     ~~Describe \code{logx1} here~~
+tbdlogx1
 }
   \item{logx2}{
-%%     ~~Describe \code{logx2} here~~
+tbdlogx2
 }
 
 
   \item{logx}{
-%%     ~~Describe \code{logx} here~~
+tbdlogx
 }
   \item{B}{
-%%     ~~Describe \code{B} here~~
+tbdB
 }
 
 
   \item{logy}{
-%%     ~~Describe \code{logy} here~~
+tbdlogy
 }
 
   \item{fun}{
-%%     ~~Describe \code{fun} here~~
+tbdfun
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
 }

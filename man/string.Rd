@@ -44,26 +44,26 @@ remove.prefix(s, sep = "_")
 \arguments{
 
   \item{a}{
-%%     ~~Describe \code{a} here~~
+a
 }
   \item{b}{
-%%     ~~Describe \code{b} here~~
+b
 }
 
   \item{s1}{
-%%     ~~Describe \code{s1} here~~
+s1
 }
   \item{s2}{
-%%     ~~Describe \code{s2} here~~
+s2
 }
 
 
   \item{name}{
-%%     ~~Describe \code{name} here~~
+name
 }
 
   \item{file.name}{
-%%     ~~Describe \code{file.name} here~~
+file.name
 }
 
 
@@ -72,19 +72,19 @@ remove.prefix(s, sep = "_")
 
 
   \item{s}{
-%%     ~~Describe \code{s} here~~
+s
 }
   \item{sep}{
-%%     ~~Describe \code{sep} here~~
+sep
 }
   \item{x}{
-%%     ~~Describe \code{sep} here~~
+sep
 }
   \item{trim.leading}{
-%%     ~~Describe \code{sep} here~~
+sep
 }
   \item{trim.trailing}{
-%%     ~~Describe \code{sep} here~~
+sep
 }
 
 }

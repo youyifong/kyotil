@@ -8,7 +8,7 @@
 \alias{cor.mixed.formula}
 \alias{info.cor}
 \alias{yule.y}
-\alias{kappa.cor}
+\alias{kappacor}
 \alias{l.measure}
 \alias{skew}
 \title{
@@ -35,7 +35,7 @@ info.cor(two.way.table)
 
 yule.y(two.by.two.matrix)
 
-kappa.cor(two.by.two.matrix, weight = c(1, 1), maximum = FALSE)
+kappacor(two.by.two.matrix, weight = c(1, 1), maximum = FALSE)
 
 l.measure(two.by.two.matrix)
 }
@@ -46,51 +46,51 @@ l.measure(two.by.two.matrix)
 either a count vector or a probability vector, but can not be a vector of membership indicator
 }
   \item{logbase}{
-%%     ~~Describe \code{logbase} here~~
+tbdlogbase
 }
   \item{na.rm}{
-%%     ~~Describe \code{logbase} here~~
+tbdlogbase
 }
 
   \item{two.way.table}{
-%%     ~~Describe \code{two.way.table} here~~
+tbdtwo.way.table
 }
 
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
   \item{na.fun}{
-%%     ~~Describe \code{na.fun} here~~
+tbdna.fun
 }
   \item{method}{
-%%     ~~Describe \code{method} here~~
+tbdmethod
 }
 
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
 
   \item{formula}{
-%%     ~~Describe \code{formula} here~~
+tbdformula
 }
   \item{data}{
-%%     ~~Describe \code{data} here~~
+tbddata
 }
 
 
   \item{two.by.two.matrix}{
-%%     ~~Describe \code{two.by.two.matrix} here~~
+tbdtwo.by.two.matrix
 }
 
   \item{weight}{
-%%     ~~Describe \code{weight} here~~
+tbdweight
 }
   \item{maximum}{
-%%     ~~Describe \code{maximum} here~~
+tbdmaximum
 }
 
 }

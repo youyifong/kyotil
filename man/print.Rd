@@ -66,19 +66,19 @@ formatDouble(value, digits, na.to.empty=TRUE, remove.leading0=TRUE)
 \arguments{
 
   \item{silent}{
-%%     ~~Describe \code{newline} here~~
+tbdnewline
 }
   \item{input.foldername}{
-%%     ~~Describe \code{newline} here~~
+tbdnewline
 }
   \item{object}{
-%%     ~~Describe \code{newline} here~~
+tbdnewline
 }
   \item{newline}{
-%%     ~~Describe \code{newline} here~~
+tbdnewline
 }
   \item{print.name}{
-%%     ~~Describe \code{digits} here~~
+tbddigits
 }
 
 
@@ -91,97 +91,97 @@ formatDouble(value, digits, na.to.empty=TRUE, remove.leading0=TRUE)
   \item{sanitize.text.function}{a function}
 
   \item{str}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{remove.leading0}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{caption}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{longtable}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{label}{ default to be the same as file.name stem
 }
   \item{table.placement}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{na.to.empty}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{value}{
-%%     ~~Describe \code{value} here~~
+tbdvalue
 }
   \item{digits}{
-%%     ~~Describe \code{digits} here~~
+tbddigits
 }
   \item{fill}{
-%%     ~~Describe \code{fill} here~~
+tbdfill
 }
 
   \item{models}{
-%%     ~~Describe \code{models} here~~
+tbdmodels
 }
   \item{model.names}{
-%%     ~~Describe \code{model.names} here~~
+tbdmodel.names
 }
   \item{row.major}{
-%%     ~~Describe \code{row.major} here~~
+tbdrow.major
 }
   \item{round.digits}{
-%%     ~~Describe \code{round.digits} here~~
+tbdround.digits
 }
 
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+tbddat
 }
   \item{file.name}{
-%%     ~~Describe \code{file.name} here~~
+tbdfile.name
 }
   \item{display}{
-%%     ~~Describe \code{display} here~~
+tbddisplay
 }
   \item{align}{
-%%     ~~Describe \code{align} here~~
+tbdalign
 }
   \item{append}{
-%%     ~~Describe \code{append} here~~
+tbdappend
 }
   \item{preamble}{
-%%     ~~Describe \code{preamble} here~~
+tbdpreamble
 }
   \item{include.rownames}{
-%%     ~~Describe \code{include.rownames} here~~
+tbdinclude.rownames
 }
   \item{floating}{
-%%     ~~Describe \code{floating} here~~
+tbdfloating
 }
   \item{lines}{
-%%     ~~Describe \code{lines} here~~
+tbdlines
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
   \item{verbose}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
 
 
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
 
   \item{file}{
-%%     ~~Describe \code{file} here~~
+tbdfile
 }
   \item{row.names}{
-%%     ~~Describe \code{row.names} here~~
+tbdrow.names
 }
 
   \item{add.clear.page.between.tables}{
-%%     ~~Describe \code{row.names} here~~
+tbdrow.names
 }
 }
 \examples{

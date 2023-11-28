@@ -934,7 +934,7 @@ int ldlinv(int n,double* x,double* xinv){
 
 		int* ipiv = (int *)malloc((size_t)n * sizeof(int));
 		if(!ipiv){
-			Rprintf("Unable to allcoate %i bytes in function %s\n",n * sizeof(int),"ldlSolve");
+			Rprintf("Unable to allcoate enough bytes in function %s\n","ldlSolve");
 			return 1;
 		}	
 		int LWORK = -1;
@@ -951,7 +951,7 @@ int ldlinv(int n,double* x,double* xinv){
 		double* work = (double*)malloc((size_t)(LWORK * sizeof(double)));
 		if(!work){
 			free(ipiv);
-			Rprintf("Unable to allcoate %i bytes in function %s\n",LWORK * sizeof(double),"ldl_inv");
+			Rprintf("Unable to allcoate enough bytes in function %s\n","ldl_inv");
 			return 1;		
 		}
 		F77_CALL(dsytrf)("U",&n,x,&n,ipiv,work,&LWORK,&info FCONE); 

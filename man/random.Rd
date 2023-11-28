@@ -58,112 +58,112 @@ rbidoublexp(n, loc.1, loc.2, scale.1, scale.2, rho)
 \arguments{
 
   \item{q}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{location}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{scale}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
 
 
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{prob}{
-%%     ~~Describe \code{prob} here~~
+tbdprob
 }
   \item{log}{
-%%     ~~Describe \code{log} here~~
+tbdlog
 }
 
   \item{p}{
-%%     ~~Describe \code{p} here~~
+tbdp
 }
   \item{a}{
-%%     ~~Describe \code{a} here~~
+tbda
 }
 
   \item{mix.p}{
-%%     ~~Describe \code{mix.p} here~~
+tbdmix.p
 }
   \item{sd1}{
-%%     ~~Describe \code{sd1} here~~
+tbdsd1
 }
   \item{sd2}{
-%%     ~~Describe \code{sd2} here~~
+tbdsd2
 }
 
   \item{same.distr}{
-%%     ~~Describe \code{same.distr} here~~
+tbdsame.distr
 }
 
   \item{n}{
-%%     ~~Describe \code{n} here~~
+tbdn
 }
   \item{generalized}{
-%%     ~~Describe \code{generalized} here~~
+tbdgeneralized
 }
 
   \item{N}{
-%%     ~~Describe \code{N} here~~
+tbdN
 }
   \item{pik}{
-%%     ~~Describe \code{pik} here~~
+tbdpik
 }
 
   \item{mu}{
-%%     ~~Describe \code{mu} here~~
+tbdmu
 }
   \item{mu1}{
-%%     ~~Describe \code{mu} here~~
+tbdmu
 }
   \item{mu2}{
-%%     ~~Describe \code{mu} here~~
+tbdmu
 }
   \item{sd}{
-%%     ~~Describe \code{sd} here~~
+tbdsd
 }
   \item{alpha}{
-%%     ~~Describe \code{alpha} here~~
+tbdalpha
 }
 
   \item{mu.0}{
-%%     ~~Describe \code{mu.0} here~~
+tbdmu.0
 }
   \item{lambda}{
-%%     ~~Describe \code{lambda} here~~
+tbdlambda
 }
   \item{beta}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{loc.1}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{loc.2}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{scale.1}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{scale.2}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{rate.1}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{rate.2}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{shape.1}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{shape.2}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
   \item{rho}{
-%%     ~~Describe \code{beta} here~~
+tbdbeta
 }
 }
 \details{

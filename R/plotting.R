@@ -549,9 +549,9 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab="", main="", box
 myboxplot.data.frame=function(object, cex=.5, ylab="", xlab="", main="", box=TRUE, at=NULL, pch=1, col=1, test="", paired=FALSE, ...){
     myboxplot.list(as.list(object), cex=cex, ylab=ylab, xlab=xlab, main=main, box=box, at=at, pch=pch, col=col, test=test, ...)
 }
-myboxplot.matrix=function(object, cex=.5, ylab="", xlab="", main="", box=TRUE, at=NULL, pch=1, col=1, test="", paired=FALSE, ...){
-    myboxplot.list(as.list(as.data.frame(object)), cex=cex, ylab=ylab, xlab=xlab, main=main, box=box, at=at, pch=pch, col=col, test=test, ...)
-}
+# myboxplot.matrix=function(object, cex=.5, ylab="", xlab="", main="", box=TRUE, at=NULL, pch=1, col=1, test="", paired=FALSE, ...){
+#     myboxplot.list(as.list(as.data.frame(object)), cex=cex, ylab=ylab, xlab=xlab, main=main, box=box, at=at, pch=pch, col=col, test=test, ...)
+# }
 
 myboxplot.list=function(object, paired=FALSE, ...){
     
@@ -782,16 +782,16 @@ myhist=function(x, add.norm=TRUE, col.norm="blue", ...){
 
 
 # eclipse
-plot.ellipse=function(x0,y0,a=1,b=1,theta=0,alpha=0,add=TRUE,...) {
-    theta <- seq(0, 2 * pi, length=500)
-#    x <- x0 + a * cos(theta)
-#    y <- y0 + b * sin(theta)    
-    x <- x0 + a * cos(theta) * cos(alpha) - b * sin(theta) * sin(alpha)
-    y <- y0 + a * cos(theta) * sin(alpha) + b * sin(theta) * cos(alpha)
-    if(add) {
-        lines(x,y,...)
-    } else plot(x, y, type = "l",...)
-}
+# plot.ellipse=function(x0,y0,a=1,b=1,theta=0,alpha=0,add=TRUE,...) {
+#     theta <- seq(0, 2 * pi, length=500)
+# #    x <- x0 + a * cos(theta)
+# #    y <- y0 + b * sin(theta)    
+#     x <- x0 + a * cos(theta) * cos(alpha) - b * sin(theta) * sin(alpha)
+#     y <- y0 + a * cos(theta) * sin(alpha) + b * sin(theta) * cos(alpha)
+#     if(add) {
+#         lines(x,y,...)
+#     } else plot(x, y, type = "l",...)
+# }
 
 add.mtext.label=function(text, cex=1.4, adj=-0.2) mtext(side=3, line=2, adj=adj, text=text, cex=cex, font=2, xpd=NA)
 

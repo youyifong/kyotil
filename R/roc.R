@@ -5,7 +5,7 @@ computeRoc<-function(score, outcome, reverse.sign.if.nece=TRUE, cutpoints=NULL){
     
     # reverse sign if necessary
     if (reverse.sign.if.nece) {
-        if(fast.auc(score, outcome, FALSE)<.5) score=-score
+        if(fastauc(score, outcome, FALSE)<.5) score=-score
     }
     
     if(is.null(cutpoints)) cutpoints<-c(-Inf,sort(unique(score)))

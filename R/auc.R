@@ -64,16 +64,16 @@ predict.auc=function (object, newdata, case.percentage=NULL, ...) {
         if (object$kernel!="l") nonlinear=TRUE
     if (nonlinear) {    
     
-        if (inherits(object,"rauc")) {            
-            K=getK(X.pred,object$kernel,object$para,X2=object$X) # Note that X.pred should be the first param, not object$X
-            Q.pred = getQ(K,n1=object$n.case,n2=object$n.control,call.C=TRUE,do.pred=TRUE)/object$lambda
-            res=Q.pred %*% object$alpha.pred
+      if (inherits(object, "dcsauc") | inherits(object, "srauc")) {        
+        K=getK(X.pred, object$kernel, object$para, X2=object$X) # Note that X.pred should be the first param, not object$X
+        res = K %*% object$coefficients
+        
+      # } else if (inherits(object,"rauc")) {            
+      #       K=getK(X.pred,object$kernel,object$para,X2=object$X) # Note that X.pred should be the first param, not object$X
+      #       Q.pred = getQ(K,n1=object$n.case,n2=object$n.control,call.C=TRUE,do.pred=TRUE)/object$lambda
+      #       res=Q.pred %*% object$alpha.pred
     
-        } else if (inherits(object, "dcsauc") | inherits(object, "srauc")) {        
-            K=getK(X.pred, object$kernel, object$para, X2=object$X) # Note that X.pred should be the first param, not object$X
-            res = K %*% object$coefficients
-            
-        } else stop("predict.auc: something wrong")        
+      } else stop("predict.auc: something wrong")        
     
     } else {
         res = X.pred %*% ratio(object)

@@ -13,13 +13,13 @@ cox.zph.2(fit, transform = "km", global = TRUE, exact=TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fit}{
-%%     ~~Describe \code{fit} here~~
+fit
 }
   \item{transform}{
-%%     ~~Describe \code{transform} here~~
+transform
 }
   \item{global}{
-%%     ~~Describe \code{global} here~~
+global
 }
   \item{exact}{
 Boolean. If FALSE, this function is an identical copy of cox.zph. If TRUE, it computes the variance of the test statistic exactly, instead of approximately.

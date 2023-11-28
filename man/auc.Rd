@@ -5,11 +5,11 @@
 \alias{coef.auc}
 \alias{predict.auc}
 \alias{print.auc}
-\alias{ratio.auc}
 \alias{summary.auc}
-\alias{trainauc.auc}
-\alias{trainauc.glm}
 \alias{ratio.glm}
+\alias{ratio.auc}
+\alias{trainauc.glm}
+\alias{trainauc.auc}
 
 \title{AUC}
 \description{

@@ -59,7 +59,7 @@ yule.y=function(two.by.two.matrix) {
     (sqrt(two.by.two.matrix[1,1] * two.by.two.matrix[2,2]) + sqrt(two.by.two.matrix[1,2] * two.by.two.matrix[2,1])) 
 }
 
-kappa.cor=function(two.by.two.matrix, weight=c(1,1), maximum=FALSE) {
+kappacor=function(two.by.two.matrix, weight=c(1,1), maximum=FALSE) {
     total=sum(two.by.two.matrix)
     
 #    E=matrix(c(

@@ -28,19 +28,19 @@ get.splits (dat, cv.scheme=c("LPO","5fold","50xrandom4:1"), seed)
   \item{v}{v-fold cross validation}
   \item{seed}{seed for random number generators}
   \item{k}{
-    %%     ~~Describe \code{var.equal} here~~
+    var.equal
     }
   \item{n1}{
-    %%     ~~Describe \code{var.equal} here~~
+    var.equal
     }
   \item{n0}{
-    %%     ~~Describe \code{var.equal} here~~
+    var.equal
     }
   \item{replicates}{
-    %%     ~~Describe \code{var.equal} here~~
+    var.equal
     }
   \item{cv.scheme}{
-    %%     ~~Describe \code{var.equal} here~~
+    var.equal
     }
 }
 

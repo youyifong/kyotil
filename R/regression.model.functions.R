@@ -234,9 +234,9 @@ getFixedEf.lme = function (object, ...) {
     pval <- 2 * pnorm(abs(zval), lower.tail = FALSE) 
     cbind(betas, se, zval, pval) 
 }
-getVarComponent.lme = function (object, ...) {
-    nlme::VarCorr(object)
-}
+# getVarComponent.lme = function (object, ...) {
+#     nlme::VarCorr(object)
+# }
 
 getFixedEf.lmerMod = function (object, ...) {
     betas <- nlme::fixef(object)

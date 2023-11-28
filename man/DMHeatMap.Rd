@@ -33,166 +33,166 @@ DMHeatMap(x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{axis}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{heatmapOnly}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{verbose}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{legend.x}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{legend}{
-%%     ~~Describe \code{x} here~~
+tbd
 }
   \item{Rowv}{
-%%     ~~Describe \code{Rowv} here~~
+tbdRowv
 }
   \item{Colv}{
-%%     ~~Describe \code{Colv} here~~
+tbdColv
 }
   \item{distfun}{
-%%     ~~Describe \code{distfun} here~~
+tbddistfun
 }
   \item{hclustfun}{
-%%     ~~Describe \code{hclustfun} here~~
+tbdhclustfun
 }
   \item{dendrogram}{
-%%     ~~Describe \code{dendrogram} here~~
+tbddendrogram
 }
   \item{symm}{
-%%     ~~Describe \code{symm} here~~
+tbdsymm
 }
   \item{scale}{
-%%     ~~Describe \code{scale} here~~
+tbdscale
 }
   \item{na.rm}{
-%%     ~~Describe \code{na.rm} here~~
+tbdna.rm
 }
   \item{revC}{
-%%     ~~Describe \code{revC} here~~
+tbdrevC
 }
   \item{add.expr}{
-%%     ~~Describe \code{add.expr} here~~
+tbdadd.expr
 }
   \item{breaks}{
-%%     ~~Describe \code{breaks} here~~
+tbdbreaks
 }
   \item{symbreaks}{
-%%     ~~Describe \code{symbreaks} here~~
+tbdsymbreaks
 }
   \item{col}{
-%%     ~~Describe \code{col} here~~
+tbdcol
 }
   \item{colsep}{
-%%     ~~Describe \code{colsep} here~~
+tbdcolsep
 }
   \item{rowsep}{
-%%     ~~Describe \code{rowsep} here~~
+tbdrowsep
 }
   \item{sepcolor}{
-%%     ~~Describe \code{sepcolor} here~~
+tbdsepcolor
 }
   \item{sepwidth}{
-%%     ~~Describe \code{sepwidth} here~~
+tbdsepwidth
 }
   \item{cellnote}{
-%%     ~~Describe \code{cellnote} here~~
+tbdcellnote
 }
   \item{notecex}{
-%%     ~~Describe \code{notecex} here~~
+tbdnotecex
 }
   \item{notecol}{
-%%     ~~Describe \code{notecol} here~~
+tbdnotecol
 }
   \item{na.color}{
-%%     ~~Describe \code{na.color} here~~
+tbdna.color
 }
   \item{trace}{
-%%     ~~Describe \code{trace} here~~
+tbdtrace
 }
   \item{tracecol}{
-%%     ~~Describe \code{tracecol} here~~
+tbdtracecol
 }
   \item{hline}{
-%%     ~~Describe \code{hline} here~~
+tbdhline
 }
   \item{vline}{
-%%     ~~Describe \code{vline} here~~
+tbdvline
 }
   \item{linecol}{
-%%     ~~Describe \code{linecol} here~~
+tbdlinecol
 }
   \item{margins}{
-%%     ~~Describe \code{margins} here~~
+tbdmargins
 }
   \item{ColSideColors}{
-%%     ~~Describe \code{ColSideColors} here~~
+tbdColSideColors
 }
   \item{RowSideColors}{
-%%     ~~Describe \code{RowSideColors} here~~
+tbdRowSideColors
 }
   \item{cexRow}{
-%%     ~~Describe \code{cexRow} here~~
+tbdcexRow
 }
   \item{cexCol}{
-%%     ~~Describe \code{cexCol} here~~
+tbdcexCol
 }
   \item{labRow}{
-%%     ~~Describe \code{labRow} here~~
+tbdlabRow
 }
   \item{labCol}{
-%%     ~~Describe \code{labCol} here~~
+tbdlabCol
 }
   \item{labColor}{
-%%     ~~Describe \code{labColor} here~~
+tbdlabColor
 }
   \item{key}{
-%%     ~~Describe \code{key} here~~
+tbdkey
 }
   \item{keysize}{
-%%     ~~Describe \code{keysize} here~~
+tbdkeysize
 }
   \item{density.info}{
-%%     ~~Describe \code{density.info} here~~
+tbddensity.info
 }
   \item{denscol}{
-%%     ~~Describe \code{denscol} here~~
+tbddenscol
 }
   \item{symkey}{
-%%     ~~Describe \code{symkey} here~~
+tbdsymkey
 }
   \item{densadj}{
-%%     ~~Describe \code{densadj} here~~
+tbddensadj
 }
   \item{main}{
-%%     ~~Describe \code{main} here~~
+tbdmain
 }
   \item{xlab}{
-%%     ~~Describe \code{xlab} here~~
+tbdxlab
 }
   \item{ylab}{
-%%     ~~Describe \code{ylab} here~~
+tbdylab
 }
   \item{lmat}{
-%%     ~~Describe \code{lmat} here~~
+tbdlmat
 }
   \item{lhei}{
-%%     ~~Describe \code{lhei} here~~
+tbdlhei
 }
   \item{lwid}{
-%%     ~~Describe \code{lwid} here~~
+tbdlwid
 }
   \item{lower.left.only}{
-%%     ~~Describe \code{lower.left.only} here~~
+tbdlower.left.only
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 }
 \examples{

@@ -12,13 +12,13 @@ p.adj.perm(p.unadj, p.perms, alpha = 0.05)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p.unadj}{
-%%     ~~Describe \code{p.unadj} here~~
+p.unadj
 }
   \item{p.perms}{
-%%     ~~Describe \code{p.perms} here~~
+p.perms
 }
   \item{alpha}{
-%%     ~~Describe \code{alpha} here~~
+alpha
 }
 }
 \details{

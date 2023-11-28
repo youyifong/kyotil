@@ -26,22 +26,22 @@ dec_to_binary (x,d)
 \arguments{
 
   \item{x}{
-    %%     ~~Describe \code{x} here~~
+    tbdx
     }
   \item{d}{
     number of digits in the returned binary representation, including leading 0's
     }
   \item{wt}{
-    %%     ~~Describe \code{var.equal} here~~
+    tbdvar.equal
     }
   \item{object}{
-    %%     ~~Describe \code{var.equal} here~~
+    tbdvar.equal
     }
   \item{newdat}{
-    %%     ~~Describe \code{var.equal} here~~
+    tbdvar.equal
     }
   \item{...}{
-    %%     ~~Describe \code{var.equal} here~~
+    tbdvar.equal
     }
 }
 

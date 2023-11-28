@@ -13,13 +13,13 @@ binaryloess(x, y, scale = c("logit", "linear"), span = 0.7, weights = NULL, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{scale}{
-%%     ~~Describe \code{scale} here~~
+tbdscale
 }
   \item{span}{
 smoothing parameter, passed to loess. If less than 1, the neighbourhood includes proportion a of the points. If greater than 1, all points are used, with the maximum distance assumed to be a^(1/p) times the actual maximum distance for p explanatory variables.

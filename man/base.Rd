@@ -91,49 +91,49 @@ mycor (x, use = "everything", method = c("pearson", "kendall", "spearman"),
 \arguments{
 
   \item{add.total.column}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{use}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{method}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{alternative}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{exact}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{conf.level}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{continuity}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{digits.coef}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{digits.pval}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
 
 
   \item{cols.to.be.stacked}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
   \item{label.cols.to.be.stacked}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
 
 
   \item{li}{a list}  
   \item{i}{
-%%     ~~Describe \code{i} here~~
+tbdi
 }
 
   \item{n}{
-%%     ~~Describe \code{n} here~~
+tbdn
 }
 
   \item{f}{In multi.out, f is a function.}
@@ -144,112 +144,112 @@ a formula object.}
 
 
   \item{expr}{
-%%     ~~Describe \code{expr} here~~
+tbdexpr
 }
 
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{na.rm}{
-%%     ~~Describe \code{na.rm} here~~
+tbdna.rm
 }
 
   \item{classes}{
-%%     ~~Describe \code{classes} here~~
+tbdclasses
 }
   \item{super}{
-%%     ~~Describe \code{super} here~~
+tbdsuper
 }
   \item{ANY}{
-%%     ~~Describe \code{ANY} here~~
+tbdANY
 }
 
   \item{desc}{
-%%     ~~Describe \code{by} here~~
+tbdby
 }
   \item{by}{
-%%     ~~Describe \code{by} here~~
+tbdby
 }
   \item{whole.table.add.to.1}{
 Boolean
 }
   \item{new.col.name}{
-%%     ~~Describe \code{new.col.name} here~~
+tbdnew.col.name
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+tbddat
 }
   \item{idvar}{
-%%     ~~Describe \code{idvar} here~~
+tbdidvar
 }
 
   \item{X}{
-%%     ~~Describe \code{X} here~~
+tbdX
 }
   \item{simplify}{
-%%     ~~Describe \code{simplify} here~~
+tbdsimplify
 }
   \item{USE.NAMES}{
-%%     ~~Describe \code{USE.NAMES} here~~
+tbdUSE.NAMES
 }
   \item{ret.mat}{
-%%     ~~Describe \code{ret.mat} here~~
+tbdret.mat
 }
 
 
   \item{cmd}{
-%%     ~~Describe \code{cmd} here~~
+tbdcmd
 }
 
   \item{INDEX}{
-%%     ~~Describe \code{INDEX} here~~
+tbdINDEX
 }
 
   \item{file}{
-%%     ~~Describe \code{file} here~~
+tbdfile
 }
   \item{header}{
-%%     ~~Describe \code{header} here~~
+tbdheader
 }
 
   \item{sep}{
-%%     ~~Describe \code{sep} here~~
+tbdsep
 }
 
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{digit}{
-%%     ~~Describe \code{digit} here~~
+tbddigit
 }
   \item{style}{
-%%     ~~Describe \code{style} here~~
+tbdstyle
 }
 
   \item{FUN}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
   \item{keep.extra.col}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
   \item{useNA}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
   \item{add.perc}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
   \item{include.all}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
   \item{group1}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
   \item{group2}{
-%%     ~~Describe \code{FUN} here~~
+tbdFUN
 }
 
 }

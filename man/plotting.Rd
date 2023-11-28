@@ -156,43 +156,43 @@ corplot(object, ...)
 \arguments{
 
   \item{silent}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{legend.lty}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{cex.cor.dep}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{add.loess.fit}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{leading0}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{null.val}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{write.p.at.top}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{text.width}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{text}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{cex}{
-%%     ~~Describe \code{cex} here~~
+tbdcex
 }
   \item{adj}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{file}{
-%%     ~~Describe \code{file} here~~
+tbdfile
 }
   \item{ext}{
-%%     ~~Describe \code{ext} here~~
+tbdext
 }
   \item{res}{
 resolution.
@@ -202,99 +202,99 @@ resolution.
   \item{add.norm}{Boolean, whether to add normal approximation density line}
   \item{col.norm}{string, color of added normal density line}
   \item{pt1}{
-%%     ~~Describe \code{pt1} here~~
+tbdpt1
 }
   \item{s}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{ladder}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{slope}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{friedman.test.formula}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{reshape.id}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{impute.missing.for.line}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{cor.}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{mydev}{
-%%     ~~Describe \code{slope} here~~
+tbdslope
 }
   \item{jitter}{Boolean}
   \item{add.interaction}{Boolean}
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd\dots
 }
 
   \item{xaxt}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
 
   \item{breaks}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{freq}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{bg.pt}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{probability}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{include.lowest}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{right}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{density}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{angle}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{border}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{axes}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{plot}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{labels}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{nclass}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{weight}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
 
 
 
   \item{pt2}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{pt}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
   \item{alpha}{
-%%     ~~Describe \code{pt2} here~~
+tbdpt2
 }
 
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+tbddat
 }
   \item{lwd}{
 line width.
@@ -309,93 +309,98 @@ controls the look of legend.
 legend inset
 }
   \item{dat2}{
-%%     ~~Describe \code{dat2} here~~
+tbddat2
 }
   \item{add}{
-%%     ~~Describe \code{add} here~~
+tbdadd
 }
   \item{log}{
+  log
 }
   \item{add.lm.fit}{
+  lm fit
 }
   \item{add.deming.fit}{
+  add 
 }
   \item{col.lm}{
+  col
 }
   \item{col.deming}{
+  col
 }
   \item{reshape.formula}{
 a formula object.
 }
 
   \item{xaxislabels}{
-%%     ~~Describe \code{xaxislabels} here~~
+tbdxaxislabels
 }
   \item{x.ori}{
-%%     ~~Describe \code{x.ori} here~~
+tbdx.ori
 }
   \item{xlab}{
-%%     ~~Describe \code{xlab} here~~
+tbdxlab
 }
   \item{ylab}{
-%%     ~~Describe \code{ylab} here~~
+tbdylab
 }
   \item{cex.axis}{
-%%     ~~Describe \code{cex.axis} here~~
+tbdcex.axis
 }
 
 
 
   \item{len}{
-%%     ~~Describe \code{len} here~~
+tbdlen
 }
 
   \item{same.xylim}{Boolean. Whether xlim and ylim should be the same
 }
   \item{xlim}{
-%%     ~~Describe \code{xlim} here~~
+tbdxlim
 }
   \item{ylim}{
-%%     ~~Describe \code{xlim} here~~
+tbdxlim
 }
   \item{main}{
-%%     ~~Describe \code{main} here~~
+tbdmain
 }
   \item{col.1}{
-%%     ~~Describe \code{col.1} here~~
+tbdcol.1
 }
   \item{col.2}{
-%%     ~~Describe \code{col.2} here~~
+tbdcol.2
 }
 
   \item{pcol}{
-%%     ~~Describe \code{pcol} here~~
+tbdpcol
 }
   \item{lcol}{
-%%     ~~Describe \code{lcol} here~~
+tbdlcol
 }
 
   \item{object}{
-%%     ~~Describe \code{object} here~~
+tbdobject
 }
 
   \item{formula}{
-%%     ~~Describe \code{formula} here~~
+tbdformula
 }
   \item{data}{
-%%     ~~Describe \code{data} here~~
+tbddata
 }
   \item{box}{
-%%     ~~Describe \code{box} here~~
+tbdbox
 }
   \item{at}{
-%%     ~~Describe \code{at} here~~
+tbdat
 }
   \item{pch}{
-%%     ~~Describe \code{pch} here~~
+tbdpch
 }
   \item{col}{
-%%     ~~Describe \code{col} here~~
+tbdcol
 }
   \item{test}{
 string. For example, "t","w","f","k", "tw"
@@ -403,122 +408,123 @@ string. For example, "t","w","f","k", "tw"
 
 
   \item{legend}{
-%%     ~~Describe \code{legend} here~~
+tbdlegend
 }
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{lty}{
-%%     ~~Describe \code{lty} here~~
+tbdlty
 }
   \item{bty}{
-%%     ~~Describe \code{bty} here~~
+tbdbty
 }
 
   \item{type}{
-%%     ~~Describe \code{type} here~~
+tbdtype
 }
 
   \item{make.legend}{
-%%     ~~Describe \code{make.legend} here~~
+tbdmake.legend
 }
   \item{legend.x}{
-%%     ~~Describe \code{legend.x} here~~
+tbdlegend.x
 }
   \item{legend.title}{
-%%     ~~Describe \code{legend.title} here~~
+tbdlegend.title
 }
   \item{legend.cex}{
-%%     ~~Describe \code{legend.cex} here~~
+tbdlegend.cex
 }
   \item{draw.x.axis}{
-%%     ~~Describe \code{draw.x.axis} here~~
+tbddraw.x.axis
 }
   \item{bg}{
-%%     ~~Describe \code{bg} here~~
+tbdbg
 }
 
   \item{method}{
-%%     ~~Describe \code{method} here~~
+tbdmethod
 }
 
 
   \item{mfrow}{
-%%     ~~Describe \code{mfrow} here~~
+tbdmfrow
 }
   \item{mfcol}{
-%%     ~~Describe \code{mfcol} here~~
+tbdmfcol
 }
   \item{width}{
-%%     ~~Describe \code{width} here~~
+tbdwidth
 }
   \item{height}{
-%%     ~~Describe \code{height} here~~
+tbdheight
 }
   \item{oma}{
-%%     ~~Describe \code{oma} here~~
+tbdoma
 }
   \item{mar}{
-%%     ~~Describe \code{mar} here~~
+tbdmar
 }
   \item{main.outer}{
-%%     ~~Describe \code{main.outer} here~~
+tbdmain.outer
 }
   \item{save2file}{
-%%     ~~Describe \code{save2file} here~~
+tbdsave2file
 }
 
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{digits}{
-%%     ~~Describe \code{digits} here~~
+tbddigits
 }
   \item{prefix}{
-%%     ~~Describe \code{prefix} here~~
+tbdprefix
 }
   \item{cex.cor}{
+  cex cor
 }
   \item{plot.labels}{Boolean}
   \item{order}{Boolean}
   \item{decreasing}{Boolean}
   \item{add.diagonal.line}{
-%%     ~~Describe \code{add.diagonal.line} here~~
+tbdadd.diagonal.line
 }
   \item{x2}{
-%%     ~~Describe \code{add.diagonal.line} here~~
+tbdadd.diagonal.line
 }
   \item{vline}{
-%%     ~~Describe \code{add.diagonal.line} here~~
+tbdadd.diagonal.line
 }
   \item{cols}{
-%%     ~~Describe \code{add.diagonal.line} here~~
+tbdadd.diagonal.line
 }
   \item{na.action}{
-%%     ~~Describe \code{add.diagonal.line} here~~
+tbdadd.diagonal.line
 }
   \item{drop.unused.levels}{
-%%     ~~Describe \code{add.diagonal.line} here~~
+tbdadd.diagonal.line
 }
 
 
   \item{p.val}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{seed}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{paired}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{show.data.cloud}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{ladder.add.line}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{ladder.add.text}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
 
 

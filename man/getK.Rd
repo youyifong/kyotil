@@ -14,7 +14,7 @@ getK (X,kernel,para=NULL,X2=NULL,C = NULL)
     polynomial or p (1 + <x,y>)^para, \cr
     rbf or r exp(-para*||x-y||^2), \cr
     linear or l <x,y>, \cr
-    ibs or i 0.5*mean(2.0 - |x-y|) or sum(w*(2.0 - |x-y|))/sum(w), with x[i],y[i] in {0,1,2} and weights 'w' given in 'para'. \cr
+    ibs or i 0.5*mean(2.0 - |x-y|) or sum(w*(2.0 - |x-y|))/sum(w), with x[i],y[i] in \{0,1,2\} and weights 'w' given in 'para'. \cr
     hamming or h for sum(x == y) with x[i],y[i] binary, \cr
     no default.
   }
@@ -24,7 +24,7 @@ getK (X,kernel,para=NULL,X2=NULL,C = NULL)
 }
 
 \details{
-    IBS stands for 'Identical By State'. If 'x','y' are in in {0,1,2} then \cr
+    IBS stands for 'Identical By State'. If 'x','y' are in in \{0,1,2\} then \cr
     IBS(x,y) = 0 if |x-y|=2, 1 if |x-y|=1, 2 if |x-y|=0, or IBS(x,y) = 2.0 - |x-y|. \cr
     K(u,v) = sum(IBS(u[i],v[i])) / 2K where K = length(u). \cr
     The 'hamming' kernel is the equivalent of the 'ibs' kernel for binary data. 

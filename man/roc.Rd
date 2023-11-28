@@ -1,20 +1,20 @@
 \name{roc}
 \alias{computeRoc}
-\alias{fast.auc}
+\alias{fastauc}
 \alias{plotRoc}
 \alias{addRoc}
 \alias{classification.error}
 \title{ROC and AUC}
 \description{
 ROC/AUC methods.
-\code{fast.auc} calculates the AUC using a sort operation, instead of summing over pairwise differences in R. \cr
+\code{fastauc} calculates the AUC using a sort operation, instead of summing over pairwise differences in R. \cr
 \code{computeRoc} computes an ROC curve. \cr
 \code{plotRoc} plots an ROC curve. \cr
 \code{addRoc} adds an ROC curve to a plot. \cr
 \code{classification.error} computes classification error \cr
 }
 \usage{
-fast.auc (score, outcome, t0 = 0, t1 = 1, reverse.sign.if.nece = TRUE, quiet = FALSE)
+fastauc (score, outcome, t0 = 0, t1 = 1, reverse.sign.if.nece = TRUE, quiet = FALSE)
 computeRoc (score, outcome, reverse.sign.if.nece = TRUE, cutpoints
          = NULL)
 plotRoc(x, add = FALSE, type = "l", diag.line=TRUE,...)
@@ -63,11 +63,11 @@ outcome=rep(1:0, each=n/2)
 #plotRoc(computeRoc(score, outcome))
 
 # commented out b/c slower on pc and cause note when r cmd check
-## test, fast.auc2 is a version without all the checking
+## test, fastauc2 is a version without all the checking
 #score=rnorm(1e5)
 #outcome=rbinom(1e5,1,.5)
-#system.time(for (i in 1:1e2) fast.auc(score,outcome)) # 4.9 sec
-#system.time(for (i in 1:1e2) fast.auc2(score,outcome)) # 3.8 sec
+#system.time(for (i in 1:1e2) fastauc(score,outcome)) # 4.9 sec
+#system.time(for (i in 1:1e2) fastauc2(score,outcome)) # 3.8 sec
 
 
 }

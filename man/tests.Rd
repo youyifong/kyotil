@@ -35,54 +35,54 @@ mycor.test(x, method = c("pearson", "kendall", "spearman"), idx =
 \arguments{
 
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+tbd
 }
   \item{y}{
-%%     ~~Describe \code{y} here~~
+tbdy
 }
   \item{yhat}{
-%%     ~~Describe \code{yhat} here~~
+tbdyhat
 }
   \item{g}{
-%%     ~~Describe \code{g} here~~
+tbdg
 }
 
   \item{x}{
-%%     ~~Describe \code{x} here~~
+tbdx
 }
   \item{var.equal}{
-%%     ~~Describe \code{var.equal} here~~
+tbdvar.equal
 }
 
   \item{method}{
-%%     ~~Describe \code{method} here~~
+tbdmethod
 }
 
 
   \item{mu}{
-%%     ~~Describe \code{mu} here~~
+tbdmu
 }
   \item{ms}{
-%%     ~~Describe \code{ms} here~~
+tbdms
 }
   \item{n}{
-%%     ~~Describe \code{n} here~~
+tbdn
 }
 
   \item{mean.x}{
-%%     ~~Describe \code{mean.x} here~~
+tbdmean.x
 }
   \item{mean.y}{
-%%     ~~Describe \code{mean.y} here~~
+tbdmean.y
 }
   \item{var.x}{
-%%     ~~Describe \code{var.x} here~~
+tbdvar.x
 }
   \item{var.y}{
-%%     ~~Describe \code{var.y} here~~
+tbdvar.y
 }
   \item{idx}{
-%%     ~~Describe \code{var.y} here~~
+tbdvar.y
 }
 }
 \examples{
