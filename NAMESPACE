@@ -10,7 +10,7 @@ export(computeRoc, plotRoc, addRoc, classification.error)
 export(as.binary, binom.coef, expit, H, mutual.info, info.cor, l.measure, logDiffExp, logit, logMeanExp, logSumExp, logSumExpFor2, permn, Stirling2, rbilogistic, rbigamma, rdoublexp,ddoublexp,pdoublexp,qdoublexp,rbidoublexp) 
 
 export(concatList, AR1, EXCH, fill.jagged.array, getMidPoints, getUpperRight, last, mix, rep.data.frame, rep.matrix, 
-    rep.matrix.block, shift.left, shift.right, thin.rows, ThinRows, tr, cbinduneven, skew, mysanitize.text, mysanitize.numbers, binaryloess)
+    rep.matrix.block, shift.left, shift.right, thin.rows, ThinRows, tr, cbinduneven, skew, mysanitize.text, mysanitize.numbers, binaryloess, mytable)
 
 export("%.%", concatList, contain, escapeUnderline, fileStem, firstIndex, getExt, getFileStem, getStem, 
     lastIndex, myprint, myprint.default, myprint.matrix, remove.prefix, VEplot, VEplot.glm, VEplot.cox.zph, myplot.cox.zph, age_calc, print.iorw)
