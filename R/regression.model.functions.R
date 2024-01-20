@@ -71,8 +71,8 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             # est (se)
             out=est. %.% " (" %.% formatDouble(tmp[,2,drop=FALSE], se.digits, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=0.05, ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
         else if (type==3) 
-            # est (lb, up)
-            out=est. %.% " (" %.% lb %.% ", " %.% ub %.% ")" 
+            # est (lb-ub)
+            out=est. %.% " (" %.% lb %.% "-" %.% ub %.% ")" 
         else if (type==4)
             # a space is inserted between est and se, they could be post-processed in swp
             out=est. %.% " " %.% formatDouble(tmp[,2,drop=FALSE], est.digits, remove.leading0=remove.leading0)
@@ -84,8 +84,8 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             # est (pval)*
             out=est. %.% " (" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
         else if (type==7)
-            # (lb, up)
-            out=ifelse(drop(too.big), rep("",nrow(lb)), " (" %.% lb %.% ", " %.% ub %.% ")")
+            # (lb-ub)
+            out=ifelse(drop(too.big), rep("",nrow(lb)), " (" %.% lb %.% "-" %.% ub %.% ")")
         else if (type==8)
             # est (p value #)
             out=est. %.% " (p value " %.% 
@@ -107,9 +107,6 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                 " (CI=" %.% lb %.% "," %.% ub %.% 
                 ", p=" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.%
                 ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"") 
-        else if (type==13) 
-            # (lb-up)
-            out="(" %.% lb %.% "-" %.% ub %.% ")" 
         else 
             stop ("getFormattedSummaries(). type not supported: "%.%type)
             
