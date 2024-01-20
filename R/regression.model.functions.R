@@ -53,12 +53,12 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         if(ncol(tmp)>1) {
             lb=tmp[,3,drop=FALSE]
             lb[too.big]=NA
-            lb=formatDouble(lb, est.digits, remove.leading0=remove.leading0) 
+            lb=ifelse(trunc.large.est & lb>100, ">100", formatDouble(lb, est.digits, remove.leading0=remove.leading0) )
             if(to.trim) lb=trim(lb)
             
             ub=tmp[,4,drop=FALSE]
             ub[too.big]=NA
-            ub=formatDouble(ub, est.digits, remove.leading0=remove.leading0) 
+            ub=ifelse(trunc.large.est & ub>100, ">100", formatDouble(ub, est.digits, remove.leading0=remove.leading0) )
             if(to.trim) ub=trim(ub)
         }
                 
