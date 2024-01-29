@@ -83,8 +83,9 @@ cox.zph.2 <- function(fit, transform='km', global=TRUE, exact=TRUE) {
                 y=r2 + outer(rep(1,ndead), fit$coefficients),
                 var=fit$var, call=call, transform=tname)
 
-    if (is.R()) class(temp) <- "cox.zph"
-    else oldClass(temp) <- "cox.zph"
+    # if (is.R()) class(temp) <- "cox.zph"
+    # else oldClass(temp) <- "cox.zph"
+    class(temp) <- "cox.zph" # is.R is deprecated
     temp
     
 }

@@ -11,6 +11,7 @@
 \alias{myreshapewide}
 \alias{mysapply}
 \alias{myscale}
+\alias{mytable}
 \alias{mysystem}
 \alias{mytapply}
 \alias{read.sv}
@@ -37,7 +38,12 @@ f2c convert temperature from f to c/
 
 }
 \usage{
+
+mytable (..., exclude = if (useNA == "no") c(NA, NaN), useNA = "ifany", 
+  dnn = list.names(...), deparse.level = 1) 
+
 cbinduneven(li)
+
 binary(i)
 
 multi.outer (f, ... ) 
@@ -90,6 +96,15 @@ mycor (x, use = "everything", method = c("pearson", "kendall", "spearman"),
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 
+  \item{exclude}{
+exclude
+}
+  \item{dnn}{
+dnn
+}
+  \item{deparse.level}{
+deparse.level
+}
   \item{add.total.column}{
 tbdi
 }
