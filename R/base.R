@@ -72,7 +72,7 @@ cbinduneven=function(li) {
   li = lapply(li, function (x) {
     new=setdiff(nams, rownames(x))
     for (i in new) x <- add_na_row(x, i)
-    x[nams,]
+    x[nams,,drop=FALSE]
   })  
   
   do.call(cbind, li)

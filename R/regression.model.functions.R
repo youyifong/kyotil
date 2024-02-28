@@ -91,7 +91,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             out=est. %.% " (p value " %.% 
                 formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" 
         else if (type==9)
-            # est (pval)*
+            # est (pval)
             out=est. %.% " (" %.% formatDouble(tmp[,p.val.col,drop=FALSE], p.digits, remove.leading0=remove.leading0) %.% ")" 
         else if (type==10) {
             # pval
