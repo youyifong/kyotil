@@ -108,7 +108,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                 ", p=" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.%
                 ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"") 
         else 
-            stop ("getFormattedSummaries(). type not supported: "%.%type)
+            stop ("getFormattedSummary(). type not supported: "%.%type)
             
         names(out)=rownames(tmp)
         out=gsub("NA","",out)
