@@ -460,7 +460,7 @@ myboxplot <- function(object, ...) UseMethod("myboxplot")
 # myboxplot.formula and myboxplot.list make a boxplot with data points and do inferences for two group comparions. 
 # cex=.5; ylab=""; xlab=""; main=""; box=FALSE; highlight.list=NULL; at=NULL;pch=1;col=1;
 # friedman.test.formula is of the form a ~ b | c
-myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab="", main="", box=TRUE, at=NULL, na.action=NULL, p.val=NULL,
+myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, p.val=NULL,
     pch=1, col=1, test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
     
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
@@ -469,7 +469,6 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab="", main="", box
         save.seed <- get(".Random.seed", .GlobalEnv)
     }                        
     set.seed(seed)
-    
      # removes empty groups formed through model.frame
      mf=model.frame(formula, data)
      response <- attr(attr(mf, "terms"), "response") 
@@ -478,13 +477,18 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab="", main="", box
          len.n=sapply(tmp.dat, length)
          tmp.dat=tmp.dat[len.n!=0]
      }
+     
+     dat.tmp=model.frame(formula, data, na.action=NULL);# str(dat.tmp); str(data)
+     if (is.null(ylab)) ylab=names(dat.tmp)[1] 
+     
+     
      res=boxplot(tmp.dat, range=0, xlab=xlab, at=at, col=NULL, cex=cex, 
         boxlty=if(!box) 0 else NULL,whisklty=if(!box) 0 else NULL,staplelty=if(!box) 0 else NULL,
         #pars = list(boxwex = if(box) 0.8 else 0, staplewex = if(box) 0.5 else 0, outwex = if(box) 0.5 else 0), 
         main=main, ylab=ylab, add=add, ...)
     
+     
     # na.action is key below b/c otherwise pch vector will be out of sync with data when there are missing data
-    dat.tmp=model.frame(formula, data, na.action=NULL);# str(dat.tmp); str(data)
     xx=interaction(dat.tmp[,-1]); #str(xx); print(table(xx))
     if(drop.unused.levels) xx=droplevels(xx)
     if(is.null(at)){        
