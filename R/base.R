@@ -45,7 +45,8 @@ cbinduneven=function(li) {
       data.frame(x)
       
     } else if (is.matrix(x)) {
-      x <- unique(x, MARGIN = 1)
+      # comment out b/c it messes things up
+      # x <- unique(x, MARGIN = 1)
       data.frame(x, row.names = rownames(x))
       
     } else {
