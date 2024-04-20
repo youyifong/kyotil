@@ -248,6 +248,8 @@ myreshapewide=function(formula, dat, idvar, keep.extra.col=FALSE){
     tmp = as.character(formula)
     outcome.var=tmp[2]
     category.var=tmp[3]
+    myprint(category.var)
+    myprint(names(dat))
     stopifnot(category.var %in% names(dat))
     
 #    if (is.null(idvar)) {
