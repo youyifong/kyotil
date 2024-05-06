@@ -501,7 +501,15 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
     points(xx, dat.tmp[[1]], cex=cex,pch=pch,col=col, bg=bg.pt)
     
     # restore rng state 
-    assign(".Random.seed", save.seed, .GlobalEnv)     
+    assign(".Random.seed", save.seed, .GlobalEnv)  
+    
+    if (add.interaction) {
+      dat.wide=myreshapewide (y~x, data, idvar = 'z')
+      dat.wide=dat.wide[complete.cases(dat.wide),]
+      # remove NA, otherwise my.interaction.plot will break
+      my.interaction.plot(as.matrix(dat.wide)[,-1], add=T)
+    }
+    
     
     # inference
     # if p.val is passed in, then use that p.val
@@ -531,7 +539,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
                 pvals=c(pvals, Friedman=p.val)
                 if (write.p.at.top) sub=paste0("p=",signif(p.val,2)) else sub=sub%.%" Friedman "%.%ifelse(length(test)==1,"p-val ","")%.%signif(p.val,2)
             } else if (!is.null(reshape.formula) & !is.null(reshape.id)) {
-                dat.wide=myreshapewide (reshape.formula, data, idvar = reshape.id)
+                dat.wide=myreshapewide (y~x, data, idvar = 'z') # x,y,z comes from reshape
                 #str(dat.wide)# show this so that we know we are using the right data to do the test
                 ftest = try(friedman.test (as.matrix(dat.wide[,-(1)])),silent=T)
                 if (is.null(p.val)) if (!inherits(ftest,"try-error")) p.val=ftest$p.value else p.val=NA
@@ -563,9 +571,9 @@ myboxplot.list=function(object, paired=FALSE, ...){
     dat=NULL
     if(is.null(names(object))) names(object)=1:length(object)
     for (i in 1:length(object)) {
-        dat=rbind(dat,data.frame(y=object[[i]], x=names(object)[i]))
+        dat=rbind(dat,data.frame(x=names(object)[i], y=object[[i]], z=1:length(object[[i]])))
     }
-    
+
     p.val=NULL
     if (paired) {
         if(length(object)==2) {
