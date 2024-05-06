@@ -6,7 +6,6 @@
 \alias{ftoi}
 \alias{keepWarnings}
 \alias{meanmed}
-\alias{methods4}
 \alias{myaggregate}
 \alias{myreshapewide}
 \alias{mysapply}
@@ -60,7 +59,6 @@ keepWarnings(expr)
 
 meanmed(x, na.rm = FALSE)
 
-methods4(classes, super = FALSE, ANY = FALSE)
 
 myaggregate(x, by, FUN, new.col.name = "aggregate.value", ...)
 
@@ -169,15 +167,6 @@ tbdx
 tbdna.rm
 }
 
-  \item{classes}{
-tbdclasses
-}
-  \item{super}{
-tbdsuper
-}
-  \item{ANY}{
-tbdANY
-}
 
   \item{desc}{
 tbdby

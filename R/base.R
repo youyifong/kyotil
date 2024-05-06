@@ -394,16 +394,17 @@ table.cases.3=function(case,group1,group2){
     res
 }
 
+## linearizeMlist is no longer visible
 # from Thomas, found on R user group
-methods4<-function(classes, super=FALSE, ANY=FALSE){ 
-    if (super) classes<-unlist(sapply(classes, function(cl) getAllSuperClasses(getClass(cl)))) 
-    if (ANY) classes<-c(classes,"ANY") 
-    gens<-getGenerics()@.Data 
-    sigs<-lapply(gens, function(g) linearizeMlist(getMethods(g))@classes) 
-    names(sigs)<-gens@.Data 
-    sigs<-lapply(sigs, function(gen){ gen[unlist(sapply(gen, function(sig) any(sig %in% classes)))]}) 
-    sigs[sapply(sigs,length)>0] 
-} 
+# methods4<-function(classes, super=FALSE, ANY=FALSE){ 
+#     if (super) classes<-unlist(sapply(classes, function(cl) getAllSuperClasses(getClass(cl)))) 
+#     if (ANY) classes<-c(classes,"ANY") 
+#     gens<-getGenerics()@.Data 
+#     sigs<-lapply(gens, function(g) linearizeMlist(getMethods(g))@classes) 
+#     names(sigs)<-gens@.Data 
+#     sigs<-lapply(sigs, function(gen){ gen[unlist(sapply(gen, function(sig) any(sig %in% classes)))]}) 
+#     sigs[sapply(sigs,length)>0] 
+# } 
  
 
 # p1 and p2 are two points. return y that corresponds to x on the line between p1 and p2
