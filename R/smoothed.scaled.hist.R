@@ -9,9 +9,12 @@ smoothed.scaled.hist = function(dat.ls, bin_width, scale.factors=NULL, cols=NULL
   names(labels)=labels
   
   if (is.null(scale.factors)) {
-    scale.factors = rep(1, length(labels))
+    nn = sapply(dat.ls, function(x) length(x))
+    # default scale.factors are to make density comparable
+    scale.factors = nn[1]/nn
   }
   names(scale.factors)=labels
+  
   if (is.null(cols)) cols=1:length(dat.ls)
   
   # get histogram info without plotting

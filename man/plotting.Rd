@@ -172,14 +172,6 @@ named vector of scale factors to scale the histogram counts by
   \item{cex.legend}{
 cex for legend
 }
-  \item{silent}{
-tbdadd
-}
-  \item{silent}{
-tbdadd
-}
-
-
 
 
   \item{silent}{
@@ -592,7 +584,8 @@ myboxplot(list(jitter(1:10), jitter(3:12)), test="w")
 myboxplot(list(jitter(1:10), jitter(3:12)), test="w", paired=TRUE)
 
 smoothed.scaled.hist(list(A=rnorm(100,0,1)), bin_width=0.1, xlab="x")
-smoothed.scaled.hist(list(A=rnorm(100,0,1), B=rnorm(500,10,2)), bin_width=0.1, xlab="x")
+smoothed.scaled.hist(list(A=rnorm(100,0,1), B=rnorm(500,10,2)), 
+                  bin_width=0.1, xlab="x")
 
 
 
