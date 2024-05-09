@@ -293,6 +293,20 @@ formatDouble=roundup
 # test
 #formatDouble(c(1,2,3.12344), 1:3)
 
+
+pretty.print=function (value, digit=2) {
+  if (value>=1e4) {
+      format(value, digit=2, scientific=T) 
+  } else if (value>=100) {
+      round(value)
+  } else if (value>=1) {
+      round(value,1)
+  } else {
+      signif(value, 2)
+  }
+}
+
+
 # don't have to transpose x
 mywrite=function(x, ...){
     if (is.list(x)) x=fill.jagged.array(x)
