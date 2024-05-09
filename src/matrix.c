@@ -715,13 +715,13 @@ void R_ginv(double* _tol,int* _M, int* _N, double* _s,double* _u0,double* _u,dou
     if(tol < 0.0) tol = sqrt(DBL_EPSILON);
     double cutoff = MAX(tol * s[0],0.0);
     PRINTF("singular values ");for(i = 0;i < q;i++)PRINTF("%f ",s[i]);PRINTF("\n\n");
-    int nzero = 0;
+//    int nzero = 0;
     for(i = 0;i < q;i++){
         if(s[i] > cutoff){
             s[i] = 1.0/s[i];
         }else{
             s[i] = 0.0;
-            nzero++;
+//            nzero++;
         }
     }
  

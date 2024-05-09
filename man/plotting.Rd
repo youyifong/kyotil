@@ -34,6 +34,7 @@
 \alias{mylines}
 \alias{mytiff}
 \alias{myplot.loess}
+\alias{smoothed.scaled.hist}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -42,6 +43,10 @@ Plotting Functions}
 mypostscript and mypdf sets the width and height based on mfrow input. 
 }
 \usage{
+
+smoothed.scaled.hist (dat.ls, bin_width, scale.factors=NULL, cols=NULL, 
+  legend=NULL, cex.legend=1, ...) 
+
 
 myplot (object, ...) 
 
@@ -154,6 +159,20 @@ corplot(object, ...)
 }
 
 \arguments{
+
+  \item{dat.ls}{
+named list of vectors. A histogram is made for each vector.
+}
+  \item{bin_width}{
+width of bin for histograms
+}
+  \item{scale.factors}{
+named vector of scale factors to scale the histogram counts by
+}
+  \item{cex.legend}{
+cex for legend
+}
+
 
   \item{silent}{
 tbdadd
@@ -543,6 +562,8 @@ corplot.formula uses MethComp::Deming by Bendix Carstensen to fit Deming regress
 wtd.hist is copied from weights package, author: Josh Pasek.
 
 mymatplot will use na.approx (zoo) to fill in NA before plotting in order to draw continuous lines. The filled-in values will not be shown as points.
+
+smoothed.scaled.hist draws histograms and overlay densities on top.
 }
 
 \examples{
@@ -561,6 +582,12 @@ myboxplot(y~x, dat, test="f", add.interaction=TRUE, reshape.formula=y~x, reshape
 
 myboxplot(list(jitter(1:10), jitter(3:12)), test="w")
 myboxplot(list(jitter(1:10), jitter(3:12)), test="w", paired=TRUE)
+
+smoothed.scaled.hist(list(A=rnorm(100,0,1)), bin_width=0.1, xlab="x")
+smoothed.scaled.hist(list(A=rnorm(100,0,1), B=rnorm(500,10,2)), 
+                  bin_width=0.1, xlab="x")
+
+
 
 \dontrun{
 myfigure(mfrow=c(1,2))

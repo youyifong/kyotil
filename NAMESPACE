@@ -1,7 +1,7 @@
 useDynLib(kyotil, .registration = TRUE)
 
 export(pretty.print)
-export(iorw)
+export(iorw, smoothed.scaled.hist)
 
 export(coef.auc, predict.auc, ratio, ratio.auc, trainauc, ratio.glm, trainauc.auc, summary.auc, print.auc, trainauc.glm, fastauc) 
 
@@ -16,7 +16,7 @@ export(concatList, AR1, EXCH, fill.jagged.array, getMidPoints, getUpperRight, la
 export("%.%", concatList, contain, escapeUnderline, fileStem, firstIndex, getExt, getFileStem, getStem, 
     lastIndex, myprint, myprint.default, myprint.matrix, remove.prefix, VEplot, VEplot.glm, VEplot.cox.zph, myplot.cox.zph, age_calc, print.iorw)
 
-export(binary, binary2, f2c, ftoi, keepWarnings, meanmed, methods4, myaggregate, myreshapelong, myreshapewide, mysapply, myscale, 
+export(binary, binary2, f2c, ftoi, keepWarnings, meanmed, myaggregate, myreshapelong, myreshapewide, mysapply, myscale, 
     mysystem, mytapply, read.sv, read.tsv, table.prop, table.cases, table.cases.3, unix, DMHeatMap)
 
 export(abline.shade, abline.shade.2, abline.pt.slope, abline.pts, butterfly.plot, empty.plot, getMfrow, myforestplot, my.interaction.plot, mylines, 
@@ -140,7 +140,7 @@ import(graphics)
 importFrom("grDevices", "dev.new", "xy.coords")
 importFrom("grDevices", "pdf", "postscript","rgb", "png")
 importFrom("methods", "getAllSuperClasses", "getClass", "getGenerics",
-         "getMethods", "is", "linearizeMlist")
+         "getMethods", "is")
 importFrom("utils", "capture.output", "read.csv", "tail", "write.csv", "str", "read.table")
 importFrom("grDevices", "dev.control", "dev.copy", "dev.off",
            "nclass.FD", "nclass.Sturges", "nclass.scott", "tiff")
