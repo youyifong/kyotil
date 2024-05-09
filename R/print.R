@@ -296,13 +296,13 @@ formatDouble=roundup
 
 pretty.print=function (value, digit=2) {
   if (value>=1e4) {
-      format(value, digit=2, scientific=T) 
+    gsub("e\\+0*", "x10^", format(value, digit=digit, scientific=T) )
   } else if (value>=100) {
       round(value)
   } else if (value>=1) {
       round(value,1)
   } else {
-      signif(value, 2)
+      signif(value, digit)
   }
 }
 
