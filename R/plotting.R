@@ -636,7 +636,7 @@ corplot.default=function(object,y,...){
 }
 
 # col can be used to highlight some points
-corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col=1,cex=.5,add.diagonal.line=TRUE,add.lm.fit=FALSE,add.loess.fit=FALSE,col.lm=2,add.deming.fit=FALSE,col.deming=4,add=FALSE,
+corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col=1,cex=.5,add.diagonal.line=TRUE,add.lm.fit=FALSE,add.loess.fit=FALSE,col.lm=2,add.deming.fit=FALSE,col.deming=4,add=FALSE, digit.cor=2,
     log="",same.xylim=FALSE,xlim=NULL,ylim=NULL, ...){
     vars=dimnames(attr(terms(formula),"factors"))[[1]]
     cor.=NULL
@@ -646,7 +646,7 @@ corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col
         })
         tmp=main==""
         main=main%.%ifelse(tmp, "", " (")
-        main=main%.%"cor: "%.%concatList(formatDouble(cor.,2),"/")
+        main=main%.%"cor: "%.%concatList(formatDouble(cor.,digit.cor),"/")
         main=main%.%ifelse(tmp, "", ")")
     }
 
