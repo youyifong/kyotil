@@ -10,6 +10,8 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
     
     res = sapply(idxes, simplify="array", function (fit.idx) {
         
+        # "est","se","(lower","upper)","p.value"
+        
         fit=fits[[fit.idx]]
         if(coef.direct) {
             tmp=fit
@@ -182,7 +184,7 @@ getFixedEf.gee = function (object,exp=FALSE,  ...) {
     out
 }
 
-getFixedEf.MIresult=function(object, ...) {
+getFixedEf.MIresult=function(object,exp=FALSE, ...) {
     capture.output({
         tmp=summary(object)
     }, type="output") # type = message captures stderr, type=output is for stdout
@@ -190,7 +192,13 @@ getFixedEf.MIresult=function(object, ...) {
     tmp=tmp[,names(tmp)!="missInfo"] # MIresult has this string column  #tmp=subset(tmp, select=-missInfo) fails check
     tmp=as.matrix(tmp)# data frame fails in format and formatDouble
     
-    cbind(tmp, "p.val"=2*pt(abs(tmp[,1]/tmp[,2]), df=object$df, lower.tail = FALSE))
+    out = cbind(tmp, "p.val"=2*pt(abs(tmp[,1]/tmp[,2]), df=object$df, lower.tail = FALSE))
+    
+    if(exp) {
+        out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+    }
+    
+    out
 }
 
 #get estimates, variances, sd from lmer fit
