@@ -276,7 +276,7 @@ make.latex.coef.table = function (models, model.names=NULL, row.major=FALSE, rou
 }
 
 
-roundup=function (value, digits, na.to.empty=TRUE, remove.leading0=TRUE) {
+roundup=function (value, digits, na.to.empty=TRUE, remove.leading0=FALSE) {
     if (length(digits)==1) {
         out=format(round(value, digits), nsmall=digits, scientific=FALSE) 
     } else {
