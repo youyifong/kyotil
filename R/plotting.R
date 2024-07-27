@@ -461,7 +461,7 @@ myboxplot <- function(object, ...) UseMethod("myboxplot")
 # cex=.5; ylab=""; xlab=""; main=""; box=FALSE; highlight.list=NULL; at=NULL;pch=1;col=1;
 # friedman.test.formula is of the form a ~ b | c
 myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, p.val=NULL,
-    pch=1, col=1, test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
+    pch=1, col="white", col.points=1, border=1,  test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
     
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
     if (inherits(save.seed,"try-error")) {        
@@ -482,7 +482,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
      if (is.null(ylab)) ylab=names(dat.tmp)[1] 
      
      
-     res=boxplot(tmp.dat, range=0, xlab=xlab, at=at, col=NULL, cex=cex, 
+     res=boxplot(tmp.dat, range=0, xlab=xlab, at=at, cex=cex, 
         boxlty=if(!box) 0 else NULL,whisklty=if(!box) 0 else NULL,staplelty=if(!box) 0 else NULL,
         #pars = list(boxwex = if(box) 0.8 else 0, staplewex = if(box) 0.5 else 0, outwex = if(box) 0.5 else 0), 
         main=main, ylab=ylab, add=add, ...)
@@ -498,7 +498,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
     }      
     if (add.interaction) jitter=FALSE
     if (jitter) xx=jitter(xx)  
-    points(xx, dat.tmp[[1]], cex=cex,pch=pch,col=col, bg=bg.pt)
+    points(xx, dat.tmp[[1]], cex=cex,pch=pch,col=col.points, bg=bg.pt)
     
     # restore rng state 
     assign(".Random.seed", save.seed, .GlobalEnv)  
