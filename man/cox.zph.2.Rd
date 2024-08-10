@@ -31,9 +31,6 @@ When the model uses time-dependent covariates, the approximation used in Grambsc
 \references{
 Fong, Y. and Halloran, M Elizabeth and Gilbert, P.  Using Time-Dependent Age Group in Cox Regression Analysis of Vaccine Efficacy Trials, Just Another Epi Journal, in prep.
 }
-\seealso{
-\code{\link{cox.zph}}
-}
 \examples{
 library(survival)
 fit <- coxph(Surv(futime, fustat) ~ age + ecog.ps,  

@@ -504,7 +504,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
     assign(".Random.seed", save.seed, .GlobalEnv)  
     
     if (add.interaction) {
-      dat.wide=myreshapewide (y~x, data, idvar = 'z')
+      dat.wide=myreshapewide (y~x, data, idvar = reshape.id)
       dat.wide=dat.wide[complete.cases(dat.wide),]
       # remove NA, otherwise my.interaction.plot will break
       my.interaction.plot(as.matrix(dat.wide)[,-1], add=T)
@@ -539,7 +539,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
                 pvals=c(pvals, Friedman=p.val)
                 if (write.p.at.top) sub=paste0("p=",signif(p.val,2)) else sub=sub%.%" Friedman "%.%ifelse(length(test)==1,"p-val ","")%.%signif(p.val,2)
             } else if (!is.null(reshape.formula) & !is.null(reshape.id)) {
-                dat.wide=myreshapewide (y~x, data, idvar = 'z') # x,y,z comes from reshape
+                dat.wide=myreshapewide (y~x, data, idvar = reshape.id) # x,y,z comes from reshape
                 #str(dat.wide)# show this so that we know we are using the right data to do the test
                 ftest = try(friedman.test (as.matrix(dat.wide[,-(1)])),silent=T)
                 if (is.null(p.val)) if (!inherits(ftest,"try-error")) p.val=ftest$p.value else p.val=NA
