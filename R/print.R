@@ -294,7 +294,7 @@ formatDouble=roundup
 #formatDouble(c(1,2,3.12344), 1:3)
 
 
-pretty.print=function (value, digit=2) {
+prettyprint=function (value, digit=2) {
   if (value>=1e4) {
     gsub("e\\+0*", "x10^", format(value, digit=digit, scientific=T) )
   } else if (value>=100) {

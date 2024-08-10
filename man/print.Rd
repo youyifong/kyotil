@@ -3,6 +3,7 @@
 \alias{myprint.default}
 \alias{myprint.matrix}
 \alias{formatInt}
+\alias{prettyprint}
 \alias{formatDouble}
 \alias{make.latex.coef.table}
 \alias{mytex}
@@ -30,6 +31,8 @@ myprint(object, ...)
 \method{myprint}{matrix}(object, ...)
 
 formatInt(x, digits, fill = "0", ...)
+
+prettyprint (value, digit=2) 
 
 make.latex.coef.table(models, model.names = NULL, row.major = FALSE, round.digits = NULL)
 
@@ -65,6 +68,9 @@ formatDouble(value, digits, na.to.empty=TRUE, remove.leading0=TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 
+  \item{digit}{
+tbddigit
+}
   \item{silent}{
 tbdnewline
 }
