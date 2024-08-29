@@ -246,12 +246,19 @@ getFixedEf.lme = function (object, ...) {
 #     nlme::VarCorr(object)
 # }
 
-getFixedEf.lmerMod = function (object, ...) {
+getFixedEf.lmerMod = function (object, exp=F, ...) {
     betas <- nlme::fixef(object)
     se <- sqrt (diag (getVarComponent(object)))
     zval <- betas / se 
     pval <- 2 * pnorm(abs(zval), lower.tail = FALSE) 
-    cbind(betas, se, zval, pval) 
+    out=cbind(betas, 
+              se, 
+              "(lower"=betas-qnorm(0.975)*se, 
+              "upper)"=betas+qnorm(0.975)*se, 
+              zval, 
+              pval) 
+    if(exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+    out
 }
 getVarComponent.lmerMod = function (object, ...) {
     as.matrix(vcov(object)) # otherwise will complain about S4 class convertibility problem
