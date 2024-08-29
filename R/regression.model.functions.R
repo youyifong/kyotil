@@ -279,11 +279,14 @@ getFixedEf.gam = function (object, ...) {
     cbind (temp$p.coef, temp$se[1:length(temp$p.coef)])
 }
 
-getFixedEf.lm = function (object, ...) {
+getFixedEf.lm = function (object, exp=F, ...) {
     out=summary(object)$coef
     ci=confint(object)    
     out=cbind(out[,1:2], ci, out[,4])
     colnames(out)[5]="p-val"
+    if(exp) {
+        out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+    }
     out
 }
 
