@@ -1,7 +1,9 @@
 # type 3 and 7 do not give the right output for glm fits
 # robust can be passed as part of .... Sometimes robust=T generates errors
 # trim: get rid of white space in confidence intervals for alignment
-getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, random=FALSE, VE=FALSE, to.trim=FALSE, rows=NULL, coef.direct=FALSE, trunc.large.est=TRUE, scale.factor=1, p.digits=3, remove.leading0=FALSE, p.adj.method="fdr", ...){
+getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, random=FALSE, VE=FALSE, 
+                             to.trim=FALSE, rows=NULL, coef.direct=FALSE, trunc.large.est=TRUE, 
+                             scale.factor=1, p.digits=3, remove.leading0=FALSE, p.adj.method="fdr", ...){
     
     if(is.null(names(fits))) names(fits)=seq_along(fits)
     idxes=seq_along(fits); names(idxes)=names(fits)
@@ -74,7 +76,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             out=est. %.% " (" %.% formatDouble(tmp[,2,drop=FALSE], se.digits, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=0.05, ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
         else if (type==3) 
             # est (lb, ub)
-            out=est. %.% " (" %.% lb %.% "-" %.% ub %.% ")" 
+            out=est. %.% " (" %.% lb %.% "," %.% ub %.% ")" 
         else if (type==7)
           # (lb, ub)
           out=ifelse(drop(too.big), rep("",nrow(lb)), " (" %.% lb %.% ", " %.% ub %.% ")")
@@ -98,7 +100,8 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         else if (type==10) {
             # pval
             tmp.out=tmp[,p.val.col,drop=TRUE]
-            out = ifelse(tmp.out<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), format(round(tmp.out, p.digits), nsmall=p.digits, scientific=FALSE) )
+            out = ifelse(tmp.out<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
+                         format(round(tmp.out, p.digits), nsmall=p.digits, scientific=FALSE) )
         }
         else if (type==11)
             # adj pval
