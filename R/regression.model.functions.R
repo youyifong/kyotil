@@ -8,6 +8,11 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
     if(is.null(names(fits))) names(fits)=seq_along(fits)
     idxes=seq_along(fits); names(idxes)=names(fits)
     
+    if (type==11) {
+      # check to make sure there is only one coef selected
+      if(length(rows)!=1) stop("type=11 requires only one coef selected")
+    }
+    
     if(length(robust)==1) robust=rep(robust,length(fits)) else if (length(robust)!=length(fits)) stop("length of robust needs to match length of fits")    
     
     res = sapply(idxes, simplify="array", function (fit.idx) {
@@ -103,10 +108,13 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             out = ifelse(tmp.out<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
                          format(round(tmp.out, p.digits), nsmall=p.digits, scientific=FALSE) )
         }
-        else if (type==11)
-            # adj pval
-            out=format(round(p.adjust(tmp[,p.val.col,drop=TRUE], method=p.adj.method), p.digits), nsmall=3, scientific=FALSE) 
-        else if (type==12)
+        else if (type==11) {
+            # adj pval will be done later
+            # here check to make sure there is only one coef selected
+            out=tmp[,p.val.col]
+            stopifnot(nrow(out)==1 & ncol(out)==1)
+  
+        } else if (type==12)
             # est (lb, up, pval *)
             out=est. %.% 
                 " (CI=" %.% lb %.% "," %.% ub %.% 
@@ -129,6 +137,11 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
     # if there is only one coefficient, we need this
         res=matrix(res, nrow=1)
         colnames(res)=names(fits)
+    }
+    
+    if(type==11) {
+      res=format(round(p.adjust(res, method=p.adj.method), p.digits), nsmall=3, scientific=FALSE) 
+      names(res)=names(fits)
     }
     
     res
