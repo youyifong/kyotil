@@ -66,7 +66,10 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                 
         # str(lb); str(ub); str(est.) # make sure they are not data frames 
         
-        if (type==1)
+        if (type==0)
+            # return tmp
+            out=drop(tmp)
+        else if (type==1)
             # est only
             out=drop(est. )
         else if (type==2)
@@ -111,10 +114,13 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                 ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"") 
         else 
             stop ("getFormattedSummary(). type not supported: "%.%type)
-            
-        names(out)=rownames(tmp)
-        out=gsub("NA","",out)
-        out=gsub("\\( +\\)","",out)
+        
+        if(type!=0) {
+            names(out)=rownames(tmp)
+            out=gsub("NA","",out)
+            out=gsub("\\( +\\)","",out)
+        }
+        
         out
     })
         
