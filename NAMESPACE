@@ -131,20 +131,18 @@ S3method(predict, Deming)
 S3method(summary, Deming)
 
 
-
-
 import(stats)
 import(graphics)
 
-
-importFrom("grDevices", "dev.new", "xy.coords")
-importFrom("grDevices", "pdf", "postscript","rgb", "png")
-importFrom("methods", "getAllSuperClasses", "getClass", "getGenerics",
-         "getMethods", "is")
-importFrom("utils", "capture.output", "read.csv", "tail", "write.csv", "str", "read.table")
-importFrom("grDevices", "dev.control", "dev.copy", "dev.off",
+importFrom("grDevices",
+           "dev.new", "xy.coords", "pdf", "postscript","rgb", "png",
+           "col2rgb", "colorRampPalette",
+           "dev.flush", "dev.hold", "dev.control", "dev.copy", "dev.off",
            "nclass.FD", "nclass.Sturges", "nclass.scott", "tiff")
-importFrom("grDevices", "col2rgb", "dev.flush", "dev.hold")
-importFrom("grDevices", "colorRampPalette")
+
+importFrom("utils",
+           "capture.output", "read.csv", "tail", "write.csv", "str", "read.table", "data")
+
+importFrom("methods", "getAllSuperClasses", "getClass", "getGenerics")
+
 importFrom("parallel", "mclapply")
-importFrom("utils", "data")
