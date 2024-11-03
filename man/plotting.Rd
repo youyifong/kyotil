@@ -80,13 +80,14 @@ my.interaction.plot(dat, x.ori = 0, xaxislabels = rep("", 2), cex.axis = 1, add 
 
 myboxplot(object, ...)
 
-\method{myboxplot}{formula}(formula, data, cex = 0.5, xlab = "", ylab = "", main =
- "", box = TRUE, at = NULL, na.action = NULL, p.val =
- NULL, pch = 1, col = 1, test = "",
- friedman.test.formula = NULL, reshape.formula = NULL,
- reshape.id = NULL, jitter = TRUE, add.interaction =
- FALSE, drop.unused.levels = TRUE, bg.pt = NULL, add =
- FALSE, seed = 1, write.p.at.top = FALSE, ...)
+\method{myboxplot}{formula}(formula, data, cex = 0.5, xlab = "", ylab = NULL, main
+                 = "", box = TRUE, at = NULL, na.action = NULL, p.val =
+                 NULL, pch = 1, col = "white", col.points = 1, border =
+                 1, test = "", friedman.test.formula = NULL,
+                 reshape.formula = NULL, reshape.id = NULL, jitter =
+                 TRUE, add.interaction = FALSE, drop.unused.levels =
+                 TRUE, bg.pt = NULL, add = FALSE, seed = 1,
+                 write.p.at.top = FALSE, ...)
     
 \method{myboxplot}{data.frame}(object, cex = 0.5, ylab = "", xlab = "", main = "",
  box = TRUE, at = NULL, pch = 1, col = 1, test = "",
@@ -148,17 +149,21 @@ corplot(object, ...)
 \method{corplot}{default}(object, y, ...)
 
 \method{corplot}{formula}(formula, data, main = "", method = c("pearson",
- "spearman"), col = 1, cex = 0.5, add.diagonal.line =
- TRUE, add.lm.fit = FALSE, add.loess.fit = FALSE,
- col.lm = 2, add.deming.fit = FALSE, col.deming = 4,
- add = FALSE, log = "", same.xylim = FALSE, xlim =
- NULL, ylim = NULL, ...)
+                 "spearman"), col = 1, cex = 0.5, add.diagonal.line =
+                 TRUE, add.lm.fit = FALSE, add.loess.fit = FALSE,
+                 col.lm = 2, add.deming.fit = FALSE, col.deming = 4,
+                 add = FALSE, digit.cor = 2, log = "", same.xylim =
+                 FALSE, xlim = NULL, ylim = NULL, ...)
 
 
 
 }
 
 \arguments{
+
+\item{digit.cor}{number of digits to print correlation}
+
+\item{col.points}{color of points}
 
   \item{dat.ls}{
 named list of vectors. A histogram is made for each vector.

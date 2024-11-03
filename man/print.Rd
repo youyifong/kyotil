@@ -60,9 +60,11 @@ mywrite(x, ...)
 mywrite.csv(x, file = "tmp", row.names = FALSE, digits = NULL,
                  silent = TRUE, ...)
 
-roundup (value, digits, na.to.empty=TRUE, remove.leading0=TRUE) 
+roundup(value, digits, na.to.empty = TRUE, remove.leading0 =
+                 FALSE)
 
-formatDouble(value, digits, na.to.empty=TRUE, remove.leading0=TRUE)
+formatDouble(value, digits, na.to.empty = TRUE, remove.leading0 =
+                 FALSE)
 
 }
 %- maybe also 'usage' for other objects documented here.

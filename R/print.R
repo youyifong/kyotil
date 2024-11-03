@@ -342,7 +342,7 @@ myprint.default = function (..., newline=TRUE, digits=3, print.name=TRUE) {
     object <- as.list(substitute(list(...)))[-1]
     x=list(...)
     for (i in 1:length(x)) {
-        if (is(x[[i]],"formula")) {cat(as.character(x[[i]]), "; "); next}
+        if (inherits(x[[i]],"formula")) {cat(as.character(x[[i]]), "; "); next}
         tmpname <- deparse(object[[i]])[1]
         #str(tmpname)
         #str(gsub("\\\\","\\",gsub("\"", "", tmpname)))

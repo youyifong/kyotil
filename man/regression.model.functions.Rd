@@ -83,7 +83,7 @@ logistic.regression = TRUE)
 
 \method{getFixedEf}{inla}(object, ...)
 
-\method{getFixedEf}{lm}(object, ...)
+\method{getFixedEf}{lm}(object, exp = F, ...)
 
 \method{getFixedEf}{lme}(object, ...)
 
@@ -91,7 +91,7 @@ logistic.regression = TRUE)
 
 \method{getFixedEf}{matrix}(object, ...)
 
-\method{getFixedEf}{MIresult}(object, ...)
+\method{getFixedEf}{MIresult}(object, exp = FALSE, ...)
 
 \method{getVarComponent}{hyperpar.inla}(object, transformation = NULL, ...)
 
