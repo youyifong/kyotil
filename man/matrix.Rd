@@ -8,7 +8,7 @@
 \alias{fill.jagged.array}
 \alias{getMidPoints}
 \alias{getUpperRight}
-\alias{last}
+\alias{mylast}
 \alias{mix}
 \alias{rep.data.frame}
 \alias{rep.matrix}
@@ -39,7 +39,7 @@ getMidPoints(x)
 
 getUpperRight(matri, func = NULL)
 
-last(x, n = 1, ...)
+mylast(x, n = 1, ...)
 
 mix(a, b)
 

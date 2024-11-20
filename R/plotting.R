@@ -36,22 +36,22 @@ mydev.off=function(file="temp", ext=c("pdf"), res=200, mydev=NULL, silent=TRUE) 
     for (ext in exts) {
         if (ext=="pdf") {
             subfolder=concatList(c(tmp[-length(tmp)], "pdf"), sep="/")
-            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
+            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%mylast(tmp) else file
             dev.copy(pdf,        file=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, paper="special")
             if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="eps") {
             subfolder=concatList(c(tmp[-length(tmp)], "eps"), sep="/")
-            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
+            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%mylast(tmp) else file
             dev.copy(postscript, file=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, paper="special", horizontal=FALSE)
             if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="png") {
             subfolder=concatList(c(tmp[-length(tmp)], "png"), sep="/")
-            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
+            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%mylast(tmp) else file
             dev.copy(png,    filename=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, units="in", res=res)
             if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         } else if (ext=="tiff") {
             subfolder=concatList(c(tmp[-length(tmp)], "tiff"), sep="/")
-            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%last(tmp) else file
+            filename=if(file.exists(subfolder))  subfolder%.%"/"%.%mylast(tmp) else file
             dev.copy(tiff,   filename=filename%.%"."%.%ext, width=.mydev$width, height=.mydev$height, units="in", res=res, compression="jpeg")
             if (!silent) cat("Saving figure to "%.%paste(filename,sep="")%.%"."%.%ext%.%"\n")        
         }

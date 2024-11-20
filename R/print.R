@@ -7,7 +7,7 @@ mytex=function(dat=NULL, file.name="temp",
     add.to.row=NULL, 
     sanitize.text.function = NULL, #function(x) x,
     append=FALSE, preamble="", input.foldername=NULL, save2input.only=NULL,
-    caption=NULL, label=paste("tab",last(strsplit(file.name, "/")[[1]]),sep=" "), table.placement="h!",
+    caption=NULL, label=paste("tab",mylast(strsplit(file.name, "/")[[1]]),sep=" "), table.placement="h!",
     add.clear.page.between.tables=FALSE,
     longtable=FALSE,
     verbose=FALSE,
@@ -30,7 +30,7 @@ mytex=function(dat=NULL, file.name="temp",
     if (length(tmp)==1) file.name="./"%.%file.name
 
     # also create a copy just containing the latex fragment
-    tmp=strsplit(file.name, split="/")[[1]] # this needed again b/c file.name may have changed the last line
+    tmp=strsplit(file.name, split="/")[[1]] # this needed again b/c file.name may have changed the mylast line
     if(is.null(input.foldername)) input.foldername=concatList(tmp[-length(tmp)], "/")%.%"/input"
     if(!dir.exists(input.foldername)) dir.create(input.foldername) 
     file.name.2=input.foldername%.%"/"%.%tmp[length(tmp)]

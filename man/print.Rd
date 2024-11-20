@@ -46,7 +46,7 @@ mytex(dat = NULL, file.name = "temp", digits = NULL, display
                  NULL, add.to.row = NULL, sanitize.text.function =
                  NULL, append = FALSE, preamble = "", input.foldername
                  = NULL, save2input.only = NULL, caption = NULL, label
-                 = paste("tab", last(strsplit(file.name, "/")[[1]]),
+                 = paste("tab", mylast(strsplit(file.name, "/")[[1]]),
                  sep = " "), table.placement = "h!",
                  add.clear.page.between.tables = FALSE, longtable =
                  FALSE, verbose = FALSE, silent = TRUE, ...)

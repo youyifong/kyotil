@@ -272,13 +272,13 @@ multi.outer <- function(f, ... ) {
 }
 
 
-last = function (x, n=1, ...) {
-    if (length(x)==1 & is.character(x)) tail (readLines(x), n=n, ...) # read file, length(x)==1 is needed b/c otherwise last(c("a","b")) won't behave properly
+mylast = function (x, n=1, ...) {
+    if (length(x)==1 & is.character(x)) tail (readLines(x), n=n, ...) # read file, length(x)==1 is needed b/c otherwise mylast(c("a","b")) won't behave properly
     else if (is.vector(x)) x[length(x)]
     else if (is.matrix(x)) x[nrow(x),]
     else if (is.array(x)) x[length(x)]
     else if (is.list(x)) x[[length(x)]]
-    else stop ("last(): x not supported")
+    else stop ("mylast(): x not supported")
 }
 
 
@@ -389,7 +389,7 @@ getFormattedMCSummary=function(path, sim, nn, fit.method, exclude.some=TRUE, exc
     stats=stats[subset.]
     nn=nn[subset.]    
     
-    stat.names=last(dimnames(stats[[1]]$mean))[[1]] 
+    stat.names=mylast(dimnames(stats[[1]]$mean))[[1]] 
     sd.methods=sub("sd.","",stat.names[startsWith(stat.names,"sd.")  ])
     if (verbose) myprint(sd.methods)        
     
