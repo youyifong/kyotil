@@ -1,7 +1,7 @@
 useDynLib(kyotil, .registration = TRUE)
 
 export(prettyprint)
-export(iorw, smoothed.scaled.hist)
+export(iorw, smoothed.scaled.hist, scaled.hist)
 
 export(coef.auc, predict.auc, ratio, ratio.auc, trainauc, ratio.glm, trainauc.auc, summary.auc, print.auc, trainauc.glm, fastauc) 
 
