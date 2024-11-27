@@ -1,47 +1,44 @@
-scaled.hist = function(dat.ls, scale.factors, bin_width=100, patch_size=5, cols=NULL, legend=NULL, cex.legend=1, ...) {
+scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=NULL, cex.legend=1, xlim=NULL, ylim=NULL, ...) {
 
-# dat.ls is a list of data frames
-# bin_width is the width of the bins in um
-# scale.factors is a list of data frames
+  # dat.ls is a list of lists
+  # scale.factors is a list of lists
+  # bin_width is the width of the bins in um
 
   labels=names(dat.ls)
-  names(labels)=labels
   names(scale.factors)=labels
-
-  min_break <- floor(min(unlist(dat.ls)) / bin_width) * bin_width
-  max_break <- ceiling(max(unlist(dat.ls)) / bin_width) * bin_width
-  breaks <- seq(min_break, max_break, by = bin_width)
-  nbin_total=length(breaks)-1
+  names(labels)=labels
   
-  # get histogram info without plotting
-  hist_info <- lapply(labels, function (a) hist(dat.ls[[a]], breaks = breaks, plot = FALSE) )
+  breaks = seq(0, max(sapply(scale.factors, length)) + 1) * bin_width
+
+  # normalize counts by area
+  hist_info <- lapply(labels, function (b) {
+    tmp = hist(dat.ls[[b]], breaks = breaks, plot = FALSE) # get histogram info without plotting
+    if (length(tmp$counts) >= length(scale.factors[[b]])) {
+      tmp$counts <- tmp$counts / scale.factors[[b]][1:length(tmp$counts)]
+      # NA may be introduced if scale.factors is shorter than tmp$counts
+      tmp$counts[is.na(tmp$counts)] = 0
+    } else {
+      stop("scale.factors is longer than counts")
+    }
+    tmp
+  })
   
-  # normalize counts against size of biopsy at each depth
-  for (a in labels) {
-    # nbin_total may be greater than nbin
-    nbin = length(scale.factors[[a]]$depth)
-    
-    # make sure the depth and the breaks match up
-    stopifnot(all(hist_info[[a]]$breaks[1:nbin]==scale.factors[[a]]$depth[1:nbin]))
-    if (nbin_total>nbin) stopifnot(all(hist_info[[a]]$counts[(nbin+1):nbin_total]==0))
-
-    # get average cell count per patch
-    hist_info[[a]]$counts <- hist_info[[a]]$counts / c(scale.factors[[a]]$count, rep(1,nbin_total-nbin))
-    # there are 1600 patches in every 100x100 um^2 area if each patch is 5px by 5px.
-    hist_info[[a]]$counts <- hist_info[[a]]$counts * (bin_width/patch_size)^2
-  }
-
   # plot histograms
   if (is.null(cols)) cols=1:length(labels)
   for (i in 1:length(labels)) {
-    hist.col = col2rgb(cols[i])
-    hist.col = rgb(hist.col[1], hist.col[2], hist.col[3], alpha=255*.15, maxColorValue=255)
-    plot(hist_info[[i]], freq = TRUE, border="white",  col=hist.col, add=i>1, ylim=range(unlist(lapply(hist_info, function(a) a$counts))), ...)
+    if (is.null(xlim)) xlim=range(breaks)
+    if (is.null(ylim)) ylim=range(unlist(lapply(hist_info, function(a) a$counts)))
+    if (i==1) {
+      hist.col = col2rgb(cols[i])
+      hist.col = rgb(hist.col[1], hist.col[2], hist.col[3], alpha=255*.15, maxColorValue=255)
+      plot(hist_info[[i]], freq = TRUE, border="white",  col=hist.col, add=i>1, ylim=ylim, xlim=xlim , ...)
+    }
+    lines(hist_info[[i]]$mids, hist_info[[i]]$counts, type = "l", col = cols[i], lwd = 2)
   }
   mylegend(x=3, legend=if(is.null(legend)) labels else legend, lty=1, col=cols, y.intersp=1, text.width=700, cex=cex.legend)
 
   # return a data frame
-  cbind(depth_start=hist_info[[1]]$breaks[1:nbin_total], sapply(labels, function(x) hist_info[[x]]$counts))
+  cbind(depth_start=breaks[-length(breaks)], sapply(labels, function(x) hist_info[[x]]$counts))
   
 }
 
