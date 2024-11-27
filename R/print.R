@@ -24,15 +24,12 @@ mytex=function(dat=NULL, file.name="temp",
     
     if(is.null(save2input.only)) save2input.only = !is.null(input.foldername)
     
-    tmp=strsplit(file.name, split="/")[[1]]
-    # add ./ in front of file name if there is no folder name in the file name, otherwise won't be able to find files :(
-    if (length(tmp)==3) stop("Cannot handle nested folders yet") 
-    if (length(tmp)==1) file.name="./"%.%file.name
-
-    # also create a copy just containing the latex fragment
-    tmp=strsplit(file.name, split="/")[[1]] # this needed again b/c file.name may have changed the mylast line
+    dir.exists("report/tables") || dir.create("report/tables", recursive = TRUE)
+    
+    
+    tmp=strsplit(file.name, split="/")[[1]] 
     if(is.null(input.foldername)) input.foldername=concatList(tmp[-length(tmp)], "/")%.%"/input"
-    if(!dir.exists(input.foldername)) dir.create(input.foldername) 
+    dir.exists(input.foldername) || dir.create(input.foldername, recursive = TRUE)
     file.name.2=input.foldername%.%"/"%.%tmp[length(tmp)]
     
     if(is.data.frame(dat)) dat=list(dat)
