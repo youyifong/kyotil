@@ -14,13 +14,16 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
   # normalize counts by area
   hist_info <- lapply(labels, function (b) {
     tmp = hist(dat.ls[[b]], breaks = breaks, plot = FALSE) # get histogram info without plotting
-    if (length(tmp$counts) >= nrow(scale.factors[[b]])) {
-      tmp$counts <- tmp$counts / scale.factors[[b]]$area[1:length(tmp$counts)]
-      # NA may be introduced if scale.factors is shorter than tmp$counts
-      tmp$counts[is.na(tmp$counts)] = 0
-    } else {
+    
+    m = merge(data.frame(depth=tmp$breaks[-length(tmp$breaks)], tmp$counts), scale.factors[[b]], all=T)
+    
+    if (!all(tmp$breaks[-length(tmp$breaks)]==m$depth)) {
       stop("scale.factors is longer than counts")
     }
+    
+    tmp$counts <- m$tmp.counts / m$area
+    tmp$counts[is.na(tmp$counts)] = 0
+
     tmp
   })
   
