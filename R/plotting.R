@@ -204,7 +204,7 @@ mylegend=function(legend, x, y=NULL, lty=NULL,bty="n", ...) {
 # will generating lots of warnings, ignore them
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., leading0=FALSE, cex.cor.dep=TRUE, ...)
 {
-    usr <- par("usr"); on.exit(par(usr))
+    usr <- par("usr"); on.exit(par(usr=usr))
     par(usr = c(0, 1, 0, 1))
     r <- cor(x, y, method=ifelse(missing(cor.), "spearman", cor.), use="pairwise.complete.obs")
     txt <- format(c(r, 0.123456789), digits=digits)[1]
@@ -221,7 +221,7 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., leading0=FALSE, 
 }
 panel.hist <- function(x, ...)
 {
-    usr <- par("usr"); on.exit(par(usr))
+    usr <- par("usr"); on.exit(par(usr=usr))
     par(usr = c(usr[1:2], 0, 1.5) )
     h <- hist(x, plot = FALSE)
     breaks <- h$breaks; nB <- length(breaks)
