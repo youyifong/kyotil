@@ -1,3 +1,13 @@
+# weightec Pearson correlation in the style of Hmisc
+wtd.cor=function(x, y, weights=NULL, normwt=FALSE, na.rm=TRUE, method=c('unbiased', 'ML')) {
+  var.x=wtd.var(x, weights=weights, normwt=normwt, na.rm=na.rm, method=method)
+  var.y=wtd.var(y, weights=weights, normwt=normwt, na.rm=na.rm, method=method)
+  mu.x=wtd.mean(x, weights=weights, normwt=normwt, na.rm=na.rm)
+  mu.y=wtd.mean(y, weights=weights, normwt=normwt, na.rm=na.rm)
+  wtd.mean((x-mu.x)*(y-mu.y), weights=weights, normwt=normwt, na.rm=na.rm)/sqrt(var.x*var.y)
+}
+
+
 # replace empty strings with NAs
 mytable=function (..., exclude = if (useNA == "no") c(NA, NaN), useNA = "ifany", dnn = list.names(...), deparse.level = 1) {
   
