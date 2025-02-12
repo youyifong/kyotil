@@ -808,6 +808,12 @@ myhist=function(x, add.norm=TRUE, col.norm="blue", ...){
 
 add.mtext.label=function(text, cex=1.4, adj=-0.2) mtext(side=3, line=2, adj=adj, text=text, cex=cex, font=2, xpd=NA)
 
+add.mtext.label.2=function(text, side=3, line=1, ...) {
+  n=length(text)
+  mtext(text, side=side, line=line, outer=T, at=1/n/2+seq(0,1,1/n), ...)
+}
+  
+
 
 # copied from DescTools, Andri Signorell
 # just for check not to bark!
