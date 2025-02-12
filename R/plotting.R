@@ -1,3 +1,5 @@
+shrink_margin<-shrink_whitespace<-reduce_margin<-reduce_whitespace<-function(){par(mar=c(3,3,2,1), mgp = c(2, 0.5, 0))}
+
 myplot <- function(object, ...) UseMethod("myplot") 
 
 # plot x versus fitted
