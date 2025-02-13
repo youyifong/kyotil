@@ -1,4 +1,13 @@
+# the next two functions are useful for making a plot with multiple rows and columns
+
 shrink_margin<-shrink_whitespace<-reduce_margin<-reduce_whitespace<-function(){par(mar=c(3,3,2,1), mgp = c(2, 0.5, 0))}
+
+add.mtext.label.2=function(text, side, line=1, ...) {
+  n=length(text)
+  if (side==2) text=rev(text) # from top to bottom, 1 to 0, so we need to rev
+  mtext(text, side=side, line=line, outer=T, at=1/n/2+seq(0,1,1/n), ...)
+}
+
 
 myplot <- function(object, ...) UseMethod("myplot") 
 
@@ -808,11 +817,6 @@ myhist=function(x, add.norm=TRUE, col.norm="blue", ...){
 
 add.mtext.label=function(text, cex=1.4, adj=-0.2) mtext(side=3, line=2, adj=adj, text=text, cex=cex, font=2, xpd=NA)
 
-add.mtext.label.2=function(text, side, line=1, ...) {
-  n=length(text)
-  if (side==2) text=rev(text) # from top to bottom, 1 to 0, so we need to rev
-  mtext(text, side=side, line=line, outer=T, at=1/n/2+seq(0,1,1/n), ...)
-}
   
 
 
