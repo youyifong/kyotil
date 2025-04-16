@@ -602,8 +602,8 @@ myboxplot.list=function(object, paired=FALSE, ...){
 # can use after myboxplot
 # both dat must have two columns, each row is dat from one subject
 # x.ori=0; xaxislabels=rep("",2); cex.axis=1; add=FALSE; xlab=""; ylab=""; pcol=NULL; lcol=NULL
-my.interaction.plot=function(dat, x.ori=0, xaxislabels=rep("",2), cex.axis=1, add=FALSE, xlab="", ylab="", pcol=NULL, lcol=NULL, ...){
-    if (!add) plot(0,0,type="n",xlim=c(1,2),ylim=range(dat), ylab=ylab, xlab=xlab, xaxt="n", ...)
+my.interaction.plot=function(dat, x.ori=0, xaxislabels=rep("",2), cex.axis=1, add=FALSE, xlab="", ylab="", pcol=NULL, lcol=NULL,ylim=range(dat), ...){
+    if (!add) plot(0,0,type="n",xlim=c(1,2), ylim=ylim, ylab=ylab, xlab=xlab, xaxt="n", ...)
     cex=.25; pch=19
     if (is.null(lcol)) lcol=ifelse(dat[,1]>dat[,2],"red","black") else if (length(lcol)==1) lcol=rep(lcol,nrow(dat))
     if (!is.null(pcol)) if (length(pcol)==1) pcol=matrix(pcol,nrow(dat),2)
