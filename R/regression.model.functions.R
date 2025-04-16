@@ -4,7 +4,7 @@
 getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, random=FALSE, VE=FALSE, 
                              to.trim=FALSE, rows=NULL, coef.direct=FALSE, trunc.large.est=TRUE, 
                              scale.factor=1, p.digits=3, remove.leading0=FALSE, p.adj.method="fdr", ...){
-    
+# type=12; est.digits=2; se.digits=2; robust; random=FALSE; VE=FALSE; to.trim=FALSE; rows=NULL; coef.direct=FALSE; trunc.large.est=TRUE; scale.factor=1; p.digits=3; remove.leading0=FALSE; p.adj.method="fdr"    
     if(is.null(names(fits))) names(fits)=seq_along(fits)
     idxes=seq_along(fits); names(idxes)=names(fits)
     
@@ -308,7 +308,7 @@ getFixedEf.gam = function (object, ...) {
 getFixedEf.lm = function (object, exp=F, ...) {
     out=summary(object)$coef
     ci=confint(object)    
-    out=cbind(out[,1:2], ci, out[,4])
+    out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
     colnames(out)[5]="p-val"
     if(exp) {
         out[,c(1,3,4)]=exp(out[,c(1,3,4)])
