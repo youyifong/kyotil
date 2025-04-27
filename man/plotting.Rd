@@ -29,6 +29,11 @@
 \alias{corplot.default}
 \alias{corplot.formula}
 \alias{add.mtext.label}
+\alias{add.mtext.label.2}
+\alias{shrink_margin}
+\alias{shrink_whitespace}
+\alias{reduce_margin}
+\alias{reduce_whitespace}
 \alias{mydev.off}
 \alias{myfigure}
 \alias{mylines}
@@ -66,6 +71,13 @@ empty.plot()
 add.mtext.label (text, cex = 1.4, adj = -0.2) 
 mydev.off(file = "temp", ext = c("pdf"), res = 200, mydev =
                  NULL, silent = TRUE)
+
+shrink_margin()
+shrink_whitespace()
+reduce_margin()
+reduce_whitespace()
+add.mtext.label.2(text, side, line = 1, ...) 
+
 getMfrow(len)
 
 myhist (x, add.norm=TRUE, col.norm="blue", ...)
@@ -551,7 +563,13 @@ tbdx
 tbdx
 }
 
-
+\item{side}{
+  tbdx
+  }
+\item{line}{
+  tbdx
+  }
+\item{cex}{
 }
 
 \details{
