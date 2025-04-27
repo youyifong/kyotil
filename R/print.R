@@ -1,3 +1,27 @@
+mykable <- function(x, ...) {
+  # If input is a matrix, convert to data frame first
+  if (is.matrix(x)) {
+    rown <- rownames(x)
+    x <- as.data.frame(x, stringsAsFactors = FALSE)
+    rownames(x) <- rown
+  }
+  
+  # Save row names
+  rown <- rownames(x)
+  
+  # Replace NA and NaN with empty strings
+  x_clean <- data.frame(lapply(x, function(col) {
+    ifelse(is.na(col), "", col)
+  }), stringsAsFactors = FALSE)
+  
+  # Restore row names
+  rownames(x_clean) <- rown
+  
+  # Pass to kable
+  kable(x_clean, ...)
+}
+
+
 mytex=function(dat=NULL, file.name="temp", 
     digits=NULL, display=NULL, align="r", 
     include.rownames=TRUE, include.colnames=TRUE,

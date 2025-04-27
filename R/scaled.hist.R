@@ -39,7 +39,9 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
     }
     lines(hist_info[[i]]$mids, hist_info[[i]]$counts, type = "l", col = cols[i], lwd = 2)
   }
-  mylegend(x=3, legend=if(is.null(legend)) labels else legend, lty=1, col=cols, y.intersp=1, text.width=700, cex=cex.legend)
+  if (!is.null(legend)) {
+    mylegend(x=3, legend=legend, lty=1, col=cols, y.intersp=1, text.width=700, cex=cex.legend)
+  }
 
   # return a data frame
   cbind(depth_start=breaks[-length(breaks)], sapply(labels, function(x) hist_info[[x]]$counts))
