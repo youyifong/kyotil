@@ -202,22 +202,39 @@ mylegend=function(legend, x, y=NULL, lty=NULL,bty="n", ...) {
 # if cex.cor is negative, the sign is reversed and the font of cor is fixed. otherwise, by default, the font of cor is proportional to cor
 # allow cor to be spearman or pearson
 # will generating lots of warnings, ignore them
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., leading0=FALSE, cex.cor.dep=TRUE, ...)
+panel.cor.pearson <- function(x, y, digits=2, prefix="", cex.cor, leading0=FALSE, cex.cor.dep=TRUE, ...)
 {
-    usr <- par("usr"); on.exit(par(usr=usr))
-    par(usr = c(0, 1, 0, 1))
-    r <- cor(x, y, method=ifelse(missing(cor.), "spearman", cor.), use="pairwise.complete.obs")
-    txt <- format(c(r, 0.123456789), digits=digits)[1]
-    txt <- paste(prefix, txt, sep="")
-    if(!leading0) txt = sub("0","",txt)
-    if(missing(cex.cor)) cex.cor <- 2.5
-    if(cex.cor.dep) {
-        text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
-    } else {
-        text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
-    }
-#    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
-#    abline(v=1e3)
+  usr <- par("usr"); on.exit(par(usr=usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- cor(x, y, method="p", use="pairwise.complete.obs")
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(!leading0) txt = sub("0","",txt)
+  if(missing(cex.cor)) cex.cor <- 2.5
+  if(cex.cor.dep) {
+    text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
+  } else {
+    text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
+  }
+  #    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
+  #    abline(v=1e3)
+}
+panel.cor.spearman <- function(x, y, digits=2, prefix="", cex.cor, leading0=FALSE, cex.cor.dep=TRUE, ...)
+{
+  usr <- par("usr"); on.exit(par(usr=usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- cor(x, y, method="s", use="pairwise.complete.obs")
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(!leading0) txt = sub("0","",txt)
+  if(missing(cex.cor)) cex.cor <- 2.5
+  if(cex.cor.dep) {
+    text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
+  } else {
+    text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
+  }
+  #    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
+  #    abline(v=1e3)
 }
 panel.hist <- function(x, ...)
 {
@@ -266,12 +283,12 @@ panel.ladder=function (x, y, col = par("col"), bg = NA,
 }
 # when log="xy" is passed in, diag and upper panels do not print properly
 # cex.labels controls the cex of diagonal panels text size
-mypairs=function(dat, ladder=FALSE, show.data.cloud=TRUE, ladder.add.line=T, ladder.add.text=T, ...){
-    if(ladder) { # ladder plot
-        .pairs(dat, lower.panel=panel.ladder, upper.panel=NULL, diag.panel=NULL, xaxt="n", yaxt="n", gap=0, add.line=ladder.add.line, add.text=ladder.add.text)
-    } else {
-        .pairs(dat, lower.panel=if (show.data.cloud) panel.smooth else panel.smooth.only, upper.panel=panel.cor, diag.panel=panel.hist, ...)
-    }    
+mypairs=function(dat, ladder=FALSE, show.data.cloud=TRUE, show.data.only=TRUE, ladder.add.line=T, ladder.add.text=T, cor.method="s",  ...){
+  if(ladder) { # ladder plot
+      .pairs(dat, lower.panel=panel.ladder, upper.panel=NULL, diag.panel=NULL, xaxt="n", yaxt="n", gap=0, add.line=ladder.add.line, add.text=ladder.add.text)
+  } else {
+      .pairs(dat, lower.panel=if (show.data.cloud) if (show.data.only) points else panel.smooth else panel.smooth.only, upper.panel=if(cor.method=="s") panel.cor.spearman else panel.cor.pearson, diag.panel=panel.hist, ...)
+  }    
 }
 # a copy of pairs with only one change that is needed to not draw boxes long the diagonal line
 .pairs=function (x, labels, panel = points, ...,
