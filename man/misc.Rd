@@ -21,7 +21,6 @@ empty2na(x)
 rank.inv.norm(x)
 INT(x)
 dec_to_binary (x,d) 
-
 }
 \arguments{
 

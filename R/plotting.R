@@ -1,3 +1,14 @@
+# the next two functions are useful for making a plot with multiple rows and columns
+
+shrink_margin<-shrink_whitespace<-reduce_margin<-reduce_whitespace<-function(){par(mar=c(3,3,2,1), mgp = c(2, 0.5, 0))}
+
+add.mtext.label.2=function(text, side, line=1, ...) {
+  n=length(text)
+  if (side==2) text=rev(text) # from top to bottom, 1 to 0, so we need to rev
+  mtext(text, side=side, line=line, outer=T, at=1/n/2+seq(0,1,1/n), ...)
+}
+
+
 myplot <- function(object, ...) UseMethod("myplot") 
 
 # plot x versus fitted
@@ -200,28 +211,45 @@ mylegend=function(legend, x, y=NULL, lty=NULL,bty="n", ...) {
 
 # copied from pairs help page
 # if cex.cor is negative, the sign is reversed and the font of cor is fixed. otherwise, by default, the font of cor is proportional to cor
-# allow cor to be spearman or pearson
+# allow cor to be spearman or pearson, default spearman
 # will generating lots of warnings, ignore them
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor, cor., leading0=FALSE, cex.cor.dep=TRUE, ...)
+panel.cor.pearson <- function(x, y, digits=2, prefix="", cex.cor, leading0=FALSE, cex.cor.dep=TRUE, ...)
 {
-    usr <- par("usr"); on.exit(par(usr))
-    par(usr = c(0, 1, 0, 1))
-    r <- cor(x, y, method=ifelse(missing(cor.), "spearman", cor.), use="pairwise.complete.obs")
-    txt <- format(c(r, 0.123456789), digits=digits)[1]
-    txt <- paste(prefix, txt, sep="")
-    if(!leading0) txt = sub("0","",txt)
-    if(missing(cex.cor)) cex.cor <- 2.5
-    if(cex.cor.dep) {
-        text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
-    } else {
-        text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
-    }
-#    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
-#    abline(v=1e3)
+  usr <- par("usr"); on.exit(par(usr=usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- cor(x, y, method="p", use="pairwise.complete.obs")
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(!leading0) txt = sub("0","",txt)
+  if(missing(cex.cor)) cex.cor <- 2.5
+  if(cex.cor.dep) {
+    text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
+  } else {
+    text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
+  }
+  #    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
+  #    abline(v=1e3)
+}
+panel.cor.spearman <- function(x, y, digits=2, prefix="", cex.cor, leading0=FALSE, cex.cor.dep=TRUE, ...)
+{
+  usr <- par("usr"); on.exit(par(usr=usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- cor(x, y, method="s", use="pairwise.complete.obs")
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(!leading0) txt = sub("0","",txt)
+  if(missing(cex.cor)) cex.cor <- 2.5
+  if(cex.cor.dep) {
+    text(0.5, 0.5, txt, cex = cex.cor*ifelse(abs(r)<0.1, sqrt(0.1), sqrt(abs(r)) ))
+  } else {
+    text(0.5, 0.5, txt, cex = cex.cor) # do this if we don't want cex to depend on correlations
+  }
+  #    print(txt); text(.1, .1, "a"); text(.9, .9, "a")
+  #    abline(v=1e3)
 }
 panel.hist <- function(x, ...)
 {
-    usr <- par("usr"); on.exit(par(usr))
+    usr <- par("usr"); on.exit(par(usr=usr))
     par(usr = c(usr[1:2], 0, 1.5) )
     h <- hist(x, plot = FALSE)
     breaks <- h$breaks; nB <- length(breaks)
@@ -266,12 +294,12 @@ panel.ladder=function (x, y, col = par("col"), bg = NA,
 }
 # when log="xy" is passed in, diag and upper panels do not print properly
 # cex.labels controls the cex of diagonal panels text size
-mypairs=function(dat, ladder=FALSE, show.data.cloud=TRUE, ladder.add.line=T, ladder.add.text=T, ...){
-    if(ladder) { # ladder plot
-        .pairs(dat, lower.panel=panel.ladder, upper.panel=NULL, diag.panel=NULL, xaxt="n", yaxt="n", gap=0, add.line=ladder.add.line, add.text=ladder.add.text)
-    } else {
-        .pairs(dat, lower.panel=if (show.data.cloud) panel.smooth else panel.smooth.only, upper.panel=panel.cor, diag.panel=panel.hist, ...)
-    }    
+mypairs=function(dat, ladder=FALSE, show.data.cloud=TRUE, show.data.only=TRUE, ladder.add.line=T, ladder.add.text=T, cor.method="s",  ...){
+  if(ladder) { # ladder plot
+      .pairs(dat, lower.panel=panel.ladder, upper.panel=NULL, diag.panel=NULL, xaxt="n", yaxt="n", gap=0, add.line=ladder.add.line, add.text=ladder.add.text)
+  } else {
+      .pairs(dat, lower.panel=if (show.data.cloud) if (show.data.only) points else panel.smooth else panel.smooth.only, upper.panel=if(cor.method=="s") panel.cor.spearman else panel.cor.pearson, diag.panel=panel.hist, ...)
+  }    
 }
 # a copy of pairs with only one change that is needed to not draw boxes long the diagonal line
 .pairs=function (x, labels, panel = points, ...,
@@ -460,8 +488,7 @@ myboxplot <- function(object, ...) UseMethod("myboxplot")
 # myboxplot.formula and myboxplot.list make a boxplot with data points and do inferences for two group comparions. 
 # cex=.5; ylab=""; xlab=""; main=""; box=FALSE; highlight.list=NULL; at=NULL;pch=1;col=1;
 # friedman.test.formula is of the form a ~ b | c
-myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, p.val=NULL,
-    pch=1, col="white", col.points=1, border=1,  test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
+myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, p.val=NULL, pch=1, col="white", col.points=1, border=1,  test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
     
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
     if (inherits(save.seed,"try-error")) {        
@@ -592,8 +619,8 @@ myboxplot.list=function(object, paired=FALSE, ...){
 # can use after myboxplot
 # both dat must have two columns, each row is dat from one subject
 # x.ori=0; xaxislabels=rep("",2); cex.axis=1; add=FALSE; xlab=""; ylab=""; pcol=NULL; lcol=NULL
-my.interaction.plot=function(dat, x.ori=0, xaxislabels=rep("",2), cex.axis=1, add=FALSE, xlab="", ylab="", pcol=NULL, lcol=NULL, ...){
-    if (!add) plot(0,0,type="n",xlim=c(1,2),ylim=range(dat), ylab=ylab, xlab=xlab, xaxt="n", ...)
+my.interaction.plot=function(dat, x.ori=0, xaxislabels=rep("",2), cex.axis=1, add=FALSE, xlab="", ylab="", pcol=NULL, lcol=NULL,ylim=range(dat), ...){
+    if (!add) plot(0,0,type="n",xlim=c(1,2), ylim=ylim, ylab=ylab, xlab=xlab, xaxt="n", ...)
     cex=.25; pch=19
     if (is.null(lcol)) lcol=ifelse(dat[,1]>dat[,2],"red","black") else if (length(lcol)==1) lcol=rep(lcol,nrow(dat))
     if (!is.null(pcol)) if (length(pcol)==1) pcol=matrix(pcol,nrow(dat),2)
@@ -743,7 +770,7 @@ abline.shade.2=function(x, col=c(0,1,0)){
 # When impute.missing.for.line is TRUE, lines are drawn even when there are missing values in between two observations
 mymatplot=function(x, y, type="b", lty=c(1,2,1,2,1,2), pch=NULL, col=rep(c("darkgray","black"),each=3), xlab=NULL, ylab="", 
     draw.x.axis=TRUE, bg=NA, lwd=1, at=NULL, make.legend=TRUE, legend=NULL, impute.missing.for.line=TRUE,
-    legend.x=9, legend.title=NULL, legend.cex=1, legend.lty=lty, legend.inset=0, xaxt="s", y.intersp=1.5, x.intersp=0.3, text.width=NULL, 
+    legend.x=9, legend.title=NULL, legend.cex=1, legend.lty=lty, legend.inset=0, xaxt="s", y.intersp=1.5, x.intersp=0.3, text.width=NULL, silent=FALSE,
     add=FALSE, ...) {
     
     missing.y=FALSE
@@ -757,7 +784,7 @@ mymatplot=function(x, y, type="b", lty=c(1,2,1,2,1,2), pch=NULL, col=rep(c("dark
     if (impute.missing.for.line & any(is.na(y)) & type %in% c("l","b")) {
         y.imputed=zoo::na.approx(y, x=x, na.rm=FALSE); rownames(y.imputed)=rownames(y)
         imputed=TRUE
-        cat("imputing data ...\n")
+        if(!silent) cat("imputing data ...\n")
     } else {
         imputed=FALSE
         y.imputed=y
@@ -806,6 +833,8 @@ myhist=function(x, add.norm=TRUE, col.norm="blue", ...){
 # }
 
 add.mtext.label=function(text, cex=1.4, adj=-0.2) mtext(side=3, line=2, adj=adj, text=text, cex=cex, font=2, xpd=NA)
+
+  
 
 
 # copied from DescTools, Andri Signorell
