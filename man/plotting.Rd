@@ -610,7 +610,6 @@ smoothed.scaled.hist(list(A=rnorm(100,0,1)), bin_width=0.1, xlab="x")
 smoothed.scaled.hist(list(A=rnorm(100,0,1), B=rnorm(500,10,2)), 
                   bin_width=0.1, xlab="x")
 
-}
 
 \dontrun{
 myfigure(mfrow=c(1,2))
