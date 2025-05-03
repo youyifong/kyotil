@@ -571,7 +571,7 @@ tbdx
   }
 \item{cex}{
 }
-
+}
 \details{
 myboxplot shows data points along with boxes. The data poins are jittered and the pattern of jittering is made reproducible in repeated calls. The test can only take one type of test currently.
 
@@ -610,7 +610,7 @@ smoothed.scaled.hist(list(A=rnorm(100,0,1)), bin_width=0.1, xlab="x")
 smoothed.scaled.hist(list(A=rnorm(100,0,1), B=rnorm(500,10,2)), 
                   bin_width=0.1, xlab="x")
 
-
+}
 
 \dontrun{
 myfigure(mfrow=c(1,2))
