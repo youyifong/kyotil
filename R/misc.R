@@ -281,10 +281,13 @@ multi.outer <- function(f, ... ) {
   apply(args, 1:length(dim(args)), function(a) do.call(f, a[[1]] ) )
 }
 
+len <- length
 
 mylast = function (x, n=1, ...) {
-    if (length(x)==1 & is.character(x)) tail (readLines(x), n=n, ...) # read file, length(x)==1 is needed b/c otherwise mylast(c("a","b")) won't behave properly
-    else if (is.vector(x)) x[length(x)]
+    # this is dangerous!
+    # if (length(x)==1 & is.character(x)) tail (readLines(x), n=n, ...) # read file, length(x)==1 is needed b/c otherwise mylast(c("a","b")) won't behave properly
+     
+    if (is.vector(x)) x[length(x)]
     else if (is.matrix(x)) x[nrow(x),]
     else if (is.array(x)) x[length(x)]
     else if (is.list(x)) x[[length(x)]]

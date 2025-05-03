@@ -13,7 +13,9 @@ mytex=function(dat=NULL, file.name="temp",
     verbose=FALSE,
 	silent=TRUE,
 ...) {
-        
+# file.name="temp"; digits=NULL; display=NULL; align="r"; include.rownames=TRUE; include.colnames=TRUE;    col.headers=NULL;    comment=FALSE; floating=FALSE;     lines=TRUE; hline.after=NULL;add.to.row=NULL; sanitize.text.function = NULL;append=FALSE; preamble="";  save2input.only=NULL;    caption=NULL; table.placement="h!";    add.clear.page.between.tables=FALSE;    longtable=FALSE;    verbose=FALSE;	silent=TRUE; save2input.only=T; label=""
+  # input.foldername=NULL;
+
 #    if(exists("tablePath") && file.exists(tablePath)) {
 #        file.name=tablePath%.%"/"%.%file.name
 #    } else {
@@ -25,16 +27,19 @@ mytex=function(dat=NULL, file.name="temp",
     if(is.null(save2input.only)) save2input.only = !is.null(input.foldername)
     
     dir.exists("report/tables") || dir.create("report/tables", recursive = TRUE)
-    
-    
+
+
     tmp=strsplit(file.name, split="/")[[1]] 
-    if(is.null(input.foldername)) input.foldername=concatList(tmp[-length(tmp)], "/")%.%"/input"
+    if(is.null(input.foldername)) {
+      if (length(tmp)>1) input.foldername=concatList(tmp[-length(tmp)], "/")%.%"/input" else input.foldername="input"
+    }
     dir.exists(input.foldername) || dir.create(input.foldername, recursive = TRUE)
     file.name.2=input.foldername%.%"/"%.%tmp[length(tmp)]
     
     if(is.data.frame(dat)) dat=list(dat)
     if (!is.list(dat)) dat=list(dat)
-    
+
+
     if (!append) { #start a new file
         #document tag, preamble etc
         if(!save2input.only) mytex.begin(file.name%.%".tex", preamble)
@@ -46,7 +51,7 @@ mytex=function(dat=NULL, file.name="temp",
     include.colnames.0=include.colnames
     include.rownames.0=include.rownames
     align.0=align
-    
+
     if (length(dat)==0) stop("length of dat is 0")
     names(dat)=gsub("_"," ",names(dat))
     for (i in 1:length(dat)) {
@@ -92,7 +97,7 @@ mytex=function(dat=NULL, file.name="temp",
             .ncol=.ncol+1
             #str(align)
         } 
-        
+
         if (is.null(digits)) if (is.integer(dat1)) digits=0
         
         if(!is.null(dimnam) & is.null(col.headers)) {
@@ -143,7 +148,8 @@ mytex=function(dat=NULL, file.name="temp",
             if (!include.colnames) hline.after=hline.after[-(1:2)]
         }
         #print(hline.after)
-
+        if (verbose) print(file.name%.%".tex")
+        
         if(!include.rownames) rownames(dat1)=1:nrow(dat1)# otherwise there will be a warning from xtable
         if(!save2input.only) print(..., xtable::xtable(dat1, 
                 digits=(if(is.null(digits)) rep(3, .ncol+1) else digits), # cannot use ifelse here!!!
@@ -164,7 +170,7 @@ mytex=function(dat=NULL, file.name="temp",
         if(i!=length(dat) & add.clear.page.between.tables) {
           cat ("\\clearpage\n", file=file.name.2%.%".tex", append=TRUE)
         }
-        
+
         if(!save2input.only) cat ("\n", file=file.name%.%".tex", append=TRUE)
         #cat ("\n", file=file.name.2%.%".tex", append=TRUE) # don't add this line since extra lines at the end will prevent two tabular from being put on the same line
         # restore some variables that have changed in this function
