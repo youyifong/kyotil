@@ -62,8 +62,7 @@ mytex=function(dat=NULL, file.name="temp",
     
     if(is.data.frame(dat)) dat=list(dat)
     if (!is.list(dat)) dat=list(dat)
-
-
+    
     if (!append) { #start a new file
         #document tag, preamble etc
         if(!save2input.only) mytex.begin(file.name%.%".tex", preamble)
@@ -131,7 +130,7 @@ mytex=function(dat=NULL, file.name="temp",
         }
         if (!is.null(col.headers)) top=col.headers else top="\\hline  "
         
-        if(include.colnames) {
+        if(include.colnames & !is.null(colnames(dat1))) {
             # to make border in the column names, but centrally aligned
             coln=if(!is.null(sanitize.text.function)) sanitize.text.function(colnames(dat1)) else mysanitize.text(mysanitize.numbers(colnames(dat1)))
             align.1=align[-1]
