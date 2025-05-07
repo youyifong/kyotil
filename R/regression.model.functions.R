@@ -265,7 +265,7 @@ getFixedEf.lme = function (object, ...) {
 #     nlme::VarCorr(object)
 # }
 
-getFixedEf.lmerMod = function (object, exp=F, ...) {
+getFixedEf.lmerMod = function (object, exp=F, exp10=F, ...) {
     betas <- nlme::fixef(object)
     se <- sqrt (diag (getVarComponent(object)))
     zval <- betas / se 
@@ -277,6 +277,7 @@ getFixedEf.lmerMod = function (object, exp=F, ...) {
               zval, 
               pval) 
     if(exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+    if(exp10) out[,c(1,3,4)]=10**(out[,c(1,3,4)])
     out
 }
 getVarComponent.lmerMod = function (object, ...) {
