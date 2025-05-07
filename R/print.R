@@ -46,13 +46,8 @@ mytex=function(dat=NULL, file.name="temp",
 #        file.name=file.name
 #    }    
         
-    if (endsWith(file.name,".tex")) file.name=substr(file.name, 1, nchar(file.name)-4)
-    
     if(is.null(save2input.only)) save2input.only = !is.null(input.foldername)
-    
-    dir.exists("report/tables") || dir.create("report/tables", recursive = TRUE)
-
-
+    if (endsWith(file.name,".tex")) file.name=substr(file.name, 1, nchar(file.name)-4)
     tmp=strsplit(file.name, split="/")[[1]] 
     if(is.null(input.foldername)) {
       if (length(tmp)>1) input.foldername=concatList(tmp[-length(tmp)], "/")%.%"/input" else input.foldername="input"
