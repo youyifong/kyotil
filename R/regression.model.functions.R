@@ -30,7 +30,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                     type=1
                 }
             } else {
-                tmp = getFixedEf (fit, robust=robust[fit.idx], ...)
+                tmp = getFixedEf (fit, robust=robust[fit.idx], scale.factor=scale.factor, ...)
             }
             
             if (VE) {
@@ -42,9 +42,6 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             }
         }
         
-        # tmp should be: est, se, lb, ub, pvalue 
-        tmp[,1]=tmp[,1]*scale.factor        
-        if(ncol(tmp)>1) tmp[,2]=tmp[,2]*scale.factor   
         
         # take only some rows
         if (!is.null(rows)) tmp=tmp[intersect(rows,1:nrow(tmp)),,drop=F]
@@ -163,7 +160,7 @@ getVarComponent <- function(object, ...) UseMethod("getVarComponent")
 # if there is missing data and robust=T, some errors will happen. it is a useful error to have.
 # if ret.robcov TRUE, then returns robust variance-covariance matrix
 # infjack.glm defined later in this file
-getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, ...) {
+getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, scale.factor=1, ...) {
     x=summary(object)
     out=x$coef
     if (robust | ret.robcov) {
@@ -173,6 +170,10 @@ getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, ...
         out[,3]=out[,1]/out[,2]
         out[,4]=2 * pnorm(-abs(out[,3]))
     }
+    
+    out[,1]=out[,1]*scale.factor
+    out[,2]=out[,2]*scale.factor
+    
     # to get est, p value, low bound, upper bound
     out=cbind(out[,1],out[,2],out[,1]-1.96*out[,2],out[,1]+1.96*out[,2],out[,4])
     colnames(out)=c("est","se","(lower","upper)","p.value")
@@ -193,10 +194,14 @@ getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, ...
     out
 }
 
-getFixedEf.gee = function (object,exp=FALSE,  ...) {
+getFixedEf.gee = function (object,exp=FALSE, scale.factor=1,  ...) {
     #print("in getFixedEf.gee")
     out=as.matrix(summary(object)$coef )
-    # Estimate Std.err Wald Pr(>|W|)
+    
+    out[,1]=out[,1]*scale.factor
+    out[,2]=out[,2]*scale.factor
+
+        # Estimate Std.err Wald Pr(>|W|)
     out=cbind(out[,1:2], out[,1]-1.96*out[,2], out[,1]+1.96*out[,2], out[,4,drop=FALSE])
     colnames(out)=c("est","se","(lower","upper)","p.value")
     if(exp) {
@@ -206,7 +211,7 @@ getFixedEf.gee = function (object,exp=FALSE,  ...) {
     out
 }
 
-getFixedEf.MIresult=function(object,exp=FALSE, ...) {
+getFixedEf.MIresult=function(object,exp=FALSE, scale.factor=1, ...) {
     capture.output({
         tmp=summary(object)
     }, type="output") # type = message captures stderr, type=output is for stdout
@@ -216,6 +221,8 @@ getFixedEf.MIresult=function(object,exp=FALSE, ...) {
     
     out = cbind(tmp, "p.val"=2*pt(abs(tmp[,1]/tmp[,2]), df=object$df, lower.tail = FALSE))
     
+    out[,1:4]=out[,1:4]*scale.factor
+
     if(exp) {
         out[,c(1,3,4)]=exp(out[,c(1,3,4)])
     }
@@ -224,13 +231,18 @@ getFixedEf.MIresult=function(object,exp=FALSE, ...) {
 }
 
 #get estimates, variances, sd from lmer fit
-getFixedEf.mer = function (object, ...) {
+getFixedEf.mer = function (object, scale.factor=1, ...) {
     Vcov <- lme4::VarCorr(object, useScale = FALSE) 
     betas <- lme4::fixef(object) 
     se <- sqrt(diag(Vcov)) 
     zval <- betas / se 
     pval <- 2 * pnorm(abs(zval), lower.tail = FALSE) 
-    cbind("Estimate"=betas, se, zval, pval) 
+    
+    out = cbind("Estimate"=betas, se, zval, pval) 
+    
+    out[,1:4]=out[,1:4]*scale.factor
+
+    out
 }
 getVarComponent.mer = function (object, ...) {
     tmp=lme4::VarCorr(object)
@@ -238,9 +250,12 @@ getVarComponent.mer = function (object, ...) {
 }
 
 #get estimates, variances, sd from lmer fit
-getFixedEf.glmerMod = function (object, exp=FALSE, ...) {
+getFixedEf.glmerMod = function (object, exp=FALSE, scale.factor=1, ...) {
     out=summary(object)$coefficients
     out=cbind(est=out[,1], se=out[,2], lb=out[,1]-1.96*out[,2], ub=out[,1]+1.96*out[,2],"p"=out[,4])
+    
+    out[,1:4]=out[,1:4]*scale.factor
+
     if(exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
     out #est, se, lb, ub, pvalue 
 }
@@ -254,18 +269,21 @@ getVarComponent.merMod=getVarComponent.glmerMod
 
 
 #get estimates, variances, sd from lme fit
-getFixedEf.lme = function (object, ...) {
+getFixedEf.lme = function (object, scale.factor=1, ...) {
     betas <- object$coef$fixed
     se <- sqrt (diag (object$varFix))
     zval <- betas / se 
     pval <- 2 * pnorm(abs(zval), lower.tail = FALSE) 
-    cbind(betas, se, zval, pval) 
+    out = cbind(betas, se, zval, pval) 
+    
+    out[,1:4]=out[,1:4]*scale.factor
+    out
 }
 # getVarComponent.lme = function (object, ...) {
 #     nlme::VarCorr(object)
 # }
 
-getFixedEf.lmerMod = function (object, exp=F, exp10=F, ...) {
+getFixedEf.lmerMod = function (object, exp=F, exp10=F, scale.factor=1, ...) {
     betas <- nlme::fixef(object)
     se <- sqrt (diag (getVarComponent(object)))
     zval <- betas / se 
@@ -276,6 +294,7 @@ getFixedEf.lmerMod = function (object, exp=F, exp10=F, ...) {
               "upper)"=betas+qnorm(0.975)*se, 
               zval, 
               pval) 
+    out[,1:4]=out[,1:4]*scale.factor
     if(exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
     if(exp10) out[,c(1,3,4)]=10**(out[,c(1,3,4)])
     out
@@ -284,16 +303,22 @@ getVarComponent.lmerMod = function (object, ...) {
     as.matrix(vcov(object)) # otherwise will complain about S4 class convertibility problem
 }
 
-getFixedEf.geese = function (object, robust=TRUE, ...) {
+getFixedEf.geese = function (object, robust=TRUE, scale.factor=1, ...) {
     tmp=summary(object)$mean
     # tmp is: estimate     san.se         wald            p
     # tmp should be: est, se, lb, ub, pvalue 
-    as.matrix(cbind(tmp[,c(1, ifelse(robust,2,3))], confint(object), tmp[,4,drop=F])) # if leave as data.frame, formatDouble fails
+    out = as.matrix(cbind(tmp[,c(1, ifelse(robust,2,3))], confint(object), tmp[,4,drop=F])) # if leave as data.frame, formatDouble fails
+    
+    out[,1:4]=out[,1:4]*scale.factor
+
+    out
 }
     
-getFixedEf.logistf = function (object, exp=FALSE, ...) {
+getFixedEf.logistf = function (object, exp=FALSE, scale.factor=1, ...) {
     temp = summary(object)
     out = cbind (coef=temp$coef, se=NA, p.value=temp$prob)
+    out[,1]=out[,1]*scale.factor
+    out[,2]=out[,2]*scale.factor
     if(exp) out[,1]=exp(out[,1])
     out
 }
@@ -301,16 +326,20 @@ vcov.logistf=function(object, ...){
     object$var
 }
 
-getFixedEf.gam = function (object, ...) {
+getFixedEf.gam = function (object, scale.factor=1, ...) {
     temp = summary(object)
-    cbind (temp$p.coef, temp$se[1:length(temp$p.coef)])
+    out = cbind (temp$p.coef, temp$se[1:length(temp$p.coef)])
+    out[,1]=out[,1]*scale.factor
+    out[,2]=out[,2]*scale.factor
+    out
 }
 
-getFixedEf.lm = function (object, exp=F, ...) {
+getFixedEf.lm = function (object, exp=F, scale.factor=1, ...) {
     out=summary(object)$coef
     ci=confint(object)    
     out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
     colnames(out)[5]="p-val"
+    out[,1:4]=out[,1:4]*scale.factor
     if(exp) {
         out[,c(1,3,4)]=exp(out[,c(1,3,4)])
     }
@@ -398,11 +427,15 @@ getVarComponent.hyperpar.inla = function (object, transformation=NULL, ...) {
     out
 }
 
-getFixedEf.svycoxph=function (object, exp=FALSE, robust=TRUE, ...){
+getFixedEf.svycoxph=function (object, exp=FALSE, robust=TRUE, scale.factor=1, ...){
     if (!robust) warning("svycoxph variance estimate is always design-based, which is close to robust variance estimate. No model-based variance estimate is available")
     hr=object$coefficients
     se=sqrt(diag(object$var))
     pval=pnorm(abs(hr/se), lower.tail=F)*2
+    
+    hr=hr*scale.factor
+    se=se*scale.factor
+    
     out=cbind(HR=hr,
             "se"=se,
             "(lower"=hr-qnorm(0.975)*se, 
@@ -416,7 +449,7 @@ getFixedEf.svycoxph=function (object, exp=FALSE, robust=TRUE, ...){
 }
 
 
-getFixedEf.svyglm=function (object, exp=FALSE, robust=TRUE, ...){
+getFixedEf.svyglm=function (object, exp=FALSE, robust=TRUE, scale.factor=1, ...){
     if (!robust) warning("svyglm variance estimate is always design-based, which is close to robust variance estimate. No model-based variance estimate is available")
     tmp=summary(object)$coefficients
     or=tmp[,"Estimate"]
@@ -428,6 +461,7 @@ getFixedEf.svyglm=function (object, exp=FALSE, robust=TRUE, ...){
             "upper)"=or+qnorm(0.975)*se, 
             "p.value"=pval
         )
+    out[,1:4]=out[,1:4]*scale.factor
     if (exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
     out
 #    round(sqrt(diag(attr(object$var,"phases")$phase1)),3)
@@ -435,7 +469,7 @@ getFixedEf.svyglm=function (object, exp=FALSE, robust=TRUE, ...){
 }
 
 
-getFixedEf.svy_vglm=function (object, exp=FALSE, robust=TRUE, ...){
+getFixedEf.svy_vglm=function (object, exp=FALSE, robust=TRUE, scale.factor=1, ...){
     if (!robust) warning("svy_vglm variance estimate is always design-based, which is close to robust variance estimate. No model-based variance estimate is available")
     tmp=summary(object)$coeftable
     or=tmp[,"Coef"]
@@ -447,12 +481,13 @@ getFixedEf.svy_vglm=function (object, exp=FALSE, robust=TRUE, ...){
             "upper)"=or+qnorm(0.975)*se, 
             "p.value"=pval
         )
+    out[,1:4]=out[,1:4]*scale.factor
     if (exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
     out
 }
 
 
-getFixedEf.coxph=function (object, exp=FALSE, robust=FALSE, ...){
+getFixedEf.coxph=function (object, exp=FALSE, robust=FALSE, scale.factor=1, ...){
     #capture.output()# summary.svycoxph prints some stuff, capture.output absorbs it
     sum.fit<-summary(object)
     se.idx=ifelse(!robust,"se(coef)","robust se")
@@ -462,23 +497,15 @@ getFixedEf.coxph=function (object, exp=FALSE, robust=FALSE, ...){
         pvals=pnorm(abs(sum.fit$coef[,1]/sum.fit$coef[,"se(coef)"]), lower.tail=F)*2
     }
     
-    if (!exp) {
-        cbind(HR=sum.fit$coef[,1], 
-            "se"=sum.fit$coef[,se.idx],
-            "(lower"=(sum.fit$coef[,1]-qnorm(0.975)*sum.fit$coef[,se.idx]), 
-            "upper)"=(sum.fit$coef[,1]+qnorm(0.975)*sum.fit$coef[,se.idx]), 
-            "p.value"=pvals
-        )
-    } else {
-        cbind(HR=sum.fit$coef[,2], 
-            "se"=sum.fit$coef[,se.idx],
-            "(lower"=exp(sum.fit$coef[,1]-qnorm(0.975)*sum.fit$coef[,se.idx]), 
-            "upper)"=exp(sum.fit$coef[,1]+qnorm(0.975)*sum.fit$coef[,se.idx]), 
-            "p.value"=pvals
-        )
-    }
-#    round(sqrt(diag(attr(object$var,"phases")$phase1)),3)
-#    round(sqrt(diag(attr(object$var,"phases")$phase2)),3)    
+    out=cbind(HR=sum.fit$coef[,1], 
+              "se"=sum.fit$coef[,se.idx],
+              "(lower"=(sum.fit$coef[,1]-qnorm(0.975)*sum.fit$coef[,se.idx]), 
+              "upper)"=(sum.fit$coef[,1]+qnorm(0.975)*sum.fit$coef[,se.idx]), 
+              "p.value"=pvals
+    )
+    out[,1:4]=out[,1:4]*scale.factor
+    if (exp) out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+    out
 }
 
 getFixedEf.matrix = function (object, ...) {
@@ -518,10 +545,12 @@ coef.tps = function  (object, ...) {
 vcov.tps = function  (object, robust, ...) {
     if(robust) object$cove else object$covm
 }
-getFixedEf.tps = function (object, exp=FALSE, robust=TRUE, ...) {
+getFixedEf.tps = function (object, exp=FALSE, robust=TRUE, scale.factor=1, ...) {
     res = summary(object)$coef
     idx=ifelse(robust,"Emp ","Mod ")
     res = cbind(res[,c("Value",idx%.%"SE")], "lower bound"=res[,"Value"]-1.96*res[,idx%.%"SE"], "upper bound"=res[,1]+1.96*res[,idx%.%"SE"], "p value"=res[,idx%.%"p"])
+    res[,1:4]=res[,1:4]*scale.factor
+    
     if (exp) res[,c(1,3,4)] = exp(res[,c(1,3,4)])
     colnames(res)=c(ifelse(exp,"OR","est"), "se(est)", "(lower", "upper)", "p.value")
     res
