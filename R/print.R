@@ -305,7 +305,12 @@ roundup=function (value, digits, na.to.empty=TRUE, remove.leading0=FALSE) {
         out = sapply(1:length(digits), function (i) roundup (value[i], digits[i], na.to.empty))
     }
     if(remove.leading0) out=sub("^0\\.","\\.",out)
-    if(na.to.empty) sub("NA|NaN","",out) else out
+    if(na.to.empty) out = sub("NA|NaN","",out) 
+    
+    out = sub("0.000","<0.001",out)
+    out = sub("0.000","<0.001",out)
+    
+    out
 }
 formatInt=function (x, digits, fill="0", ...) {
     formatC(x, format="d", flag=fill, width=digits) 
