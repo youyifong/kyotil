@@ -9,8 +9,10 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
     idxes=seq_along(fits); names(idxes)=names(fits)
     
     if (type==11) {
-      # check to make sure there is only one coef selected
-      if(length(rows)!=1) stop("type=11 requires only one coef selected")
+      if (is.null(rows)) stop("for type==11, the rows argument needs to be provided")
+      if(length(rows)!=1) stop("type==11 requires only one coef selected")     
+    } else if (type==13) {
+      if (is.null(rows)) stop("for type==13, the rows argument needs to be provided")
     }
     
     if(length(robust)==1) robust=rep(robust,length(fits)) else if (length(robust)!=length(fits)) stop("length of robust needs to match length of fits")    
@@ -105,25 +107,37 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         else if (type==10) {
             # pval
             tmp.out=tmp[,p.val.col,drop=TRUE]
+            # e.g., transform 0.000 to <0.001
             out = ifelse(tmp.out<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
                          format(round(tmp.out, p.digits), nsmall=p.digits, scientific=FALSE) )
         }
         else if (type==11) {
-            # adj pval will be done later
-            # here check to make sure there is only one coef selected
+            # adj pval will be done later because it needs info from all models
             out=tmp[,p.val.col]
-            stopifnot(nrow(out)==1 & ncol(out)==1)
-  
-        } else if (type==12)
+
+        } else if (type==12) {
             # est (lb, up, pval *)
             out=est. %.% 
                 " (CI=" %.% lb %.% "," %.% ub %.% 
                 ", p=" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.%
                 ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"") 
-        else 
+  
+        } else if (type==13) {
+            # generalized Wald test p value
+            fit=fits[[fit.idx]]
+            tmp.out = if (length(fit)==1) NA else {
+              stat=coef(fit)[rows] %*% solve(vcov(fit,robust=robust)[rows,rows]) %*% coef(fit)[rows]
+              pchisq(stat, length(rows), lower.tail = FALSE)
+            }
+            out = ifelse(tmp.out<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
+                         format(round(tmp.out, p.digits), nsmall=p.digits, scientific=FALSE) )
+            
+        
+        } else 
             stop ("getFormattedSummary(). type not supported: "%.%type)
         
-        if(type!=0) {
+        # 13: a single output from multiple terms
+        if(!type %in% c(0,13)) {
             names(out)=rownames(tmp)
             out=gsub("NA","",out)
             out=gsub("\\( +\\)","",out)
@@ -142,6 +156,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         colnames(res)=names(fits)
     }
     
+    # the following processing requires info across fits
     if(type==11) {
       res=format(round(p.adjust(res, method=p.adj.method), p.digits), nsmall=3, scientific=FALSE) 
       names(res)=names(fits)
