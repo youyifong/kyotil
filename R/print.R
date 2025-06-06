@@ -1,3 +1,26 @@
+# _ causes trouble in captions, and that has to be taken care of by putting \protect{} around the word
+escape=function(x) {
+  for (i in c("_","^")) {
+    x=gsub(i, "\\"%.%i, x, fixed = TRUE)
+  }
+  x
+}
+
+
+escape_latex <- function(text) {
+  # Define the special characters and their LaTeX escaped equivalents
+  special_chars <- c("\\", "%", "$", "#", "_", "{", "}", "&", "^", "~", "<", ">", "|", "\"")
+  latex_escapes <- c("\\textbackslash{}", "\\%", "\\$", "\\#", "\\_", "\\{", "\\}", "\\&", "\\textasciicircum{}", "\\textasciitilde{}", "\\textless{}", "\\textgreater{}", "\\textbar{}", "\\textquotedbl{}")
+  
+  # Replace each special character in the text with its escaped version
+  for (i in seq_along(special_chars)) {
+    text <- gsub(special_chars[i], latex_escapes[i], text, fixed = TRUE)
+  }
+  
+  return(text)
+}
+
+
 mykable <- function(x, ...) {
   # If input is a matrix, convert to data frame first
   if (is.matrix(x)) {
