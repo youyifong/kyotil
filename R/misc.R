@@ -1,3 +1,7 @@
+quiet_library <- function(pkg) {
+  suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+}
+
 # weightec Pearson correlation in the style of Hmisc
 wtd.cor=function(x, y, weights=NULL, normwt=FALSE, na.rm=TRUE, method=c('unbiased', 'ML')) {
   var.x=wtd.var(x, weights=weights, normwt=normwt, na.rm=na.rm, method=method)
