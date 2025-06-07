@@ -1,3 +1,8 @@
+formatPvalues=function(pvalues, p.digits=3) {
+  ifelse(pvalues<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
+         format(round(pvalues, p.digits), nsmall=p.digits, scientific=FALSE) )
+}
+
 # type 3 and 7 do not give the right output for glm fits
 # robust can be passed as part of .... Sometimes robust=T generates errors
 # trim: get rid of white space in confidence intervals for alignment
