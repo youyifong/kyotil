@@ -142,8 +142,15 @@ trainauc.auc=function(fit, training.data=NULL, ...) {
     } else NA
 } 
 
-trainauc.glm = function (fit, ...) fastauc(fit$linear.predictors, fit$y, ...)
-
+trainauc.glm = function (fit, w=FALSE, ...) {
+  if (!w) {
+    fastauc(fit$linear.predictors, fit$y, ...)
+  } else {
+    require(WeightedROC)
+    roc_obj <- WeightedROC(fit$linear.predictors, fit$y, weight = fit$weights)
+    WeightedAUC(roc_obj)
+  }
+}
 
 fastauc<-function(score, outcome, t0=0, t1=1, reverse.sign.if.nece=TRUE, quiet=FALSE){
     

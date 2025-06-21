@@ -176,6 +176,9 @@ getFixedEf <- function(object, ...) UseMethod("getFixedEf")
 # variance component
 getVarComponent <- function(object, ...) UseMethod("getVarComponent")
 
+## need to export in namespace
+# getFixedEf.try-error <- function (object, ...) NA
+  
 
 # if there is missing data and robust=T, some errors will happen. it is a useful error to have.
 # if ret.robcov TRUE, then returns robust variance-covariance matrix
