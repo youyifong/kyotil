@@ -26,6 +26,7 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
 
     tmp
   })
+  # print(hist_info) # if counts are 0, the code below will complain: Error in plot.window(xlim, ylim, "", ...) : need finite 'ylim' values
   
   # plot histograms
   if (is.null(cols)) cols=1:length(labels)

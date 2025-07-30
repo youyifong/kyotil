@@ -1,6 +1,5 @@
-quiet_library <- function(pkg) {
-  suppressPackageStartupMessages(library(pkg, character.only = TRUE))
-}
+quiet_library <- function(pkg) suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+
 
 # weightec Pearson correlation in the style of Hmisc
 wtd.cor=function(x, y, weights=NULL, normwt=FALSE, na.rm=TRUE, method=c('unbiased', 'ML')) {
