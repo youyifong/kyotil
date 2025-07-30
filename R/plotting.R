@@ -488,7 +488,10 @@ myboxplot <- function(object, ...) UseMethod("myboxplot")
 # myboxplot.formula and myboxplot.list make a boxplot with data points and do inferences for two group comparions. 
 # cex=.5; ylab=""; xlab=""; main=""; box=FALSE; highlight.list=NULL; at=NULL;pch=1;col=1;
 # friedman.test.formula is of the form a ~ b | c
-myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, p.val=NULL, pch=1, col="white", col.points=1, border=1,  test="", friedman.test.formula=NULL, reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, ...){
+myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, 
+                           p.val=NULL, pch=1, col="white", col.points=1, border=1,  test="", friedman.test.formula=NULL, 
+                           reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, 
+                           bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, simplified=FALSE, ...){
     
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
     if (inherits(save.seed,"try-error")) {        
@@ -552,7 +555,9 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
         if ("w" %in% test) {
             if (is.null(p.val)) p.val=suppressWarnings(wilcox.test(formula, data)$p.value)
             pvals=c(pvals, Wilcoxon=p.val)
-            if (write.p.at.top) sub=paste0("p=",signif(p.val,2)) else sub=sub%.%" Wilcoxon "%.%ifelse(length(test)==1,"p-val ","")%.%signif(p.val,2)
+            if (write.p.at.top) {sub=paste0("p=",signif(p.val,2))
+            } else if (simplified) {sub="P: "%.%formatDouble(p.val,3)}
+            else sub=sub%.%" Wilcoxon "%.%ifelse(length(test)==1,"p-val ","")%.%signif(p.val,2)
         }
         if ("k" %in% test) {
             if (is.null(p.val)) p.val=kruskal.test(formula, data)$p.value
