@@ -217,22 +217,36 @@ getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, sca
     out
 }
 
-getFixedEf.gee = function (object,exp=FALSE, scale.factor=1,  ...) {
-    #print("in getFixedEf.gee")
-    out=as.matrix(summary(object)$coef )
+# robust is always T
+# to use finite sample correction, object has to come from saws::mgee 
+getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, finite.sample.corr.method = "dm", ...) {
+  
+    out=as.matrix(summary(object)$coef)
+    
+    if (!is.null(finite.sample.corr.method)) {
+      tmp = saws(object,method=finite.sample.corr.method)
+      out = cbind(tmp$coefficients, tmp$se, 1, tmp$p.value)
+    }
     
     out[,1]=out[,1]*scale.factor
     out[,2]=out[,2]*scale.factor
 
-        # Estimate Std.err Wald Pr(>|W|)
-    out=cbind(out[,1:2], out[,1]-1.96*out[,2], out[,1]+1.96*out[,2], out[,4,drop=FALSE])
-    colnames(out)=c("est","se","(lower","upper)","p.value")
+    out=cbind(out[,1:2], 
+              out[,1]-1.96*out[,2], 
+              out[,1]+1.96*out[,2], 
+              out[,4,drop=FALSE])
+    colnames(out)=c("est", "se",
+                    "(lower",
+                    "upper)",
+                    "p.value")
+    
     if(exp) {
         out[,c(1,3,4)]=exp(out[,c(1,3,4)])
         colnames(out)[1]="RR"
     }
     out
 }
+
 
 getFixedEf.MIresult=function(object,exp=FALSE, scale.factor=1, ...) {
     capture.output({

@@ -147,3 +147,5 @@ importFrom("utils",
 importFrom("methods", "getAllSuperClasses", "getClass", "getGenerics")
 
 importFrom("parallel", "mclapply")
+
+importFrom("saws", "saws")
