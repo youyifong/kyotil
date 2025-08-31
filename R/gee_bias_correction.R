@@ -146,7 +146,8 @@ ssase = function(fit.gee) {
     I = diag(rep(1,nrow(H)))
     M = solve(I-H)
     e = eigen(M)
-    M = e$vectors %*% diag(sqrt(e$values)) %*% solve(e$vectors)
+    # yf: add nc so that it works for when there is no clusters
+    M = e$vectors %*% diag(sqrt(e$values), nc=len(e$values)) %*% solve(e$vectors)
     
     t(D) %*% siginv[[id]] %*% M %*% ohat %*% M %*% siginv[[id]] %*% D
   })

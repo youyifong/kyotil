@@ -20,7 +20,13 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
       if (is.null(rows)) stop("for type==13, the rows argument needs to be provided")
     }
     
-    if(length(robust)==1) robust=rep(robust,length(fits)) else if (length(robust)!=length(fits)) stop("length of robust needs to match length of fits")    
+    if(length(robust)==1) {
+      robust=as.list(rep(robust,length(fits))) 
+    } else if (length(robust)!=length(fits)) {
+      stop("length of robust needs to match length of fits")    
+    }
+    
+    stopifnot(is.list(robust))
     
     res = sapply(idxes, simplify="array", function (fit.idx) {
         
@@ -37,7 +43,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                     type=1
                 }
             } else {
-                tmp = getFixedEf (fit, robust=robust[fit.idx], scale.factor=scale.factor, ...)
+                tmp = getFixedEf (fit, robust=robust[[fit.idx]], scale.factor=scale.factor, ...)
             }
             
             if (VE) {
