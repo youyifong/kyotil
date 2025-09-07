@@ -515,7 +515,7 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
      res=boxplot(tmp.dat, range=0, xlab=xlab, at=at, cex=cex, 
         boxlty=if(!box) 0 else NULL,whisklty=if(!box) 0 else NULL,staplelty=if(!box) 0 else NULL,
         #pars = list(boxwex = if(box) 0.8 else 0, staplewex = if(box) 0.5 else 0, outwex = if(box) 0.5 else 0), 
-        main=main, ylab=ylab, add=add, ...)
+        main=main, ylab=ylab, add=add, col=col, ...)
     
      
     # na.action is key below b/c otherwise pch vector will be out of sync with data when there are missing data

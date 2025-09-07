@@ -397,6 +397,9 @@ getFixedEf.gam = function (object, scale.factor=1, ...) {
 }
 
 getFixedEf.lm = function (object, exp=F, scale.factor=1, ...) {
+  
+  if (robust) stop("robust has not been implemented")
+  
     out=summary(object)$coef
     ci=confint(object)    
     out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
