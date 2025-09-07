@@ -485,7 +485,7 @@ myboxplot <- function(object, ...) UseMethod("myboxplot")
 
 
 # this function may fail sometimes, most likely at eval
-# myboxplot.formula and myboxplot.list make a boxplot with data points and do inferences for two group comparions. 
+# myboxplot.formula and myboxplot.list make a boxplot with data points and do inferences for two group comparison. 
 # cex=.5; ylab=""; xlab=""; main=""; box=FALSE; highlight.list=NULL; at=NULL;pch=1;col=1;
 # friedman.test.formula is of the form a ~ b | c
 myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", box=TRUE, at=NULL, na.action=NULL, 
@@ -493,6 +493,8 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
                            reshape.formula=NULL, reshape.id=NULL, jitter=TRUE, add.interaction=FALSE,  drop.unused.levels = TRUE, 
                            bg.pt=NULL, add=FALSE, seed=1, write.p.at.top=FALSE, simplified=FALSE, ...){
     
+    par(mgp = c(2, 1, 0))  # move label 1 line higher
+  
     save.seed <- try(get(".Random.seed", .GlobalEnv), silent=TRUE) 
     if (inherits(save.seed,"try-error")) {        
         set.seed(1)
@@ -511,12 +513,11 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
      dat.tmp=model.frame(formula, data, na.action=NULL);# str(dat.tmp); str(data)
      if (is.null(ylab)) ylab=names(dat.tmp)[1] 
      
-     
      res=boxplot(tmp.dat, range=0, xlab=xlab, at=at, cex=cex, 
         boxlty=if(!box) 0 else NULL,whisklty=if(!box) 0 else NULL,staplelty=if(!box) 0 else NULL,
         #pars = list(boxwex = if(box) 0.8 else 0, staplewex = if(box) 0.5 else 0, outwex = if(box) 0.5 else 0), 
         main=main, ylab=ylab, add=add, col=col, ...)
-    
+
      
     # na.action is key below b/c otherwise pch vector will be out of sync with data when there are missing data
     xx=interaction(dat.tmp[,-1]); #str(xx); print(table(xx))
@@ -539,7 +540,6 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
       # remove NA, otherwise my.interaction.plot will break
       my.interaction.plot(as.matrix(dat.wide)[,-1], add=T)
     }
-    
     
     # inference
     # if p.val is passed in, then use that p.val
@@ -581,8 +581,9 @@ myboxplot.formula=function(formula, data, cex=.5, xlab="", ylab=NULL, main="", b
             } else warning("cannot perform Friedman test without friedman.test.formula or reshape.formula,reshape.id")
         }
         if (write.p.at.top) {
-            if (pvals[1]<0.05) title(main=sub, line=.5, font.main=3)
-        } else title(sub=sub, line=2.5)
+            # if (pvals[1]<0.05) title(main=sub, line=.5, font.main=3)
+          title(main=sub, line=.5, font.main=3)
+        } else title(sub=sub, line=3)
         res$pvals=pvals
     }
     

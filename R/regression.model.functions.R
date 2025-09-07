@@ -246,6 +246,7 @@ getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, ...) 
     }
     
     se = sqrt(diag(se))
+    print(se)
     
     p.value = 2 * pnorm(abs(object$coefficients / se), lower.tail = FALSE)   # two-sided p-value
     
@@ -396,19 +397,19 @@ getFixedEf.gam = function (object, scale.factor=1, ...) {
     out
 }
 
-getFixedEf.lm = function (object, exp=F, scale.factor=1, ...) {
+getFixedEf.lm = function (object, exp=F, scale.factor=1, robust=FALSE, ...) {
   
   if (robust) stop("robust has not been implemented")
   
-    out=summary(object)$coef
-    ci=confint(object)    
-    out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
-    colnames(out)[5]="p-val"
-    out[,1:4]=out[,1:4]*scale.factor
-    if(exp) {
-        out[,c(1,3,4)]=exp(out[,c(1,3,4)])
-    }
-    out
+  out=summary(object)$coef
+  ci=confint(object)    
+  out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
+  colnames(out)[5]="p-val"
+  out[,1:4]=out[,1:4]*scale.factor
+  if(exp) {
+      out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+  }
+  out
 }
 
 getFixedEf.inla = function (object, ...) {
