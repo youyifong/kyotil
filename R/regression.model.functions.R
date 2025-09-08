@@ -246,8 +246,7 @@ getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, ...) 
     }
     
     se = sqrt(diag(se))
-    print(se)
-    
+
     p.value = 2 * pnorm(abs(object$coefficients / se), lower.tail = FALSE)   # two-sided p-value
     
     out = cbind(object$coefficients, se, 1, p.value)
