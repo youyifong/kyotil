@@ -1,6 +1,8 @@
 useDynLib(kyotil, .registration = TRUE)
 
 export(prettyprint, wtd.cor, shrink_margin, shrink_whitespace, reduce_margin, reduce_whitespace, add.mtext.label.2, len, mykable, quiet_library, last)
+export(ssase)
+
 
 export(iorw, smoothed.scaled.hist, scaled.hist, escape, escape_latex)
 
@@ -148,4 +150,3 @@ importFrom("methods", "getAllSuperClasses", "getClass", "getGenerics")
 
 importFrom("parallel", "mclapply")
 
-importFrom("saws", "saws")

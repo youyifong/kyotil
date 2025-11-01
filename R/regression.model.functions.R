@@ -20,7 +20,13 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
       if (is.null(rows)) stop("for type==13, the rows argument needs to be provided")
     }
     
-    if(length(robust)==1) robust=rep(robust,length(fits)) else if (length(robust)!=length(fits)) stop("length of robust needs to match length of fits")    
+    if(length(robust)==1) {
+      robust=as.list(rep(robust,length(fits))) 
+    } else if (length(robust)!=length(fits)) {
+      stop("length of robust needs to match length of fits")    
+    }
+    
+    stopifnot(is.list(robust))
     
     res = sapply(idxes, simplify="array", function (fit.idx) {
         
@@ -37,7 +43,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                     type=1
                 }
             } else {
-                tmp = getFixedEf (fit, robust=robust[fit.idx], scale.factor=scale.factor, ...)
+                tmp = getFixedEf (fit, robust=robust[[fit.idx]], scale.factor=scale.factor, ...)
             }
             
             if (VE) {
@@ -184,6 +190,7 @@ getVarComponent <- function(object, ...) UseMethod("getVarComponent")
 # if ret.robcov TRUE, then returns robust variance-covariance matrix
 # infjack.glm defined later in this file
 getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, scale.factor=1, ...) {
+  
     x=summary(object)
     out=x$coef
     if (robust | ret.robcov) {
@@ -217,34 +224,52 @@ getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, sca
     out
 }
 
-# robust is always T
-# to use finite sample correction, object has to come from saws::mgee 
-getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, finite.sample.corr.method = "dm", ...) {
+# to use finite sample correction, object has to come from geepack::geeglm
+# robust: T, F, or a string
+getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, ...) {
   
-    out=as.matrix(summary(object)$coef)
+  # whether this is model-based or sandwich depends on how the model is fit
+  out=as.matrix(summary(object)$coef)
+  
+  if (robust==FALSE) {
+    # do nothing
     
-    if (!is.null(finite.sample.corr.method)) {
-      tmp = saws(object,method=finite.sample.corr.method)
-      out = cbind(tmp$coefficients, tmp$se, 1, tmp$p.value)
-    }
-    
-    out[,1]=out[,1]*scale.factor
-    out[,2]=out[,2]*scale.factor
+  } else {
+    # get robust se
+    res = ssase(object)
 
-    out=cbind(out[,1:2], 
-              out[,1]-1.96*out[,2], 
-              out[,1]+1.96*out[,2], 
-              out[,4,drop=FALSE])
-    colnames(out)=c("est", "se",
-                    "(lower",
-                    "upper)",
-                    "p.value")
-    
-    if(exp) {
-        out[,c(1,3,4)]=exp(out[,c(1,3,4)])
-        colnames(out)[1]="RR"
+    if (robust==TRUE) {
+      se = res$NO
+    } else {
+      se = res[[robust]]
+      if (is.null(se)) stop (robust %.% "not in available robust options MBN, MD, KC, mFG")
     }
-    out
+    
+    se = sqrt(diag(se))
+
+    p.value = 2 * pnorm(abs(object$coefficients / se), lower.tail = FALSE)   # two-sided p-value
+    
+    out = cbind(object$coefficients, se, 1, p.value)
+  }
+  
+
+  out[,1]=out[,1]*scale.factor
+  out[,2]=out[,2]*scale.factor
+
+  out=cbind(out[,1:2], 
+            out[,1]-1.96*out[,2], 
+            out[,1]+1.96*out[,2], 
+            out[,4,drop=FALSE])
+  colnames(out)=c("est", "se",
+                  "(lower",
+                  "upper)",
+                  "p.value")
+  
+  if(exp) {
+      out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+      colnames(out)[1]="RR"
+  }
+  out
 }
 
 
@@ -371,16 +396,19 @@ getFixedEf.gam = function (object, scale.factor=1, ...) {
     out
 }
 
-getFixedEf.lm = function (object, exp=F, scale.factor=1, ...) {
-    out=summary(object)$coef
-    ci=confint(object)    
-    out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
-    colnames(out)[5]="p-val"
-    out[,1:4]=out[,1:4]*scale.factor
-    if(exp) {
-        out[,c(1,3,4)]=exp(out[,c(1,3,4)])
-    }
-    out
+getFixedEf.lm = function (object, exp=F, scale.factor=1, robust=FALSE, ...) {
+  
+  if (robust) stop("robust has not been implemented")
+  
+  out=summary(object)$coef
+  ci=confint(object)    
+  out=cbind(out[,1:2,drop=F], ci, out[,4,drop=F])
+  colnames(out)[5]="p-val"
+  out[,1:4]=out[,1:4]*scale.factor
+  if(exp) {
+      out[,c(1,3,4)]=exp(out[,c(1,3,4)])
+  }
+  out
 }
 
 getFixedEf.inla = function (object, ...) {
