@@ -1,6 +1,6 @@
 useDynLib(kyotil, .registration = TRUE)
 
-export(prettyprint, wtd.cor, shrink_margin, shrink_whitespace, reduce_margin, reduce_whitespace, add.mtext.label.2, len, mykable, quiet_library)
+export(prettyprint, wtd.cor, shrink_margin, shrink_whitespace, reduce_margin, reduce_whitespace, add.mtext.label.2, len, mykable, quiet_library, last)
 
 export(iorw, smoothed.scaled.hist, scaled.hist, escape, escape_latex)
 

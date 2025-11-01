@@ -1,5 +1,6 @@
 quiet_library <- function(pkg) suppressPackageStartupMessages(library(pkg, character.only = TRUE))
 
+last=function(x) tail(x, 1)           # returns last element
 
 # weightec Pearson correlation in the style of Hmisc
 wtd.cor=function(x, y, weights=NULL, normwt=FALSE, na.rm=TRUE, method=c('unbiased', 'ML')) {
