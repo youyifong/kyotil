@@ -8,7 +8,7 @@ formatPvalues=function(pvalues, p.digits=3) {
 # trim: get rid of white space in confidence intervals for alignment
 getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, random=FALSE, VE=FALSE, 
                              to.trim=FALSE, rows=NULL, coef.direct=FALSE, trunc.large.est=TRUE, 
-                             scale.factor=1, p.digits=3, remove.leading0=FALSE, p.adj.method="fdr", ...){
+                             scale.factor=1, p.digits=3, remove.leading0=FALSE, p.adj.method="fdr", sig.level=0.05, ...){
 # type=12; est.digits=2; se.digits=2; robust; random=FALSE; VE=FALSE; to.trim=FALSE; rows=NULL; coef.direct=FALSE; trunc.large.est=TRUE; scale.factor=1; p.digits=3; remove.leading0=FALSE; p.adj.method="fdr"    
     if(is.null(names(fits))) names(fits)=seq_along(fits)
     idxes=seq_along(fits); names(idxes)=names(fits)
@@ -91,7 +91,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             out=drop(est. )
         else if (type==2)
             # est (se)
-            out=est. %.% " (" %.% formatDouble(tmp[,2,drop=FALSE], se.digits, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=0.05, ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
+            out=est. %.% " (" %.% formatDouble(tmp[,2,drop=FALSE], se.digits, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=sig.level, ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
         else if (type==3) 
             # est (lb, ub)
             out=est. %.% " (" %.% lb %.% "," %.% ub %.% ")" 
@@ -104,10 +104,10 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
         else if (type==5)
             # est **
             out=est. %.%
-                ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
+                ifelse (round(tmp[,p.val.col],3)<=sig.level,ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
         else if (type==6)
             # est (pval)*
-            out=est. %.% " (" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
+            out=est. %.% " (" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.% ifelse (round(tmp[,p.val.col],3)<=sig.level,ifelse (tmp[,p.val.col]<0.01,"**","*"),"")
         else if (type==8)
             # est (p value #)
             out=est. %.% " (p value " %.% 
@@ -131,7 +131,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
             out=est. %.% 
                 " (CI=" %.% lb %.% "," %.% ub %.% 
                 ", p=" %.% formatDouble(tmp[,p.val.col,drop=FALSE], 3, remove.leading0=remove.leading0) %.% ")" %.%
-                ifelse (round(tmp[,p.val.col],3)<=0.05,ifelse (tmp[,p.val.col]<0.01,"**","*"),"") 
+                ifelse (round(tmp[,p.val.col],3)<=sig.level,ifelse (tmp[,p.val.col]<0.01,"**","*"),"") 
   
         } else if (type==13) {
             # generalized Wald test p value
