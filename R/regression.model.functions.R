@@ -13,6 +13,8 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
     if(is.null(names(fits))) names(fits)=seq_along(fits)
     idxes=seq_along(fits); names(idxes)=names(fits)
     
+    level=1-sig.level
+    
     if (type==11) {
       if (is.null(rows)) stop("for type==11, the rows argument needs to be provided")
       if(length(rows)!=1) stop("type==11 requires only one coef selected")     
@@ -43,7 +45,7 @@ getFormattedSummary=function(fits, type=12, est.digits=2, se.digits=2, robust, r
                     type=1
                 }
             } else {
-                tmp = getFixedEf (fit, robust=robust[[fit.idx]], scale.factor=scale.factor, ...)
+                tmp = getFixedEf (fit, robust=robust[[fit.idx]], scale.factor=scale.factor, level=level, ...)
             }
             
             if (VE) {
@@ -226,7 +228,7 @@ getFixedEf.glm = function (object, exp=FALSE, robust=TRUE, ret.robcov=FALSE, sca
 
 # to use finite sample correction, object has to come from geepack::geeglm
 # robust: T, F, or a string
-getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, ...) {
+getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, level=0.95, ...) {
   
   # whether this is model-based or sandwich depends on how the model is fit
   out=as.matrix(summary(object)$coef)
@@ -257,8 +259,8 @@ getFixedEf.gee = function (object, robust=TRUE, exp=FALSE, scale.factor=1, ...) 
   out[,2]=out[,2]*scale.factor
 
   out=cbind(out[,1:2], 
-            out[,1]-1.96*out[,2], 
-            out[,1]+1.96*out[,2], 
+            out[,1]-qnorm((level+1)/2)*out[,2], 
+            out[,1]+qnorm((level+1)/2)*out[,2], 
             out[,4,drop=FALSE])
   colnames(out)=c("est", "se",
                   "(lower",
