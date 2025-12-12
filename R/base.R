@@ -449,6 +449,9 @@ mycor=function(x, use = "everything", method = c("pearson", "kendall", "spearman
 
 metrics_from_preds <- function(FinalPredicted, GroundTruth, threshold = 0.5) {
   
+  require(pROC)
+  require(PRROC)
+  
   # Ensure labels are 0/1
   GroundTruth <- as.numeric(GroundTruth)
   
