@@ -9,7 +9,7 @@ Depends: R (>= 3.6)
 Imports: methods
 Suggests: RUnit, R.rsp, lme4, nlme, xtable, MASS, splines, survival,
         abind, pracma, VGAM, copula, mvtnorm, Hmisc, RColorBrewer, zoo,
-        doParallel, Exact, survey, magick, WeightedROC, saws
+        doParallel, Exact, survey, magick, WeightedROC, saws, pROC, PRROC
 Description: Helper functions for creating formatted summary of regression models, writing publication-ready tables to latex files, and running Monte Carlo experiments.
 VignetteBuilder: R.rsp
 License: GPL (>= 2)
