@@ -445,3 +445,52 @@ mycor=function(x, use = "everything", method = c("pearson", "kendall", "spearman
     #out[-1,-ncol(out)]
     out
 }
+
+
+metrics_from_preds <- function(FinalPredicted, GroundTruth, threshold = 0.5) {
+  
+  # Ensure labels are 0/1
+  GroundTruth <- as.numeric(GroundTruth)
+  
+  # 1. ROC AUC
+  roc_obj <- roc(GroundTruth, FinalPredicted)
+  roc_auc <- auc(roc_obj)
+  
+  # 2. Precision–Recall AUC
+  pr_obj <- pr.curve(
+    scores.class0 = FinalPredicted[GroundTruth == 1],
+    scores.class1 = FinalPredicted[GroundTruth == 0],
+    curve = FALSE
+  )
+  pr_auc <- pr_obj$auc.integral
+  
+  # 3. Convert probabilities → hard predictions
+  PredLabel <- ifelse(FinalPredicted >= threshold, 1, 0)
+  
+  # Confusion matrix components
+  TP <- sum(PredLabel == 1 & GroundTruth == 1)
+  TN <- sum(PredLabel == 0 & GroundTruth == 0)
+  FP <- sum(PredLabel == 1 & GroundTruth == 0)
+  FN <- sum(PredLabel == 0 & GroundTruth == 1)
+  
+  # 4. Accuracy
+  ACC <- (TP + TN) / (TP + TN + FP + FN)
+  
+  # 5. Precision, Recall, F1, Specificity
+  Precision <- TP / (TP + FP)
+  Recall    <- TP / (TP + FN)        # sensitivity
+  F1        <- 2 * Precision * Recall / (Precision + Recall)
+  Specificity <- TN / (TN + FP)
+  
+  # return as list or data.frame
+  data.frame(
+    ROC_AUC = roc_auc,
+    PR_AUC = pr_auc,
+    ACC = ACC,
+    F1 = F1,
+    Recall = Recall,
+    Precision = Precision,
+    Specificity = Specificity
+  )
+}
+

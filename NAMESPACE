@@ -1,5 +1,7 @@
 useDynLib(kyotil, .registration = TRUE)
 
+export(metrics_from_preds)
+
 export(prettyprint, wtd.cor, shrink_margin, shrink_whitespace, reduce_margin, reduce_whitespace, add.mtext.label.2, len, mykable, quiet_library, last)
 export(ssase)
 
