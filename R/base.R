@@ -451,6 +451,7 @@ metrics_from_preds <- function(FinalPredicted, GroundTruth, threshold = 0.5) {
   
   require(pROC)
   require(PRROC)
+  require(officer) # for writing to .docx
   
   # Ensure labels are 0/1
   GroundTruth <- as.numeric(GroundTruth)
