@@ -1,6 +1,10 @@
-formatPvalues=function(pvalues, p.digits=3) {
-  ifelse(pvalues<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
+formatPvalues=function(pvalues, p.digits=3, add.star=FALSE) {
+  out = ifelse(pvalues<10^(-p.digits), paste0("<0.",concatList(rep("0",p.digits-1)),"1"), 
          format(round(pvalues, p.digits), nsmall=p.digits, scientific=FALSE) )
+  if (add.star) {
+    out = out %.% ifelse (round(pvalues,3)<=0.05,ifelse (pvalues<0.01,ifelse (pvalues<0.001,"***","**"),"*"),"")
+  }
+  out
 }
 
 # type 3 and 7 do not give the right output for glm fits
