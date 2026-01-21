@@ -677,9 +677,15 @@ corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col
         cor.=sapply (method, function (method) {
             cor(data[,vars[1]],data[,vars[2]],method=method,use="p")
         })
+        
+        if (len(method)==1 & substr(method,1,1)=="p") {
+          pval = formatPvalues(cor.test(data[,vars[1]],data[,vars[2]], method="pearson", use="pairwise.complete.obs")$p.value)
+          print(pval)
+        } else pval = NULL
+        
         tmp=main==""
         main=main%.%ifelse(tmp, "", " (")
-        main=main%.%"cor: "%.%concatList(formatDouble(cor.,digit.cor),"/")
+        main=glue("{main}cor: {concatList(formatDouble(cor.,digit.cor),'/')} {ifelse (!is.null(pval), 'p: '%.%pval, ' ')}")
         main=main%.%ifelse(tmp, "", ")")
     }
 
