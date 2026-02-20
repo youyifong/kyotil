@@ -678,8 +678,8 @@ corplot.formula=function(formula,data,main="",method=c("pearson","spearman"),col
             cor(data[,vars[1]],data[,vars[2]],method=method,use="p")
         })
         
-        if (len(method)==1 & substr(method,1,1)=="p") {
-          pval = formatPvalues(cor.test(data[,vars[1]],data[,vars[2]], method="pearson", use="pairwise.complete.obs")$p.value)
+        if (len(method)==1) {
+          pval = formatPvalues(cor.test(data[,vars[1]],data[,vars[2]], method=method, use="pairwise.complete.obs")$p.value)
         } else pval = NULL
         
         tmp=main==""
