@@ -1,4 +1,4 @@
-scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=NULL, cex.legend=1, xlim=NULL, ylim=NULL, smooth=FALSE, ...) {
+scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=NULL, cex.legend=1, xlim=NULL, ylim=NULL, span=NULL, ...) {
 
   # dat.ls is a list of lists
   # scale.factors is a list of data frames
@@ -39,11 +39,11 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
       plot(hist_info[[i]], freq = TRUE, border="white",  col=hist.col, add=i>1, ylim=ylim, xlim=xlim , ...)
     }
     
-    if (!smooth) {
+    if (is.null(span)) {
       lines(hist_info[[i]]$mids, hist_info[[i]]$counts, type = "l", col = cols[i], lwd = 2)      
     } else {
       # smoothed version
-      smooth_fit = loess(counts ~ mids, data = data.frame(mids = hist_info[[i]]$mids, counts = hist_info[[i]]$counts), span = 0.5)
+      smooth_fit = loess(counts ~ mids, data = data.frame(mids = hist_info[[i]]$mids, counts = hist_info[[i]]$counts), span = span)
       smooth_x = seq(min(hist_info[[i]]$mids), max(hist_info[[i]]$mids), length.out = 500)
       lines(smooth_x, pmax(predict(smooth_fit, newdata = data.frame(mids = smooth_x)), 0), type = "l", col = cols[i], lwd = 2)
     }
