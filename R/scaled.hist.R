@@ -61,7 +61,7 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
       smooth_fit = loess(counts ~ mids, data = dat.tmp, span = span)
       smooth_x = seq(min(hist_info[[i]]$mids), max(hist_info[[i]]$mids), length.out = 500)
       
-      if (T) smooth_x = c(-50, smooth_x)
+      if (add.minus.50) smooth_x = c(-50, smooth_x)
       lines(smooth_x, pmax(predict(smooth_fit, newdata = data.frame(mids = smooth_x)), 0), type = "l", col = cols[i], lwd = 2)
     }
 
