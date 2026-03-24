@@ -1,4 +1,4 @@
-scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=NULL, cex.legend=1, xlim=NULL, ylim=NULL, span=NULL, add.minus.50=F, ...) {
+scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=NULL, cex.legend=1, xlim=NULL, ylim=NULL, span=NULL, add.minus.50=F, hist.to.show=2, ...) {
 
   # dat.ls is a list of lists
   # scale.factors is a list of data frames
@@ -30,19 +30,18 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
   
   # plot histograms
   if (is.null(cols)) cols=1:length(labels)
+  cols[2] = "red"
+  
   for (i in 1:length(labels)) {
     
-    if (is.null(xlim)) xlim=range(breaks)
+    if (is.null(xlim)) xlim=c(min(breaks) - ifelse(add.minus.50, 50, 0), max(breaks))
     if (is.null(ylim)) ylim=range(unlist(lapply(hist_info, function(a) a$counts)))
     
-    # optionally, add -50 to xlim
-    if(add.minus.50) xlim=range(xlim, -50)
-    
     hist.col = col2rgb(cols[i])
-    # make visible only for the second element of the list
-    if (i!=2) hist.col=col2rgb("white")
+    # make visible only for the hist.to.show element of the list
+    if (i!=hist.to.show) hist.col=col2rgb(NA)
     hist.col = rgb(hist.col[1], hist.col[2], hist.col[3], alpha=255*.15, maxColorValue=255)
-    plot(hist_info[[i]], freq = TRUE, border="white",  col=hist.col, add=i>1, ylim=ylim, xlim=xlim, ...)
+    plot(hist_info[[i]], freq = TRUE, border=if (i==hist.to.show) "white" else NA,  col=hist.col, add=i>1, ylim=ylim, xlim=xlim, ...)
 
     if (is.null(span)) {
       # non-smoothed version
@@ -54,20 +53,19 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
       # optionally, add add (-50,0) as the first point
       if(add.minus.50) {
         if (!all(hist_info[[i]]$counts==Inf))
-          dat.tmp=rbind(data.frame(mids=-50, counts=0), dat.tmp)
+          dat.tmp=rbind(data.frame(mids=min(hist_info[[i]]$mids)-100, counts=0), dat.tmp)
       }
       # print(dat.tmp)
 
       smooth_fit = loess(counts ~ mids, data = dat.tmp, span = span)
-      smooth_x = seq(min(hist_info[[i]]$mids), max(hist_info[[i]]$mids), length.out = 500)
-      
-      if (add.minus.50) smooth_x = c(-50, smooth_x)
+      # use 90 instead of 100 below so remove some edge artifacts
+      smooth_x = seq(min(hist_info[[i]]$mids) - ifelse(add.minus.50, 90, 0), max(hist_info[[i]]$mids), length.out = 500)
       lines(smooth_x, pmax(predict(smooth_fit, newdata = data.frame(mids = smooth_x)), 0), type = "l", col = cols[i], lwd = 2)
     }
 
   }
   if (!is.null(legend)) {
-    mylegend(x=3, legend=legend, lty=1, col=cols, y.intersp=1, text.width=700, cex=cex.legend)
+    mylegend(x=3, legend=legend, lty=1, col=cols, y.intersp=1, text.width=700, cex=cex.legend, lwd=1.8)
   }
 
   # return a data frame
