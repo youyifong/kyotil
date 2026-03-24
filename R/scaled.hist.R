@@ -31,6 +31,10 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
   # plot histograms
   if (is.null(cols)) cols=1:length(labels)
   
+  white.transp = col2rgb('white')
+  white.transp = rgb(white.transp[1], white.transp[2], white.transp[3], alpha=255*.15, maxColorValue=255)
+  
+  
   for (i in 1:length(labels)) {
     
     if (is.null(xlim)) xlim=c(min(breaks) - ifelse(add.minus.50, 50, 0), max(breaks))
@@ -40,7 +44,7 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
     # make visible only for the hist.to.show element of the list
     if (i!=hist.to.show) hist.col=col2rgb(NA)
     hist.col = rgb(hist.col[1], hist.col[2], hist.col[3], alpha=255*.15, maxColorValue=255)
-    plot(hist_info[[i]], freq = TRUE, border=if (i==hist.to.show) "white" else NA,  col=hist.col, add=i>1, ylim=ylim, xlim=xlim, ...)
+    plot(hist_info[[i]], freq = TRUE, border=if (i==hist.to.show) white.transp else NA,  col=hist.col, add=i>1, ylim=ylim, xlim=xlim, ...)
 
     if (is.null(span)) {
       # non-smoothed version
