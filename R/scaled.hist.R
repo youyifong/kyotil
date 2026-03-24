@@ -30,7 +30,6 @@ scaled.hist = function(dat.ls, scale.factors, bin_width=100, cols=NULL, legend=N
   
   # plot histograms
   if (is.null(cols)) cols=1:length(labels)
-  cols[2] = "red"
   
   for (i in 1:length(labels)) {
     
